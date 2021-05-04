@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <title>Document</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #c04848, #480048);
+            min-height: 100vh
+        }
+
+        .text-gray {
+            color: #aaa
+        }
+
+        img {
+            max-width: 250px;   
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row text-center text-white mb-5">
+            <div class="col-lg-7 mx-auto">
+                <h1 class="display-4">{{data.product.TenSP}}</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <!-- List group-->
+                <ul class="list-group shadow">
+                        <!-- list group item-->
+                    <li class="list-group-item">
+                        <!-- Custom content-->
+                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                            <img src="{{data.url_in.UrlImage}}" alt="Generic placeholder image" width="400" class="ml-lg-5 order-1 order-lg-2">
+                            <div class="media-body order-2 order-lg-1">
+                                <h5 class="mt-0 font-weight-bold mb-2">{{data.product.TenSP}}</h5>
+                                <p class="font-italic text-muted mb-0 small">{{data.url_in.Url}}</p>
+                                <div class="d-flex align-items-center justify-content-between mt-1">
+                                    <h6 class="font-weight-bold my-2">Giá mới: {{data.url_in.Gia}}</h6>
+                                    <h6 class="font-weight-bold my-2">Giá cũ: {{data.url_in.GiaCu}}</h6>
+                                    <ul class="list-inline small">
+                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> <!-- End -->
+                    </li> <!-- End -->            
+                </ul> <!-- End -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <!-- List group-->
+                <ul class="list-group shadow">
+                    {% for item in data.url_out %}
+                        <!-- list group item-->
+                        <li class="list-group-item">
+                            <!-- Custom content-->
+                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                <div class="media-body order-2 order-lg-1">
+                                    <h5 class="mt-0 font-weight-bold mb-2">{{item.Domain}}</h5>
+                                    <p class="font-italic text-muted mb-0 small">{{item.Url}}</p>
+                                    <div class="d-flex align-items-center justify-content-between mt-1">
+                                        <h6 class="font-weight-bold my-2">Giá mới: {{item.Gia}}</h6>
+                                        <h6 class="font-weight-bold my-2">Giá cũ: {{item.GiaCu}}</h6>
+                                        <ul class="list-inline small">
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                        </ul>
+                                    </div>
+                                </div><img src="{{item.UrlImage}}" alt="Generic placeholder image" width="400" class="ml-lg-5 order-1 order-lg-2">
+                            </div> <!-- End -->
+                        </li> <!-- End -->
+                    {% endfor %}
+                   
+                </ul> <!-- End -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

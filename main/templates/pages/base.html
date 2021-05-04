@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    <title>Document</title>
+  
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h1>{{d}}</h1>
+            
+            <form class="form">
+                <input type="text" placeholder="URL">
+                <button type="submit" id="url-button">Check</button>
+            </form>
+        </div>
+        
+        <ul class="">
+            <li>{{data.product}}</li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        $("#url-button").click(function(event){
+                event.preventDefault();
+            
+            $('form').fadeOut(500);
+            $('.wrapper').addClass('form-success');
+        });        
+    </script>
+</body>
+</html>
