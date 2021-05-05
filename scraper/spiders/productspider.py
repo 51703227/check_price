@@ -1,7 +1,7 @@
 import scrapy
 
-class ProductSpider(scrapy.Spider):
-    name = 'product'
+class cellphonetSpider(scrapy.Spider):
+    name = 'cellphone'
     start_urls = ['https://cellphones.com.vn/mobile.html']
 
     def parse(self,response):

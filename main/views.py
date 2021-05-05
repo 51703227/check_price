@@ -38,7 +38,6 @@ def url_input(request):
             # return redirect('.')
             #return HttpResponseRedirect('/print_url',url)
     else:
-        print("GẺT")
         form = GetUrlForm()
 
     return render(request, 'pages/geturl.html',{'form':form})
