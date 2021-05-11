@@ -85,10 +85,10 @@ def url_input(request):
 
             for attr in list_thuoc_tinh_url:
                 for item in list_mau_sac:
-                    if attr.MauSac in item:
+                    if (attr.MauSac in item) and (item not in mausac) :
                         mausac.append(item) 
                 for item in list_bo_nho:
-                    if attr.BoNho in item:
+                    if attr.BoNho in item and (item not in bonho):
                         bonho.append(item) 
             form = GetAttribForm(mausac=mausac,bonho=bonho)
 
