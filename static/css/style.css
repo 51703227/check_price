@@ -1,9 +1,3 @@
-/*--
-    Author: W3layouts
-    Author URL: http://w3layouts.com
---*/
-
-/* reset code */
 html {
     scroll-behavior: smooth;
 }
@@ -123,7 +117,7 @@ body {
     font-family: 'Noto Sans JP', sans-serif;
 }
 .main {
-    background: url(../images/bg.jpg) no-repeat bottom;
+    background: linear-gradient(to right, #c04848, #480048); /*url(../images/bg.jpg) no-repeat bottom;*/
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
