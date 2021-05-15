@@ -8,19 +8,30 @@ class cellphonetSpider(scrapy.Spider):
         for product in response.css('li.cate-pro-short'):
             try:
                 yield{
-                    'name' : product.css('h3::text').get().replace('\t',''),
-                    'special-price' : product.css('.special-price span::text').get().replace('\xa0₫',''),
-                    'old-price' : product.css('.old-price span::text').get().replace('\xa0₫',''),
+                    'ten' : product.css('h3::text').get().replace('\t',''),
+                    'giamoi' : product.css('.special-price span::text').get().replace('\xa0₫',''),
+                    'giagoc' : product.css('.old-price span::text').get().replace('\xa0₫',''),
                     'url' : product.css('.lt-product-group-info a').attrib['href'],
                     'img' : product.css('.lt-product-group-image img').attrib['data-src'],
+                    'ngay': 
+                    'loaisanpham':
+                    'thuonghieu':
+                    'mausac':
+                    'bonho':
+
                 }
             except:
                 yield{
-                    'name' : product.css('h3::text').get().replace('\t',''),
-                    'special-price' : 0,
-                    'old-price' : 0,
+                    'ten' : product.css('h3::text').get().replace('\t',''),
+                    'giamoi' : 0,
+                    'giagoc' : 0,
                     'url' : product.css('.lt-product-group-info a').attrib['href'],
                     'img' : product.css('.lt-product-group-image img').attrib['data-src'],
+                    'ngay': 
+                    'loaisanpham':
+                    'thuonghieu':
+                    'mausac':
+                    'bonho':
                 }
         next_page = response.css('div.pages ul:last-child li a').attrib['href']
         if next_page is not None:

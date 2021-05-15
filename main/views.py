@@ -1,6 +1,7 @@
+from django.db.models.fields import NullBooleanField
 from django.shortcuts import render,redirect
 from .forms import *
-from django.http import HttpResponseRedirect 
+from django.http import HttpResponse,HttpResponseRedirect 
 from django.http import JsonResponse
 from django.urls import reverse
 
@@ -155,18 +156,88 @@ def exporturl(url_in,mausac,bonho):
 
     return data
 
-def import_data():
+def import_data(request):
     f = open('data.json','r')
     data = json.loads(f.read())
 
-    for items in data:
-        
-        product = SanPham()
-        url = Url()
-        
-        product.TenSP = item['ten']
-        product.MaSP = item['ma']
-        product.MoTa = item['mota']
-        product.MaLoai = item['maloai']
+    for item in data:
+#        thuonghieu = ThuongHieu()
+#        thuonghieu.TenTH = item['thuonghieu']
+#        thuonghieu.save()
 
-        product.save()
+#        product = SanPham()
+#        print(type(SanPham.objects.get(TenSP = item['ten'])))
+#        if SanPham.objects.get(TenSP = item['ten']):
+#            product.TenSP = item['ten']
+#            product.LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham'])
+#            product.ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
+#            product.save()
+        
+        SanPham.objects.update_or_create(
+            TenSP = item['ten'],
+            LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
+            ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
+        )
+
+        Url.objects.update_or_create(
+            Url = item['url'],
+            SanPham = SanPham.objects.get(TenSP=item['ten']) ,
+            NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
+            UrlImage = item['img']
+        )
+#        url = Url()
+#        url.Url = item['url']
+#        url.SanPham = SanPham.objects.get(TenSP=item['ten']) 
+#        url.NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc)
+#        url.UrlImage = item['img']
+#        url.save()
+        if Ngay1 == None:
+            GiaGoc1 = float(item['giagoc'].replace('.',''))
+            GiaMoi1 = float(item['giamoi'].replace('.',''))
+            Ngay1 = item['ngay']
+        else:
+            GiaGoc5 = GiaGoc4
+            GiaGoc4 = GiaGoc4
+            GiaGoc3 = GiaGoc4
+            GiaGoc2 = GiaGoc4
+            GiaGoc1 = new
+            GiaMoi5 = GiaMoi4
+            GiaMoi4 = GiaMoi3
+            GiaMoi3 = GiaMoi2
+            GiaMoi2 = GiaMoi1
+            GiaMoi1 = new
+            Ngay5 = Ngay4
+            Ngay4 = Ngay3
+            Ngay3 = Ngay2
+            Ngay2 = Ngay1
+            Ngay1 = new
+
+        ThuocTinh.objects.update_or_create(
+            MauSac = item['mausac'],
+            BoNho = item['bonho'],
+            GiaGoc1 = float(item['giagoc'].replace('.','')),
+            GiaMoi1 = float(item['giamoi'].replace('.','')),
+            Ngay1 = item['ngay'],
+            Url = Url.objects.get(Url = item['url']),
+            SanPham = SanPham.objects.get(TenSP = item['ten'])
+        )
+#        thuoctinh = ThuocTinh()
+#        thuoctinh.MauSac = item['mausac']
+#        thuoctinh.BoNho = item['bonho']
+#        thuoctinh.GiaGoc1 = float(item['giagoc'].replace('.',''))
+#        thuoctinh.GiaMoi1 = float(item['giamoi'].replace('.',''))
+#        thuoctinh.Ngay1 = item['ngay']
+#        thuoctinh.Url = Url.objects.get(Url = item['url'])
+#        thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
+#        thuoctinh.save()
+
+    return HttpResponse("Hello")
+        
+        
+        
+        
+        
+
+
+        
+        

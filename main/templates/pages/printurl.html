@@ -67,16 +67,16 @@
         label.radio span {
             padding: 2px 11px;
             margin-right: 3px;
-            border: 1px solid #8f37aa;
+            border: 1px solid #28a745;
             display: inline-block;
-            color: #8f37aa;
+            color: #28a745;
             border-radius: 3px;
             text-transform: uppercase
         }
 
         label.radio input:checked+span {
-            border-color: #8f37aa;
-            background-color: #8f37aa;
+            border-color: #28a745;
+            background-color: #28a745;
             color: #fff
         }
 
@@ -195,7 +195,7 @@
                     <h5 class="card-title">{{item.Url.NguonBan.TenNB}}</h5>
                     <h6 class="card-text">Giá mới: {{item.GiaMoi.Gia1}}</h6>
                     <h6 class="card-text">Giá gốc: <span class="cut">{{item.GiaGoc.Gia1}}</span> </h6>
-                    <a href="{{item.Url.NguonBan.Domain}}" class="btn btn-primary">Đến nơi bán</a>
+                    <a href="{{item.Url.Url}}" class="btn btn-primary">Đến nơi bán</a>
                 </div>
             </div>
             {% endfor %}
