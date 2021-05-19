@@ -16,7 +16,7 @@ from .models import *
 
 from django.db.models import Q
 
-
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 def index(request):
@@ -161,18 +161,9 @@ def import_data(request):
     data = json.loads(f.read())
 
     for item in data:
-#        thuonghieu = ThuongHieu()
-#        thuonghieu.TenTH = item['thuonghieu']
-#        thuonghieu.save()
 
-#        product = SanPham()
-#        print(type(SanPham.objects.get(TenSP = item['ten'])))
-#        if SanPham.objects.get(TenSP = item['ten']):
-#            product.TenSP = item['ten']
-#            product.LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham'])
-#            product.ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
-#            product.save()
-        
+        obj = ThuocTinh.objects.get(Url=Url.objects.get(Url = item['url']), MauSac=item['mausac'],BoNho=item['bonho'])
+        print("----",obj)
         SanPham.objects.update_or_create(
             TenSP = item['ten'],
             LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
@@ -185,53 +176,38 @@ def import_data(request):
             NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
             UrlImage = item['img']
         )
-#        url = Url()
-#        url.Url = item['url']
-#        url.SanPham = SanPham.objects.get(TenSP=item['ten']) 
-#        url.NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc)
-#        url.UrlImage = item['img']
-#        url.save()
-        if Ngay1 == None:
-            GiaGoc1 = float(item['giagoc'].replace('.',''))
-            GiaMoi1 = float(item['giamoi'].replace('.',''))
-            Ngay1 = item['ngay']
-        else:
-            GiaGoc5 = GiaGoc4
-            GiaGoc4 = GiaGoc4
-            GiaGoc3 = GiaGoc4
-            GiaGoc2 = GiaGoc4
-            GiaGoc1 = new
-            GiaMoi5 = GiaMoi4
-            GiaMoi4 = GiaMoi3
-            GiaMoi3 = GiaMoi2
-            GiaMoi2 = GiaMoi1
-            GiaMoi1 = new
-            Ngay5 = Ngay4
-            Ngay4 = Ngay3
-            Ngay3 = Ngay2
-            Ngay2 = Ngay1
-            Ngay1 = new
 
-        ThuocTinh.objects.update_or_create(
-            MauSac = item['mausac'],
-            BoNho = item['bonho'],
-            GiaGoc1 = float(item['giagoc'].replace('.','')),
-            GiaMoi1 = float(item['giamoi'].replace('.','')),
-            Ngay1 = item['ngay'],
-            Url = Url.objects.get(Url = item['url']),
-            SanPham = SanPham.objects.get(TenSP = item['ten'])
-        )
-#        thuoctinh = ThuocTinh()
-#        thuoctinh.MauSac = item['mausac']
-#        thuoctinh.BoNho = item['bonho']
-#        thuoctinh.GiaGoc1 = float(item['giagoc'].replace('.',''))
-#        thuoctinh.GiaMoi1 = float(item['giamoi'].replace('.',''))
-#        thuoctinh.Ngay1 = item['ngay']
-#        thuoctinh.Url = Url.objects.get(Url = item['url'])
-#        thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
-#        thuoctinh.save()
+        try:
+            obj = ThuocTinh.objects.get(Url=Url.objects.get(Url = item['url']), MauSac=item['mausac'],BoNho=item['bonho'])
+            obj.Ngay5 = obj.Ngay4
+            obj.Ngay4 = obj.Ngay3
+            obj.Ngay3 = obj.Ngay2
+            obj.Ngay2 = obj.Ngay1
+            obj.Ngay1 = item['ngay']
+            obj.GiaGoc5 = obj.GiaGoc4
+            obj.GiaGoc4 = obj.GiaGoc3
+            obj.GiaGoc3 = obj.GiaGoc2
+            obj.GiaGoc2 = obj.GiaGoc1
+            obj.GiaGoc1 = item['giagoc'].replace('.','')
+            obj.GiaMoi5 = obj.GiaMoi4
+            obj.GiaMoi4 = obj.GiaMoi3
+            obj.GiaMoi3 = obj.GiaMoi2
+            obj.GiaMoi2 = obj.GiaMoi1
+            obj.GiaMoi1 = item['giamoi'].replace('.','')
+            obj.save()
 
-    return HttpResponse("Hello")
+        except ThuocTinh.DoesNotExist:      
+            thuoctinh = ThuocTinh()
+            thuoctinh.MauSac = item['mausac']
+            thuoctinh.BoNho = item['bonho']
+            thuoctinh.GiaGoc1 = float(item['giagoc'].replace('.',''))
+            thuoctinh.GiaMoi1 = float(item['giamoi'].replace('.',''))
+            thuoctinh.Ngay1 = item['ngay']
+            thuoctinh.Url = Url.objects.get(Url = item['url'])
+            thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
+            thuoctinh.save()
+
+    return HttpResponse("Complete Import Data")
         
         
         
