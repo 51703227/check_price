@@ -117,7 +117,7 @@
             <div class="col-lg-4">
                 <div class="info url-input">
                     <h4 class="font-weight-bold">{{data.thuoc_tinh_urlin.SanPham.TenSP}}</h4>
-                    <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.GiaMoi.Gia1}}</span><span class="mr-2 cut">{{data.thuoc_tinh_urlin.GiaGoc.Gia1}}</span><span class="text-success">25% OFF</span></div>
+                    <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.GiaMoi1}}</span><span class="mr-2 cut">{{data.thuoc_tinh_urlin.GiaGoc1}}</span><span class="text-success">25% OFF</span></div>
                     <div class="d-flex flex-row">
                         <div class="icons mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div><span>1200 ratings &amp; 564 reviews</span>
                     </div>
@@ -159,18 +159,31 @@
                     var myChart = new Chart(ctx, {
                         type: 'line',
                         data: {
-                            labels: ['{{data.thuoc_tinh_urlin.GiaMoi.Ngay1}}', '01/01/2020', '01/01/2020', '01/01/2020', '01/01/2020'],
+                            labels: ['{{data.thuoc_tinh_urlin.Ngay5}}', '{{data.thuoc_tinh_urlin.Ngay4}}', '{{data.thuoc_tinh_urlin.Ngay3}}', '{{data.thuoc_tinh_urlin.Ngay2}}', '{{data.thuoc_tinh_urlin.Ngay1}}'],
                             datasets: [
                                 {
-                                label: 'Giá',
-                                data: [ {{data.thuoc_tinh_urlin.GiaMoi.Gia1}} , 22000000, 24000000, 25000000, 26000000],
+                                label: 'Giá mới',
+                                data: [ {{data.thuoc_tinh_urlin.GiaMoi.Gia5}} , {{data.thuoc_tinh_urlin.GiaMoi.Gia4}}, {{data.thuoc_tinh_urlin.GiaMoi.Gia3}}, {{data.thuoc_tinh_urlin.GiaMoi.Gia2}}, {{data.thuoc_tinh_urlin.GiaMoi.Gia1}}],
                                 backgroundColor: [
                                     '#28a745',
                                 ],
                                 borderColor: [
                                     '#28a745',
                                 ],
-                                borderWidth: 2
+                                borderWidth: 2,
+                                order: 1
+                                },
+                                {
+                                label: 'Giá gốc',
+                                data: [ {{data.thuoc_tinh_urlin.GiaGoc.Gia5}} , {{data.thuoc_tinh_urlin.GiaGoc.Gia4}}, {{data.thuoc_tinh_urlin.GiaGoc.Gia3}}, {{data.thuoc_tinh_urlin.GiaGoc.Gia2}}, {{data.thuoc_tinh_urlin.GiaGoc.Gia1}}],
+                                backgroundColor: [
+                                    '#98a745',
+                                ],
+                                borderColor: [
+                                    '#98a745',
+                                ],
+                                borderWidth: 2,
+                                order: 2
                                 }
                             ]
                         },
@@ -193,8 +206,8 @@
                 <img class="card-img-top" src="https://ngoaithatdainam.com/wp-content/uploads/2021/03/du-tron-nang-luong-mau-kaki.jpg{{item.Url.UrlImage.}}" alt="Card image" style="width:100%">
                 <div class="card-body" style="text-align: center;">
                     <h5 class="card-title">{{item.Url.NguonBan.TenNB}}</h5>
-                    <h6 class="card-text">Giá mới: {{item.GiaMoi.Gia1}}</h6>
-                    <h6 class="card-text">Giá gốc: <span class="cut">{{item.GiaGoc.Gia1}}</span> </h6>
+                    <h6 class="card-text">Giá mới: {{item.GiaMoi1}}</h6>
+                    <h6 class="card-text">Giá gốc: <span class="cut">{{item.GiaGoc1}}</span> </h6>
                     <a href="{{item.Url.Url}}" class="btn btn-primary">Đến nơi bán</a>
                 </div>
             </div>
