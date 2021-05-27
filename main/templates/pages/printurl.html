@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    <title>Document</title>
+    <title>Result</title>
     <style>
         body {
-            background: linear-gradient(to right, #c04848, #480048);
+            background-color: #edeef0;
             min-height: 100vh
         }
 
@@ -35,7 +37,7 @@
 
         .cut {
             text-decoration: line-through;
-            color: red
+            color: #fe5a56;
         }
 
         .icons i {
@@ -89,8 +91,8 @@
         }
 
         .card{
-            margin-right: 10px;
-            margin-top: 10px;
+            margin-right: 15px;
+            margin-top: 15px;
         }
         .container-fluid{
             width: 80%;
@@ -102,13 +104,13 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row text-center text-white mb-5">
+        <div class="row text-center mb-5">
             <div class="col-lg-7 mx-auto">
                 <h1 class="display-4">{{data.thuoc_tinh_urlin.SanPham.TenSP}}</h1>
             </div>
         </div>
 
-        <div class="row bg-white">
+        <div class="row bg-white border">
             <div class="col-lg-4">
                 <div class="url-input">
                     <img src="https://ngoaithatdainam.com/wp-content/uploads/2021/03/du-tron-nang-luong-mau-kaki.jpg{{data.thuoc_tinh_urlin.Url.UrlImage.}}" alt="" style="min-width: 400px;max-width: 450px; ">
@@ -129,24 +131,20 @@
 
                     <h5>Màu sắc</h5>
                     <div class="d-flex align-items-center mt-2"> 
-                        
-                        <label class="radio"> 
-                            <input type="radio" name="mau" value="xanh">
+                        <div class="thuoctinh">
                             <span>{{data.thuoc_tinh_urlin.MauSac}}</span> 
-                        </label> 
-        
+                        </div>
                     </div>
                     <hr>
-                    <h5>Dung lượng</h5>
+                    <h5>Bộ nhớ</h5>
                     <div class="d-flex align-items-center mt-2"> 
-                        <label class="radio"> 
-                            <input type="radio" name="gb" value="128GB"> 
+                        <div class="thuoctinh">
                             <span>{{data.thuoc_tinh_urlin.BoNho}}</span> 
-                        </label>  
+                        </div>
                     </div>
-                    
+                    <hr>
                     <div><span class="font-weight-bold">Nguồn bán:</span><a class="ml-2" href="{{data.thuoc_tinh_urlin.Url.Url}}">{{data.thuoc_tinh_urlin.Url.NguonBan.TenNB}}</a></div>
-                    <div class="mt-3"><button class="btn btn-dark mr-2" type="button">CHI TIẾT</button><button class="btn btn-success" type="button">ĐẾN NƠI BÁN</button></div>
+                    <div class="mt-3"><button class="btn btn-dark mr-2" type="button">Chi tiết</button><button class="btn btn-primary" type="button">Đến nơi bán</button></div>
                 </div>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -163,7 +161,7 @@
                             datasets: [
                                 {
                                 label: 'Giá mới',
-                                data: [ {{data.thuoc_tinh_urlin.GiaMoi.Gia5}} , {{data.thuoc_tinh_urlin.GiaMoi.Gia4}}, {{data.thuoc_tinh_urlin.GiaMoi.Gia3}}, {{data.thuoc_tinh_urlin.GiaMoi.Gia2}}, {{data.thuoc_tinh_urlin.GiaMoi.Gia1}}],
+                                data: [ {{data.thuoc_tinh_urlin.GiaMoi5}} , {{data.thuoc_tinh_urlin.GiaMoi4}}, {{data.thuoc_tinh_urlin.GiaMoi3}}, {{data.thuoc_tinh_urlin.GiaMoi2}}, {{data.thuoc_tinh_urlin.GiaMoi1}}],
                                 backgroundColor: [
                                     '#28a745',
                                 ],
@@ -175,7 +173,7 @@
                                 },
                                 {
                                 label: 'Giá gốc',
-                                data: [ {{data.thuoc_tinh_urlin.GiaGoc.Gia5}} , {{data.thuoc_tinh_urlin.GiaGoc.Gia4}}, {{data.thuoc_tinh_urlin.GiaGoc.Gia3}}, {{data.thuoc_tinh_urlin.GiaGoc.Gia2}}, {{data.thuoc_tinh_urlin.GiaGoc.Gia1}}],
+                                data: [ {{data.thuoc_tinh_urlin.GiaGoc5}} , {{data.thuoc_tinh_urlin.GiaGoc4}}, {{data.thuoc_tinh_urlin.GiaGoc3}}, {{data.thuoc_tinh_urlin.GiaGoc2}}, {{data.thuoc_tinh_urlin.GiaGoc1}}],
                                 backgroundColor: [
                                     '#98a745',
                                 ],
@@ -202,7 +200,7 @@
 
         <div class="row">
             {% for item in data.thuoc_tinh_urlout %}
-            <div class="col-lg-2 card d-inline-flex">
+            <div class="col-lg-2 card d-inline-flex border">
                 <img class="card-img-top" src="https://ngoaithatdainam.com/wp-content/uploads/2021/03/du-tron-nang-luong-mau-kaki.jpg{{item.Url.UrlImage.}}" alt="Card image" style="width:100%">
                 <div class="card-body" style="text-align: center;">
                     <h5 class="card-title">{{item.Url.NguonBan.TenNB}}</h5>
@@ -213,28 +211,7 @@
             </div>
             {% endfor %}
         </div>
-<!--
-        <div class="row">
-            <div class="col-lg-12 mx-auto">
-                <ul class="list-group shadow">
-                    {% for item in data.thuoc_tinh_urlout %}
-                        <li class="list-group-item">
-                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                                <div class="media-body order-2 order-lg-1">
-                                    <h5 class="mt-0 font-weight-bold mb-2">{{item.Url.NguonBan.TenNB}}</h5>
-                                    <p class="font-italic text-muted mb-0 small">{{item.Url.Url}}</p>
-                                    <div class="d-flex align-items-center justify-content-between mt-1">
-                                        <h6 class="font-weight-bold my-2">Giá mới: {{item.GiaMoi.Gia1}}</h6>
-                                        <h6 class="font-weight-bold my-2">Giá gốc: {{item.GiaGoc.Gia1}}</h6>
-                                    </div>
-                                </div><img src="{{item.Url.UrlImage}}" alt="Generic placeholder image" width="400" class="ml-lg-5 order-1 order-lg-2">
-                            </div> 
-                        </li> 
-                    {% endfor %}
-                </ul> 
-            </div>
-        </div>
--->
+
     </div>
 </body>
 </html>

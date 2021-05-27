@@ -113,11 +113,30 @@ body a:hover {
 
 /*/////////////// GLOBAL STYLES ////////////////////*/
 
+.thuoctinh{
+    border: solid 1px #626b7e;
+    padding: 5px 10px;
+    border-radius: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.thuoctinh span{
+    color: #626b7e;
+}
+
+.content-w3ls{
+    border-radius: 1.5rem;
+    background: white;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+}
+
+
 body {
+    background-color: #edeef0;
     font-family: 'Noto Sans JP', sans-serif;
 }
 .main {
-    background: linear-gradient(to right, #c04848, #480048); /*url(../images/bg.jpg) no-repeat bottom;*/
+    background: #edeef0; /*url(../images/bg.jpg) no-repeat bottom;*/
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -138,7 +157,6 @@ body {
     left: 0;
     bottom: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.6);
     z-index: -1;
 }
 .text-center {
@@ -146,6 +164,33 @@ body {
 }
 
 /*/////////////// FONT STYLES ////////////////////*/
+
+.border{
+    border-radius: 1.5rem !important;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+}
+
+.btn{
+    border-radius: 1.5rem !important;
+    background-color: #1ed1a8;
+}
+
+.btn-primary{
+    background-color:#1ed1a8 !important;
+    border: none !important;
+}
+
+label{
+    font-weight: 700!important;
+    margin-top: 10px;
+}
+
+select {
+    padding: 5px 10px;
+    border: solid 1px black;
+    display: block;
+    border-radius: 1.5rem;
+}
 
 .content-w3ls {
     margin: 2em auto;
@@ -168,7 +213,7 @@ body {
 }
 .logo h1 a {
     font-size: 42px;
-    color: #fff;
+    color: #1ed1a8;
     text-transform: capitalize;
     font-weight: 700;
 }
@@ -206,7 +251,7 @@ body {
   }
 
 .wthree-field button.btn {
-    background: #EA4C89;
+    background: #1ed1a8;
     border: none;
     color: #fff;
     padding: 14px 14px;
@@ -230,7 +275,7 @@ body {
 
 }
 .wthree-field button.btn:hover {
-    background:#de3d7b;
+    background:#fe5a56;
 }
 .login-bottom {
     margin-top:3em;
@@ -249,7 +294,7 @@ body {
 }
 .copyright p {
 
-    color: #fff;
+    color: #1ed1a8;
     font-size: 16px;
     line-height: 26px;
     text-align: center;
@@ -260,7 +305,7 @@ body {
     color: #fff;
 }
 .copyright p a:hover,.login-bottom a:hover {
-    color:#EA4C89;
+    color:#fe5a56;
 }
 /* -- Responsive code -- */
 @media screen and (max-width: 1280px) {

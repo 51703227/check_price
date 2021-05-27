@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
@@ -11,7 +13,7 @@
     <title>Document</title>
     <style>
         body {
-            background: linear-gradient(to right, #c04848, #480048);
+            background-color: #edeef0;
             min-height: 100vh
         }
 
@@ -35,7 +37,7 @@
 
         .cut {
             text-decoration: line-through;
-            color: red
+            color: #fe5a56;
         }
 
         .icons i {
@@ -87,13 +89,14 @@
         .urlin{
             margin-bottom: 20px;
             background-color: white;
-            border-radius: 5px;
+            border-radius: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
         }
     </style>
 </head>
 <body>
     <div class="container py-5">
-        <div class="row text-center text-white mb-5">
+        <div class="row text-center mb-5">
             <div class="col-lg-7 mx-auto">
                 <h1 class="display-4">{{data.url_in.SanPham.TenSP}}</h1>
             </div>
@@ -112,7 +115,7 @@
                         <div class="col-md-7">
                             <div class="info url-input">
                                 <h4 class="font-weight-bold">{{data.url_in.SanPham.TenSP}}</h4>
-                                <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.MauSac}}</span><span class="mr-2 cut">{{data.url_in.ThuocTinh}}</span><span class="text-success">25% OFF</span></div>
+                                <!--<div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.MauSac}}</span><span class="mr-2 cut">{{data.url_in.ThuocTinh}}</span><span class="text-success">25% OFF</span></div>-->
                                 <div class="d-flex flex-row">
                                     <div class="icons mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div><span>1200 ratings &amp; 564 reviews</span>
                                 </div>

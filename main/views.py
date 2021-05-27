@@ -118,13 +118,14 @@ def is_valid_url(url):
 def print_url(request):
     if request.method == "POST":
         #form = GetAttribForm(request.POST)
-        print(request.POST)
         #if form.is_valid():
+
+        #lấy các thuộc tính của sản phẩm từ người dùng
         mausac = request.POST.get('mausac', None) 
         bonho = request.POST.get('bonho', None) 
         url_in = request.POST.get('url', None)
 
-        data = exporturl(url_in = url_in,mausac = mausac,bonho =bonho) #có thể sai phần màu sắc
+        data = exporturl(url_in = url_in,mausac = mausac,bonho =bonho) #truy xuất database #???có thể sai phần màu sắc
 
         #a = Url.objects.get(Url=url)
         return render(request,'pages/printurl.html',{'data':data})
@@ -135,7 +136,7 @@ def print_url(request):
         form = GetAttribForm(list_attr)
 
 
-def exporturl(url_in,mausac,bonho):
+def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa vào thông tin đầu vào
     url = Url.objects.get(Url=url_in)
     thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac,BoNho=bonho)
     
@@ -156,14 +157,15 @@ def exporturl(url_in,mausac,bonho):
 
     return data
 
-def import_data(request):
+def import_data(request):   #Nạp data.json và database
+
     f = open('data.json','r')
     data = json.loads(f.read())
 
     for item in data:
 
         obj = ThuocTinh.objects.get(Url=Url.objects.get(Url = item['url']), MauSac=item['mausac'],BoNho=item['bonho'])
-        print("----",obj)
+
         SanPham.objects.update_or_create(
             TenSP = item['ten'],
             LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
