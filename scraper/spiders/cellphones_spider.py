@@ -1,7 +1,7 @@
 import scrapy
 import os
-import pandas as pd
-import numpy as np
+#import pandas as pd
+#import numpy as np
 import re
 from datetime import date
 
@@ -27,14 +27,17 @@ class CellPhonesSpider(scrapy.Spider):
                 'url': response.url,
                 'image': product.css('.lt-product-group-image a > img::attr(src)').get(),
                 'ngay': date.today().strftime("%d/%m/%Y"),
-                'loaisanpham': 'dienthoai',
-                'thuonghieu':
-                'thuoctinh': {[
-                    'mausac':
-                    'bonho':
+                'loaisanpham':'dienthoai',
+                'thuonghieu':'iphone',
+                'thuoctinh': 
+                [
+                    {
+                    'mausac': product.css('.lt-product-group-info .old-price .price::text').get(),
+                    'bonho': product.css('.lt-product-group-info .old-price .price::text').get(),
                     'giamoi': product.css('.lt-product-group-info .price-box .special-price .price::text').get(),
                     'giagoc': product.css('.lt-product-group-info .old-price .price::text').get()
-                ]}
+                    }
+                ]
             }
 
             yield item

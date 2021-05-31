@@ -186,16 +186,19 @@ def import_data(request):   #Nạp data.json và database
             obj.Ngay3 = obj.Ngay2
             obj.Ngay2 = obj.Ngay1
             obj.Ngay1 = item['ngay']
+
             obj.GiaGoc5 = obj.GiaGoc4
             obj.GiaGoc4 = obj.GiaGoc3
             obj.GiaGoc3 = obj.GiaGoc2
             obj.GiaGoc2 = obj.GiaGoc1
             obj.GiaGoc1 = item['giagoc'].replace('.','')
+
             obj.GiaMoi5 = obj.GiaMoi4
             obj.GiaMoi4 = obj.GiaMoi3
             obj.GiaMoi3 = obj.GiaMoi2
             obj.GiaMoi2 = obj.GiaMoi1
             obj.GiaMoi1 = item['giamoi'].replace('.','')
+            
             obj.save()
 
         except ThuocTinh.DoesNotExist:      
