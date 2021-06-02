@@ -70,6 +70,7 @@ def url_input(request):
                 ('vang', 'Vàng'),
                 ('den', 'Đen'),
                 ('xam', 'Xám'),
+                ('bac', 'Bạc')
             ]
 
             list_bo_nho = [
@@ -164,20 +165,32 @@ def import_data(request):   #Nạp data.json và database
 
     for item in data:
 
-        obj = ThuocTinh.objects.get(Url=Url.objects.get(Url = item['url']), MauSac=item['mausac'],BoNho=item['bonho'])
-
-        SanPham.objects.update_or_create(
-            TenSP = item['ten'],
-            LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
-            ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
-        )
-
-        Url.objects.update_or_create(
-            Url = item['url'],
-            SanPham = SanPham.objects.get(TenSP=item['ten']) ,
-            NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
-            UrlImage = item['img']
-        )
+        #obj = ThuocTinh.objects.get(Url=Url.objects.get(Url = item['url']), MauSac=item['mausac'],BoNho=item['bonho'])
+        try:
+            SanPham.objects.update_or_create(
+                TenSP = item['ten'],
+                LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
+                ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
+            )
+        except ThuongHieu.DoesNotExist:
+            SanPham.objects.update_or_create(
+                TenSP = item['ten'],
+                LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
+                ThuongHieu = ThuongHieu.objects.create(TenTH=item['thuonghieu'])
+            )
+        try:
+            Url.objects.update_or_create(
+                Url = item['url'],
+                SanPham = SanPham.objects.get(TenSP=item['ten']) ,
+                NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
+                UrlImage = item['img']
+            )
+        except NguonBan.DoesNotExist:
+            Url.objects.update_or_create(
+                Url = item['url'],
+                SanPham = SanPham.objects.get(TenSP=item['ten']) ,
+                UrlImage = item['img']
+            )            
 
         try:
             obj = ThuocTinh.objects.get(Url=Url.objects.get(Url = item['url']), MauSac=item['mausac'],BoNho=item['bonho'])

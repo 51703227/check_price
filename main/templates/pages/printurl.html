@@ -113,7 +113,7 @@
         <div class="row bg-white border">
             <div class="col-lg-4">
                 <div class="url-input">
-                    <img src="https://ngoaithatdainam.com/wp-content/uploads/2021/03/du-tron-nang-luong-mau-kaki.jpg{{data.thuoc_tinh_urlin.Url.UrlImage.}}" alt="" style="min-width: 400px;max-width: 450px; ">
+                    <img src="{{data.thuoc_tinh_urlin.Url.UrlImage}}" alt="" style="min-width: 400px;max-width: 450px; ">
                 </div>
             </div>
             <div class="col-lg-4">
@@ -201,7 +201,7 @@
         <div class="row">
             {% for item in data.thuoc_tinh_urlout %}
             <div class="col-lg-2 card d-inline-flex border">
-                <img class="card-img-top" src="https://ngoaithatdainam.com/wp-content/uploads/2021/03/du-tron-nang-luong-mau-kaki.jpg{{item.Url.UrlImage.}}" alt="Card image" style="width:100%">
+                <img class="card-img-top" src="{{item.Url.UrlImage}}" alt="Card image" style="width:100%">
                 <div class="card-body" style="text-align: center;">
                     <h5 class="card-title">{{item.Url.NguonBan.TenNB}}</h5>
                     <h6 class="card-text">Giá mới: {{item.GiaMoi1}}</h6>
