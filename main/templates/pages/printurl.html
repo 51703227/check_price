@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
     <title>Result</title>
     <style>
         body {
@@ -42,12 +43,12 @@
 
         .icons i {
             font-size: 17px;
-            color: green;
+            color: #1ed1a8;
             margin-right: 2px
         }
 
         .offers i {
-            color: green
+            color: #1ed1a8
         }
 
         .delivery i {
@@ -106,7 +107,7 @@
     <div class="container-fluid">
         <div class="row text-center mb-5">
             <div class="col-lg-7 mx-auto">
-                <h1 class="display-4">{{data.thuoc_tinh_urlin.SanPham.TenSP}}</h1>
+                <h1 class="display-4">KẾT QUẢ</h1>
             </div>
         </div>
 
@@ -119,14 +120,16 @@
             <div class="col-lg-4">
                 <div class="info url-input">
                     <h4 class="font-weight-bold">{{data.thuoc_tinh_urlin.SanPham.TenSP}}</h4>
-                    <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.GiaMoi1}}</span><span class="mr-2 cut">{{data.thuoc_tinh_urlin.GiaGoc1}}</span><span class="text-success">25% OFF</span></div>
+                    <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.GiaMoi1}} VNĐ</span><span class="mr-2 cut">{{data.thuoc_tinh_urlin.GiaGoc1}} VNĐ</span></div>
+                    <!--
                     <div class="d-flex flex-row">
                         <div class="icons mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div><span>1200 ratings &amp; 564 reviews</span>
                     </div>
-                    <div class="d-flex align-items-center mt-4 offers mb-1"><i class="fa fa-check-square-o mt-1"></i><span class="ml-1 font-weight-bold">Phần trăm giảm</span><span class="ml-1">20%<br></span></div>
-                    <div class="d-flex align-items-center offers mb-1"><i class="fa fa-check-square-o mt-1"></i><span class="ml-1 font-weight-bold">Giá gốc trung bình</span><span class="ml-1">{{data.url_in}}<br></span></div>
-                    <div class="d-flex align-items-center offers mb-1"><i class="fa fa-check-square-o mt-1"></i><span class="ml-1 font-weight-bold">Giá khuyến mãi trung bình</span><span class="ml-1">{{data.url_in}}<br></span></div>
-                    <div class="d-flex align-items-center offers"><i class="fa fa-check-square-o mt-1"></i><span class="ml-1 font-weight-bold">Độ trung thực</span><span class="ml-1">20%<br></span></div>
+                    -->
+                    <div class="d-flex align-items-center mt-4 offers mb-1"><i class="fa fa-check-square-o mt-1"></i><span class="ml-1 font-weight-bold">Phần trăm giảm</span><span class="ml-1">{{data.analytics.saleoff}}%<br></span></div>
+                    <div class="d-flex align-items-center offers mb-1"><i class="fa fa-check-square-o mt-1"></i><span class="ml-1 font-weight-bold">Giá gốc trung bình</span><span class="ml-1">{{data.analytics.giagoctrungbinh}}<br></span></div>
+                    <div class="d-flex align-items-center offers mb-1"><i class="fa fa-check-square-o mt-1"></i><span class="ml-1 font-weight-bold">Giá khuyến mãi trung bình</span><span class="ml-1">{{data.analytics.giakhuyenmaitrungbinh}}<br></span></div>
+                    <div class="d-flex align-items-center offers"><i class="fa fa-check-square-o mt-1"></i><span class="ml-1 font-weight-bold">Độ trung thực</span><span class="ml-1">{{data.analytics.dotrungthuc}}<br></span></div>
                     <hr>
 
                     <h5>Màu sắc</h5>

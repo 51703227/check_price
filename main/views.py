@@ -64,13 +64,13 @@ def url_input(request):
             url_input = Url.objects.get(Url=url) #truy xuất URL = url đã nhập
             list_thuoc_tinh_url = ThuocTinh.objects.filter( Url = url_input)
 
-            list_mau_sac = [#có thể sai phần màu sắc
-                ('do', 'Đỏ'),
-                ('xanh duong', 'Xanh dương'),
-                ('vang', 'Vàng'),
-                ('den', 'Đen'),
-                ('xam', 'Xám'),
-                ('bac', 'Bạc')
+            list_mau_sac = [
+                ('Đỏ', 'Đỏ'),
+                ('Xanh dương', 'Xanh dương'),
+                ('Vàng', 'Vàng'),
+                ('Đen', 'Đen'),
+                ('Xám', 'Xám'),
+                ('Bạc', 'Bạc')
             ]
 
             list_bo_nho = [
@@ -122,14 +122,17 @@ def print_url(request):
         #if form.is_valid():
 
         #lấy các thuộc tính của sản phẩm từ người dùng
-        mausac = request.POST.get('mausac', None) 
+        mausac = request.POST.get('mausac', None)
+        print(mausac) 
         bonho = request.POST.get('bonho', None) 
         url_in = request.POST.get('url', None)
 
-        data = exporturl(url_in = url_in,mausac = mausac,bonho =bonho) #truy xuất database #???có thể sai phần màu sắc
-
-        #a = Url.objects.get(Url=url)
-        return render(request,'pages/printurl.html',{'data':data})
+        data = exporturl(url_in = url_in,mausac = mausac,bonho =bonho) #truy xuất database #
+        if data == False:
+            return HttpResponse("Không tìm thấy url")
+        else:
+            print(data)
+            return render(request,'pages/printurl.html',{'data':data})
 
     else:
         list_attr = [
@@ -138,25 +141,39 @@ def print_url(request):
 
 
 def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa vào thông tin đầu vào
-    url = Url.objects.get(Url=url_in)
-    thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac,BoNho=bonho)
-    
-    sanpham = SanPham.objects.get(TenSP__exact = url.SanPham.TenSP) #select Sản phẩm của url
-    #criterion1 = Q(MaSP = url_input.MaSP)
-    #criterion2 = Q( Url != url)    
+    try:
+        url = Url.objects.get(Url=url_in)
+        try:
+            thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac,BoNho=bonho)
+        except ThuocTinh.DoesNotExist:
+            print("ko có thuộc tính")
+            thuoc_tinh_urlin = None
+        sanpham = SanPham.objects.get(TenSP__exact = url.SanPham.TenSP) #select Sản phẩm của url
+    except Url.DoesNotExist:
+        url = None
 
-    list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
+    if url != None:
+        saleoff = (thuoc_tinh_urlin.GiaGoc1 / thuoc_tinh_urlin.GiaMoi1)*100
+        giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 +thuoc_tinh_urlin.GiaGoc2 +thuoc_tinh_urlin.GiaGoc3 +thuoc_tinh_urlin.GiaGoc4 +thuoc_tinh_urlin.GiaGoc5 )/5
+        giakhuyenmaitrungbinh = (thuoc_tinh_urlin.GiaMoi1 +thuoc_tinh_urlin.GiaMoi2 +thuoc_tinh_urlin.GiaMoi3 +thuoc_tinh_urlin.GiaMoi4 +thuoc_tinh_urlin.GiaMoi5 )/5
+        dotrungthuc = 80
 
-    print(list_thuoc_tinh_url)
-    
-    #lưu dữ liệu truy xuất và data
-    data = {
-        #'product': product, #obj
-        'thuoc_tinh_urlin': thuoc_tinh_urlin, #obj
-        'thuoc_tinh_urlout': list_thuoc_tinh_url,
-    } 
-
-    return data
+        list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
+        #lưu dữ liệu truy xuất và data
+        data = {
+            #'product': product, #obj
+            'thuoc_tinh_urlin': thuoc_tinh_urlin, #obj
+            'thuoc_tinh_urlout': list_thuoc_tinh_url,
+            'analytics':{
+                'saleoff':round(saleoff,2),
+                'giagoctrungbinh': "{:,.2f} VNĐ".format(giagoctrungbinh),
+                'giakhuyenmaitrungbinh':"{:,.2f} VNĐ".format(giakhuyenmaitrungbinh),
+                'dotrungthuc':dotrungthuc,
+            }
+        } 
+        return data
+    else:
+        return False
 
 def import_data(request):   #Nạp data.json và database
 
