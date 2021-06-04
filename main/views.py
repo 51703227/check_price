@@ -1,3 +1,4 @@
+from os import pipe
 from django.db.models.fields import NullBooleanField
 from django.shortcuts import render,redirect
 from .forms import *
@@ -18,13 +19,15 @@ from django.db.models import Q
 
 from django.core.exceptions import ObjectDoesNotExist
 
+from datetime import datetime
+
 # Create your views here.
 def index(request):
     return render(request,'pages/base.html')
 
 def getattrib(request):
     if request.method == "POST":
-        #form = GetAttribForm(request.POST)
+        
         print(request.POST)
         #if form.is_valid():
         attrib = request.POST.get('mausac', None) #get url from user inputư
@@ -35,11 +38,6 @@ def getattrib(request):
             #return HttpResponseRedirect('/print_url',url)
     else:
         list_attr = [
-            ('FR', 'Freshman'),
-            ('SO', 'Sophomore'),
-            ('JR', 'Junior'),
-            ('SR', 'Senior'),
-            ('GR', 'Graduate'),
         ]
         form = GetAttribForm(list_attr)
 
@@ -54,44 +52,27 @@ def url_input(request):
             if not url:
                 return JsonResponse({'error': 'Missing  args'})
             if not is_valid_url(url):
-                return JsonResponse({'error': 'URL is invalid'})
+                #return JsonResponse({'error': 'URL is invalid'})
+                search_result = SanPham.objects.filter(TenSP__icontains=url)
+                for item in search_result:
+                    print(item.TenSP)
             
-            #domain = urlparse(url).netloc #take netloc from urlparse to get domain
-            
-            #data = exporturl(url)
-
+            domain = urlparse(url).netloc #take netloc from urlparse to get domain
+            print(domain)
             #truy xuất thuộc tính url
             url_input = Url.objects.get(Url=url) #truy xuất URL = url đã nhập
             list_thuoc_tinh_url = ThuocTinh.objects.filter( Url = url_input)
 
-            list_mau_sac = [
-                ('Đỏ', 'Đỏ'),
-                ('Xanh dương', 'Xanh dương'),
-                ('Vàng', 'Vàng'),
-                ('Đen', 'Đen'),
-                ('Xám', 'Xám'),
-                ('Bạc', 'Bạc')
-            ]
-
-            list_bo_nho = [
-                ('16GB', '16GB'),
-                ('32GB', '32GB'),
-                ('64GB', '64GB'),
-                ('128GB', '128GB'),
-                ('256GB', '256GB'),
-                ('512GB', '512GB')             
-            ]
             #tạo form nhập thuộc tính
             mausac =[]
             bonho = []
 
             for attr in list_thuoc_tinh_url:
-                for item in list_mau_sac:
-                    if (attr.MauSac in item) and (item not in mausac) :
-                        mausac.append(item) 
-                for item in list_bo_nho:
-                    if attr.BoNho in item and (item not in bonho):
-                        bonho.append(item) 
+                if (attr.MauSac,attr.MauSac) not in mausac:
+                    mausac.append((attr.MauSac,attr.MauSac))
+                if (attr.BoNho,attr.BoNho) not in bonho:
+                    bonho.append((attr.BoNho,attr.BoNho))
+
             form = GetAttribForm(mausac=mausac,bonho=bonho)
 
             data= {
@@ -152,7 +133,7 @@ def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa 
     except Url.DoesNotExist:
         url = None
 
-    if url != None:
+    if url != None and thuoc_tinh_urlin!=None:
         saleoff = (thuoc_tinh_urlin.GiaGoc1 / thuoc_tinh_urlin.GiaMoi1)*100
         giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 +thuoc_tinh_urlin.GiaGoc2 +thuoc_tinh_urlin.GiaGoc3 +thuoc_tinh_urlin.GiaGoc4 +thuoc_tinh_urlin.GiaGoc5 )/5
         giakhuyenmaitrungbinh = (thuoc_tinh_urlin.GiaMoi1 +thuoc_tinh_urlin.GiaMoi2 +thuoc_tinh_urlin.GiaMoi3 +thuoc_tinh_urlin.GiaMoi4 +thuoc_tinh_urlin.GiaMoi5 )/5
@@ -177,12 +158,10 @@ def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa 
 
 def import_data(request):   #Nạp data.json và database
 
-    f = open('data.json','r')
+    f = open('mobile_cellphones_data.json','r',encoding='utf-8')
     data = json.loads(f.read())
 
     for item in data:
-
-        #obj = ThuocTinh.objects.get(Url=Url.objects.get(Url = item['url']), MauSac=item['mausac'],BoNho=item['bonho'])
         try:
             SanPham.objects.update_or_create(
                 TenSP = item['ten'],
@@ -200,47 +179,61 @@ def import_data(request):   #Nạp data.json và database
                 Url = item['url'],
                 SanPham = SanPham.objects.get(TenSP=item['ten']) ,
                 NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
-                UrlImage = item['img']
+                UrlImage = item['image']
             )
         except NguonBan.DoesNotExist:
             Url.objects.update_or_create(
                 Url = item['url'],
                 SanPham = SanPham.objects.get(TenSP=item['ten']) ,
-                UrlImage = item['img']
+                UrlImage = item['image']
             )            
-
-        try:
-            obj = ThuocTinh.objects.get(Url=Url.objects.get(Url = item['url']), MauSac=item['mausac'],BoNho=item['bonho'])
-            obj.Ngay5 = obj.Ngay4
-            obj.Ngay4 = obj.Ngay3
-            obj.Ngay3 = obj.Ngay2
-            obj.Ngay2 = obj.Ngay1
-            obj.Ngay1 = item['ngay']
-
-            obj.GiaGoc5 = obj.GiaGoc4
-            obj.GiaGoc4 = obj.GiaGoc3
-            obj.GiaGoc3 = obj.GiaGoc2
-            obj.GiaGoc2 = obj.GiaGoc1
-            obj.GiaGoc1 = item['giagoc'].replace('.','')
-
-            obj.GiaMoi5 = obj.GiaMoi4
-            obj.GiaMoi4 = obj.GiaMoi3
-            obj.GiaMoi3 = obj.GiaMoi2
-            obj.GiaMoi2 = obj.GiaMoi1
-            obj.GiaMoi1 = item['giamoi'].replace('.','')
+        
+        for i in item['thuoctinh']:
             
-            obj.save()
+            try:
+                obj = ThuocTinh.objects.get(
+                    Url=Url.objects.get(Url = item['url']), 
+                    MauSac=i['mausac'],
+                    BoNho=i['bonho']
+                )
+                obj.Ngay5 = obj.Ngay4
+                obj.Ngay4 = obj.Ngay3
+                obj.Ngay3 = obj.Ngay2
+                obj.Ngay2 = obj.Ngay1
+                obj.Ngay1 = datetime.strptime(item['ngay'],'%d/%m/%Y').strftime('%Y-%m-%d')
+                
+                def rp(gia):
+                    if gia==None:
+                        return 0
+                    else:
+                        return gia.replace('.','').replace('₫','')
 
-        except ThuocTinh.DoesNotExist:      
-            thuoctinh = ThuocTinh()
-            thuoctinh.MauSac = item['mausac']
-            thuoctinh.BoNho = item['bonho']
-            thuoctinh.GiaGoc1 = float(item['giagoc'].replace('.',''))
-            thuoctinh.GiaMoi1 = float(item['giamoi'].replace('.',''))
-            thuoctinh.Ngay1 = item['ngay']
-            thuoctinh.Url = Url.objects.get(Url = item['url'])
-            thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
-            thuoctinh.save()
+                obj.GiaGoc5 = obj.GiaGoc4
+                obj.GiaGoc4 = obj.GiaGoc3
+                obj.GiaGoc3 = obj.GiaGoc2
+                obj.GiaGoc2 = obj.GiaGoc1
+                obj.GiaGoc1 = rp(i['giagoc'])  #0 if i['giagoc']==None else i['giamoi'].replace('.','').replace('₫','')
+
+                obj.GiaMoi5 = obj.GiaMoi4
+                obj.GiaMoi4 = obj.GiaMoi3
+                obj.GiaMoi3 = obj.GiaMoi2
+                obj.GiaMoi2 = obj.GiaMoi1
+                obj.GiaMoi1 = rp(i['giamoi'])  #0 if i['giamoi']==None else i['giamoi'].replace('.','').replace('₫','')
+                
+                obj.save()
+
+            except ThuocTinh.DoesNotExist:      
+                thuoctinh = ThuocTinh()
+
+                thuoctinh.MauSac = i['mausac']
+                thuoctinh.BoNho = i['bonho']
+                thuoctinh.GiaGoc1 = 0 if i['giagoc']==None else i['giagoc'].replace('.','').replace('₫','')
+                thuoctinh.GiaMoi1 = 0 if i['giamoi']==None else i['giamoi'].replace('.','').replace('₫','')
+                thuoctinh.Ngay1 = datetime.strptime(item['ngay'],'%d/%m/%Y').strftime('%Y-%m-%d')
+                thuoctinh.Url = Url.objects.get(Url = item['url'])
+                thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
+
+                thuoctinh.save()
 
     return HttpResponse("Complete Import Data")
         

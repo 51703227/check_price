@@ -1,31 +1,23 @@
 [
-    {
-        "ten" :"Xiaomi Mi 11 Lite" ,
-        "url" : "https://cellphones.com.vn/xiaomi-mi-11-lite.html",
-        "img" : "https://cellphones.com.vn/xiaomi-mi-11-lite.html",
-        "ngay": "2020-09-26",
-        "loaisanpham": "dien thoai",
-        "thuonghieu": "Xiaomi",
-        "thuoctinh":
-        [
-            {
-                "mausac":"Xanh",
-                "bonho":"128GB",
-                "giamoi" : "5.090.000",
-                "giagoc" : "5.090.000"
-            },
-            {
-                "mausac":"Do",
-                "bonho":"128GB",
-                "giamoi" : "5.090.000",
-                "giagoc" : "5.090.000"
-            },
-            {
-                "mausac":"Den",
-                "bonho":"128GB",
-                "giamoi" : "5.090.000",
-                "giagoc" : "5.090.000"
-            }            
-        ]
-    }
+{
+    "ten": "Samsung Galaxy Note 20 Ultra 5G", 
+    "url": "https://cellphones.com.vn/samsung-galaxy-note-20-ultra-5g.html", 
+    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/small_image/220x175/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg", 
+    "ngay": "04/06/2021", 
+    "loaisanpham": "dienthoai", 
+    "thuonghieu": "samsung", 
+    "thuoctinh": [
+        {
+            "bonho": "Note 20 Ultra 5G", 
+            "mausac": "Vàng Đồng ", 
+            "giagoc": "32.990.000 ₫", 
+            "giamoi": "19.990.000 ₫"
+        }, 
+        {
+            "bonho": "Note 20 Ultra 5G", 
+            "mausac": "Đen ", 
+            "giagoc": "32.990.000 ₫", 
+            "giamoi": "19.990.000 ₫"}
+    ]
+}
 ]
