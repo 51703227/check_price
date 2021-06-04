@@ -1,4 +1,5 @@
 import scrapy
+from datetime import date
 
 class cellphonetSpider(scrapy.Spider):
     name = 'cellphone'

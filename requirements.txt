@@ -1,3 +1,4 @@
-django>=3.1.7
 scrapy>=2.4.1
 selenium>=3.141.0
+Django==3.1.7
+Pillow
