@@ -10,5 +10,5 @@ class GetAttribForm(forms.Form):
         super(GetAttribForm,self).__init__(*args,**kwargs)
         self.fields['mausac'].choices = mausac
         self.fields['bonho'].choices = bonho
-    mausac = forms.ChoiceField(choices=(),label='Màu sắc')
-    bonho = forms.ChoiceField(choices=(),label=mark_safe('Bộ nhớ'))
+    mausac = forms.ChoiceField(choices=(),label='Màu sắc',required=False)
+    bonho = forms.ChoiceField(choices=(),label=mark_safe('Bộ nhớ'),required=False)

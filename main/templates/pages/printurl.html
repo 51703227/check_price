@@ -204,7 +204,7 @@
         <div class="row">
             {% for item in data.thuoc_tinh_urlout %}
             <div class="col-lg-2 card d-inline-flex border">
-                <img class="card-img-top" src="{{item.Url.UrlImage}}" alt="Card image" style="width:100%">
+                <img class="card-img-top" src="{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
                 <div class="card-body" style="text-align: center;">
                     <h5 class="card-title">{{item.Url.NguonBan.TenNB}}</h5>
                     <h6 class="card-text">Giá mới: {{item.GiaMoi1}}</h6>

@@ -22,26 +22,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
 
 # Create your views here.
-def index(request):
-    return render(request,'pages/base.html')
-
-def getattrib(request):
-    if request.method == "POST":
-        
-        print(request.POST)
-        #if form.is_valid():
-        attrib = request.POST.get('mausac', None) #get url from user inputư
-        
-        #a = Url.objects.get(Url=url)
-        return render(request,'pages/printurl.html',{'data':attrib})
-            # return redirect('.')
-            #return HttpResponseRedirect('/print_url',url)
-    else:
-        list_attr = [
-        ]
-        form = GetAttribForm(list_attr)
-
-    return render(request, 'pages/getattrib.html',{'form':form})  
 
 def url_input(request):
     if request.method == "POST":
@@ -105,7 +85,8 @@ def print_url(request):
         #lấy các thuộc tính của sản phẩm từ người dùng
         mausac = request.POST.get('mausac', None)
         print(mausac) 
-        bonho = request.POST.get('bonho', None) 
+        bonho = request.POST.get('bonho', None)
+        print(bonho)
         url_in = request.POST.get('url', None)
 
         data = exporturl(url_in = url_in,mausac = mausac,bonho =bonho) #truy xuất database #
