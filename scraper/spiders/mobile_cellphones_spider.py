@@ -64,6 +64,9 @@ class CellPhonesSpider(scrapy.Spider):
         option_old_price = response.css('p.old-price > span::text').get()
         option_rom = response.css('div.linked-products.f-left > div > a.active > span::text').get()
 
+        rom_active = response.css('div.linked-products.f-left > div > a.active > span::text').get()
+        color_active = response.css('ul#configurable_swatch_color > li.selected > a > label > span.opt-name::text').get()
+
         attributes = []
         _attributes = response.css('ul#configurable_swatch_color > li')
 
@@ -71,15 +74,21 @@ class CellPhonesSpider(scrapy.Spider):
             option_color = attribute.css('li > a > label > span.opt-name::text').get()
             option_new_price = attribute.css('a > label > span.opt-price::text').get()
 
+            if option_color == color_active and option_rom == rom_active:
+                active = True
+            else:
+                active = False
+
             attributes.append({
                 'bonho': option_rom,
                 'mausac': option_color,
                 'giagoc': option_old_price,
-                'giamoi': option_new_price
+                'giamoi': option_new_price,
+                'active': active
             })
         item['thuoctinh'] = attributes
 
         return item
 
 # câu lệnh chạy
-#scrapy crawl mobile_cellphones -o mobile_cellphones_data.json
+#scrapy crawl mobile_cellphones -o ***.json
