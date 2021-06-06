@@ -61,7 +61,7 @@ class Url(models.Model):
     NguonBan = models.ForeignKey(NguonBan,on_delete=models.CASCADE,null=True,blank=True)
     SanPham = models.ForeignKey(SanPham,on_delete=models.CASCADE,null=True,blank=True)
     UrlImage = models.URLField(null=True,blank=True)
-
+    
     def __str__(self):
         return self.Url
 
@@ -72,7 +72,7 @@ class ThuocTinh(models.Model):
 #    GiaGoc = models.ForeignKey(GiaGoc,on_delete=models.CASCADE,null=True,blank=True)
     Url = models.ForeignKey(Url,on_delete=models.CASCADE,null=True,blank=True)
     SanPham = models.ForeignKey(SanPham,on_delete=models.CASCADE,null=True,blank=True)
-    
+    Active = models.BooleanField(null=True,blank=True)
     GiaGoc1 = models.FloatField(null=True,blank=True,default=0)
     GiaGoc2 = models.FloatField(null=True,blank=True,default=0)
     GiaGoc3 = models.FloatField(null=True,blank=True,default=0)

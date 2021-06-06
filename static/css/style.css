@@ -114,14 +114,14 @@ body a:hover {
 /*/////////////// GLOBAL STYLES ////////////////////*/
 
 .thuoctinh{
-    border: solid 1px #626b7e;
     padding: 5px 10px;
-    border-radius: 1.5rem;
+    border-radius: .5rem;
     margin-bottom: 10px;
+    background: #708ff8;
 }
 
 .thuoctinh span{
-    color: #626b7e;
+    color: #ffffff;
 }
 
 .content-w3ls{
@@ -170,13 +170,17 @@ body {
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
 }
 
-.btn{
-    border-radius: 1.5rem !important;
-    background-color: #1ed1a8;
+button.btn{
+    color: #fff;
+    border-radius: .5rem !important;
+    background-color: #1ed1a8 !important;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%) !important;
+    transition-duration: .5s;
+    border-color: 0 !important;
 }
 
+
 .btn-primary{
-    background-color:#1ed1a8 !important;
     border: none !important;
 }
 
@@ -187,9 +191,11 @@ label{
 
 select {
     padding: 5px 10px;
-    border: solid 1px black;
+    border: solid 1px white;
     display: block;
-    border-radius: 1.5rem;
+    border-radius: .5rem;
+    background: #708ff8;
+    color: white;
 }
 
 .content-w3ls {
@@ -222,17 +228,18 @@ select {
     margin-bottom:14px;
 }
 .wthree-field input {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%) ;
     padding: 14px 30px;
     font-size: 16px;
     color: #999;
     letter-spacing: 0.5px;
-    border: 1px solid #e1e1e1;
+    border: 1px solid #f7f7f7;
     background: #fff;
     box-sizing: border-box;
     font-family: 'Noto Sans JP', sans-serif;
     width: 100%;
-    border-radius: 35px;
-    -webkit-border-radius: 35px;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
     -moz-border-radius: 35px;
     -ms-border-radius: 35px;
     -o-border-radius: 35px;
@@ -360,3 +367,10 @@ select {
 }
 
 /* -- //Responsive code -- */
+
+.container-fluid{
+    width: 80%;
+}
+
+
+

@@ -11,13 +11,16 @@
             "bonho": "Note 20 Ultra 5G", 
             "mausac": "Vàng Đồng ", 
             "giagoc": "32.990.000 ₫", 
-            "giamoi": "19.990.000 ₫"
+            "giamoi": "19.990.000 ₫",
+            "active":"True"
         }, 
         {
             "bonho": "Note 20 Ultra 5G", 
             "mausac": "Đen ", 
             "giagoc": "32.990.000 ₫", 
-            "giamoi": "19.990.000 ₫"}
+            "giamoi": "19.990.000 ₫",
+            "active":"Fasle"
+        }
     ]
 }
 ]

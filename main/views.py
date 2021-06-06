@@ -41,6 +41,7 @@ def url_input(request):
             print(domain)
             #truy xuất thuộc tính url
             url_input = Url.objects.get(Url=url) #truy xuất URL = url đã nhập
+            thuoc_tinh_active = ThuocTinh.objects.get(Url = url_input,Active = "True")
             list_thuoc_tinh_url = ThuocTinh.objects.filter( Url = url_input)
 
             #tạo form nhập thuộc tính
@@ -57,8 +58,10 @@ def url_input(request):
 
             data= {
                 'url_in': url_input,
+                'thuoc_tinh_active':thuoc_tinh_active,
                 'form': form
             }
+            print(data)
             #a = Url.objects.get(Url=url)
             return render(request,'pages/getattrib.html',{'data':data})
             #return redirect(getattrib)
@@ -213,6 +216,7 @@ def import_data(request):   #Nạp data.json và database
                 thuoctinh.Ngay1 = datetime.strptime(item['ngay'],'%d/%m/%Y').strftime('%Y-%m-%d')
                 thuoctinh.Url = Url.objects.get(Url = item['url'])
                 thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
+                thuoctinh.Active = i['active']
 
                 thuoctinh.save()
 
