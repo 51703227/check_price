@@ -6,7 +6,10 @@ basedir = os.path.dirname(os.path.realpath('__file__'))
 
 # Xử lý tên sản phẩm
 # Danh sách các từ cần loại bỏ
-black_list = ['Chính', 'hãng', 'I', 'VN/A', 'chính']
+black_list = ['Chính', 'hãng', 'I', 'VN/A', 'chính','128GB','64GB','256GB','(','Fan', 'Edition',')',
+              '4GB','8GB','3GB','-','32GB','6GB','Ram','2GB','5GB','(2021)','(6GB','128GB)',
+              '(Đã', 'kích', 'hoạt','hành)','(Phiên', 'bản','mùa','hè)','Điện','thoại','2018','Trắng','thiên','vân',
+              'xuân)','Mi','Festival)','(Fan','Edition)']
 
 # Hàm xử lý tên sản phẩm
 def name_processing(name):
@@ -41,7 +44,7 @@ class CellPhonesSpider(scrapy.Spider):
                 'ten': title,
                 'url': item_link,
                 'image': product.css('li.cate-pro-short > div.lt-product-group-image > a > img::attr(data-src)').get(),
-                'ngay': date.today().strftime("%d/%m/%Y"),
+                'ngay': date.today().strftime("%Y/%m/%d"),
                 'loaisanpham': 'dienthoai',
                 'thuonghieu': thuong_hieu
             }
