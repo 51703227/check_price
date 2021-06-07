@@ -1,114 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
+    <title>Result</title>
     <style>
-        body {
-            background: linear-gradient(to right, #c04848, #480048);
-            min-height: 100vh
-        }
 
-        .text-gray {
-            color: #aaa
-        }
-
-        img {
-            max-width: 250px;   
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
-
-        .carousel-item {
-            width: 100%
-        }
-
-        .price span {
-            font-size: 18px
-        }
-
-        .cut {
-            text-decoration: line-through;
-            color: red
-        }
-
-        .icons i {
-            font-size: 17px;
-            color: green;
-            margin-right: 2px
-        }
-
-        .offers i {
-            color: green
-        }
-
-        .delivery i {
-            color: blue
-        }
-
-        label.radio {
-            cursor: pointer
-        }
-
-        label.radio input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            visibility: hidden;
-            pointer-events: none
-        }
-
-        label.radio span {
-            padding: 2px 11px;
-            margin-right: 3px;
-            border: 1px solid #8f37aa;
-            display: inline-block;
-            color: #8f37aa;
-            border-radius: 3px;
-            text-transform: uppercase
-        }
-
-        label.radio input:checked+span {
-            border-color: #8f37aa;
-            background-color: #8f37aa;
-            color: #fff
-        }
-
-        .url-input{
-            padding: 30px;
-        }
-
-        .urlin{
-            margin-bottom: 20px;
-            background-color: white;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
-    <div class="container py-5">
-        <div class="row text-center text-white mb-5">
-            <div class="col-lg-7 mx-auto">
-                <h1 class="display-4">{{data.thuoc_tinh_urlin.SanPham.TenSP}}</h1>
+    <header>
+    <div class="container-fluid">
+        <nav class="row navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="#">Check Price</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Trang chủ <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+              </form>
             </div>
-        </div>
+        </nav>
+    </div>
+    </header>
 
-        <div class="container">
-            <div class="col-md-3 card">
-                <img class="card-img-top" src="https://ngoaithatdainam.com/wp-content/uploads/2021/03/du-tron-nang-luong-mau-kaki.jpg" alt="Card image" style="width:100%">
-                <div class="card-body" style="text-align: center;">
-                    <h5 class="card-title">Ngoai That Dai Nam</h5>
-                    <h6 class="card-text">Giá mới: 39000000</h6>
-                    <h6 class="card-text">Giá cu: 39000000</h6>
-                    <a href="#" class="btn btn-primary">Xem San Pham</a>
-                </div>
+
+    
+    <main>    
+    <div class="container-fluid">
+        <div class="row title" style="justify-content: center;">
+            <div class="text-center">
+                <h1>{% block title %}{% endblock title %}</h1>
             </div>
         </div>
+    </div>
+        {% block main %}
+        
+        {% endblock main %}
+    </main>
 </body>
 </html>

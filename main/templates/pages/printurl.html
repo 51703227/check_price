@@ -1,114 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
-    <title>Result</title>
-    <style>
-        body {
-            background-color: #edeef0;
-            min-height: 100vh
-        }
-
-        .text-gray {
-            color: #aaa
-        }
-
-        img {
-            max-width: 250px;   
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
-
-        .carousel-item {
-            width: 100%
-        }
-
-        .price span {
-            font-size: 18px
-        }
-
-        .cut {
-            text-decoration: line-through;
-            color: #fe5a56;
-        }
-
-        .icons i {
-            font-size: 17px;
-            color: #1ed1a8;
-            margin-right: 2px
-        }
-
-        .offers i {
-            color: #1ed1a8
-        }
-
-        .delivery i {
-            color: blue
-        }
-
-        label.radio {
-            cursor: pointer
-        }
-
-        label.radio input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            visibility: hidden;
-            pointer-events: none
-        }
-
-        label.radio span {
-            padding: 2px 11px;
-            margin-right: 3px;
-            border: 1px solid #28a745;
-            display: inline-block;
-            color: #28a745;
-            border-radius: 3px;
-            text-transform: uppercase
-        }
-
-        label.radio input:checked+span {
-            border-color: #28a745;
-            background-color: #28a745;
-            color: #fff
-        }
-
-        .url-input{
-            padding: 30px;
-        }
-
-        .bg-white{
-            background-color: white;
-        }
-
-        .card{
-            margin-right: 15px;
-            margin-top: 15px;
-        }
-
-        .chart{
-            padding: 30px 10px 0 0;
-        }
-    </style>
-</head>
-<body>
+{% extends "pages/base.html" %}
+{% block title %}
+Kết quả
+{% endblock title %}
+{% block main %}
     <div class="container-fluid" style="margin-top: 3rem">
-        <div class="row text-center mb-5">
-            <div class="col-lg-7 mx-auto">
-                <h1 class="display-4">KẾT QUẢ</h1>
-            </div>
-        </div>
-
         <div class="row bg-white border">
             <div class="col-lg-4">
                 <div class="url-input">
@@ -124,20 +19,26 @@
                         <div class="icons mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div><span>1200 ratings &amp; 564 reviews</span>
                     </div>
                     -->
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%;background-color: #1ed1a8;">40%</div>
+                    </div>
                     <div class="d-flex align-items-center mt-4 offers mb-1"><span class="ml-1 font-weight-bold">Phần trăm giảm</span><span class="ml-1">{{data.analytics.saleoff}}%<br></span></div>
                     <div class="d-flex align-items-center offers mb-1"><span class="ml-1 font-weight-bold">Giá gốc trung bình</span><span class="ml-1">{{data.analytics.giagoctrungbinh}}<br></span></div>
                     <div class="d-flex align-items-center offers mb-1"><span class="ml-1 font-weight-bold">Giá khuyến mãi trung bình</span><span class="ml-1">{{data.analytics.giakhuyenmaitrungbinh}}<br></span></div>
                     <div class="d-flex align-items-center offers"><span class="ml-1 font-weight-bold">Độ trung thực</span><span class="ml-1">{{data.analytics.dotrungthuc}} %<br></span></div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-6">
-                            <label for="">Màu sắc</label>
-                            <div class="d-flex align-items-center mt-2"> 
-                                <div class="thuoctinh">
-                                    <span>{{data.thuoc_tinh_urlin.MauSac}}</span> 
+                        {% if data.thuoc_tinh_urlin.MauSac %}
+                            <div class="col-md-6">
+                                <label for="">Màu sắc</label>
+                                <div class="d-flex align-items-center mt-2"> 
+                                    <div class="thuoctinh">
+                                        <span>{{data.thuoc_tinh_urlin.MauSac}}</span> 
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>                        
+                        {% endif %}
+                        {% if data.thuoc_tinh_urlin.BoNho %}
                         <div class="col-md-6">
                             <label for="">Bộ nhớ</label>
                             <div class="d-flex align-items-center mt-2"> 
@@ -146,7 +47,7 @@
                                 </div>
                             </div>
                         </div> 
-                        
+                        {% endif %}
 
                     </div>
                     <hr>
@@ -213,12 +114,17 @@
                     <h5 class="card-title">{{item.Url.NguonBan.TenNB}}</h5>
                     <h6 class="card-text">Giá mới: {{item.GiaMoi1}}</h6>
                     <h6 class="card-text">Giá gốc: <span class="cut">{{item.GiaGoc1}}</span> </h6>
-                    <a href="{{item.Url.Url}}" class="btn btn-primary">Đến nơi bán</a>
+                        <a href="{{item.Url.Url}}" ><button class="btn btn-primary">Đến nơi bán</button></a>
                 </div>
             </div>
             {% endfor %}
         </div>
 
+        <div class="row">
+            <div class="col-lg-12 box">
+
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock main %}
+

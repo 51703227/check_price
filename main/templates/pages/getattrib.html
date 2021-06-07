@@ -1,114 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    <title>Document</title>
-    <style>
-        body {
-            background-color: #edeef0;
-            min-height: 100vh
-        }
-
-        .text-gray {
-            color: #aaa
-        }
-
-        img {
-            max-width: 250px;   
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
-
-        .carousel-item {
-            width: 100%
-        }
-
-        .price span {
-            font-size: 18px
-        }
-
-        .cut {
-            text-decoration: line-through;
-            color: #fe5a56;
-        }
-
-        .icons i {
-            font-size: 17px;
-            color: green;
-            margin-right: 2px
-        }
-
-        .offers i {
-            color: green
-        }
-
-        .delivery i {
-            color: blue
-        }
-
-        label.radio {
-            cursor: pointer
-        }
-
-        label.radio input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            visibility: hidden;
-            pointer-events: none
-        }
-
-        label.radio span {
-            padding: 2px 11px;
-            margin-right: 3px;
-            border: 1px solid #8f37aa;
-            display: inline-block;
-            color: #8f37aa;
-            border-radius: 3px;
-            text-transform: uppercase
-        }
-
-        label.radio input:checked+span {
-            border-color: #8f37aa;
-            background-color: #8f37aa;
-            color: #fff
-        }
-
-        .url-input{
-            padding: 30px;
-        }
-
-        .urlin{
-            margin-bottom: 20px;
-            background-color: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
-        }
-
-        button.btn{
-            border-radius: .5rem !important;
-            background-color: rgba(254,90,86,var(--bg-opacity));
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%) !important;
-            transition-duration: .5s;
-        }
-    </style>
-</head>
-<body>
+{% extends "pages/base.html" %}
+{% block title %}
+Chọn thuộc tính
+{% endblock title %}
+{% block main %}
     <div class="container py-5">
-        <div class="row text-center mb-5">
-            <div class="col-lg-7 mx-auto">
-                <h2 class="display-4">CHỌN THUỘC TÍNH</h2>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-lg-12 mx-auto">
                 <div class="urlin">
@@ -183,5 +78,6 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock main %}
+
+

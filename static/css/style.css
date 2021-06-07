@@ -84,7 +84,7 @@ ol {
 }
 
 body {
-    background: #f1f1f1;
+    background: #edeef0 !important;
     margin: 0;
     padding: 0;
 }
@@ -112,7 +112,10 @@ body a:hover {
 */
 
 /*/////////////// GLOBAL STYLES ////////////////////*/
-
+body header{
+    padding: 10px 0;
+    background: #22292f !important;
+}
 .thuoctinh{
     padding: 5px 10px;
     border-radius: .5rem;
@@ -196,6 +199,7 @@ select {
     border-radius: .5rem;
     background: #708ff8;
     color: white;
+    text-align-last:center;
 }
 
 .content-w3ls {
@@ -369,8 +373,190 @@ select {
 /* -- //Responsive code -- */
 
 .container-fluid{
-    width: 80%;
+    width: 80% !important;
 }
 
+.text-gray {
+    color: #aaa
+}
 
+img {
+    max-width: 250px;   
+}
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+
+.carousel-item {
+    width: 100%
+}
+
+.price span {
+    font-size: 18px
+}
+
+.cut {
+    text-decoration: line-through;
+    color: #fe5a56;
+}
+
+.icons i {
+    font-size: 17px;
+    color: #1ed1a8;
+    margin-right: 2px
+}
+
+.offers i {
+    color: #1ed1a8
+}
+
+.delivery i {
+    color: blue
+}
+
+label.radio {
+    cursor: pointer
+}
+
+label.radio input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+
+label.radio span {
+    padding: 2px 11px;
+    margin-right: 3px;
+    border: 1px solid #28a745;
+    display: inline-block;
+    color: #28a745;
+    border-radius: 3px;
+    text-transform: uppercase
+}
+
+label.radio input:checked+span {
+    border-color: #28a745;
+    background-color: #28a745;
+    color: #fff
+}
+
+.url-input{
+    padding: 30px;
+}
+
+.bg-white{
+    background-color: white;
+}
+
+.card{
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+.chart{
+    padding: 30px 10px 0 0;
+}
+
+.text-gray {
+    color: #aaa
+}
+
+img {
+    max-width: 250px;   
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+
+.carousel-item {
+    width: 100%
+}
+
+.price span {
+    font-size: 18px
+}
+
+.cut {
+    text-decoration: line-through;
+    color: #fe5a56;
+}
+
+.icons i {
+    font-size: 17px;
+    color: green;
+    margin-right: 2px
+}
+
+.offers i {
+    color: green
+}
+
+.delivery i {
+    color: blue
+}
+
+label.radio {
+    cursor: pointer
+}
+
+label.radio input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+
+label.radio span {
+    padding: 2px 11px;
+    margin-right: 3px;
+    border: 1px solid #8f37aa;
+    display: inline-block;
+    color: #8f37aa;
+    border-radius: 3px;
+    text-transform: uppercase
+}
+
+label.radio input:checked+span {
+    border-color: #8f37aa;
+    background-color: #8f37aa;
+    color: #fff
+}
+
+.url-input{
+    padding: 30px;
+}
+
+.urlin{
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+}
+
+button.btn{
+    border-radius: .5rem !important;
+    background-color: rgba(254,90,86,var(--bg-opacity));
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%) !important;
+    transition-duration: .5s;
+}
+
+.title {
+    background: #fff;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+    border-bottom-right-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+    padding: 30px 0;
+    margin-bottom: 10px;
+}
+
+.progress.active .progress-bar {
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+
+.box{
+    border-radius: 1.5rem;
+    background: white;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+}

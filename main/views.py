@@ -41,7 +41,10 @@ def url_input(request):
             print(domain)
             #truy xuất thuộc tính url
             url_input = Url.objects.get(Url=url) #truy xuất URL = url đã nhập
-            thuoc_tinh_active = ThuocTinh.objects.get(Url = url_input,Active = "True")
+            try:
+                thuoc_tinh_active = ThuocTinh.objects.get(Url = url_input,Active = "True")
+            except ThuocTinh.DoesNotExist:
+                thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input)[0]
             list_thuoc_tinh_url = ThuocTinh.objects.filter( Url = url_input)
 
             #tạo form nhập thuộc tính
@@ -61,7 +64,7 @@ def url_input(request):
                 'thuoc_tinh_active':thuoc_tinh_active,
                 'form': form
             }
-            print(data)
+            
             #a = Url.objects.get(Url=url)
             return render(request,'pages/getattrib.html',{'data':data})
             #return redirect(getattrib)
@@ -106,13 +109,22 @@ def print_url(request):
 
 
 def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa vào thông tin đầu vào
+    
     try:
         url = Url.objects.get(Url=url_in)
         try:
+            
             thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac,BoNho=bonho)
         except ThuocTinh.DoesNotExist:
-            print("ko có thuộc tính")
-            thuoc_tinh_urlin = None
+            print("-------",mausac, bonho)
+            if mausac == 'None' and bonho == 'None':
+                thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,Active="True")
+            elif mausac=='None':
+                thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,BoNho=bonho)
+            elif bonho == 'None':
+                thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac)
+            else:
+                thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url)
         sanpham = SanPham.objects.get(TenSP__exact = url.SanPham.TenSP) #select Sản phẩm của url
     except Url.DoesNotExist:
         url = None
@@ -142,7 +154,7 @@ def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa 
 
 def import_data(request):   #Nạp data.json và database
 
-    f = open('mobile_cellphones_data.json','r',encoding='utf-8')
+    f = open('data/update111_mobile_cellphones_data.json','r',encoding='utf-8')
     data = json.loads(f.read())
 
     for item in data:
@@ -184,7 +196,7 @@ def import_data(request):   #Nạp data.json và database
                 obj.Ngay4 = obj.Ngay3
                 obj.Ngay3 = obj.Ngay2
                 obj.Ngay2 = obj.Ngay1
-                obj.Ngay1 = datetime.strptime(item['ngay'],'%d/%m/%Y').strftime('%Y-%m-%d')
+                obj.Ngay1 = datetime.strptime(item['ngay'],'%Y/%m/%d').strftime('%Y-%m-%d')
                 
                 def rp(gia):
                     if gia==None:
@@ -213,7 +225,7 @@ def import_data(request):   #Nạp data.json và database
                 thuoctinh.BoNho = i['bonho']
                 thuoctinh.GiaGoc1 = 0 if i['giagoc']==None else i['giagoc'].replace('.','').replace('₫','')
                 thuoctinh.GiaMoi1 = 0 if i['giamoi']==None else i['giamoi'].replace('.','').replace('₫','')
-                thuoctinh.Ngay1 = datetime.strptime(item['ngay'],'%d/%m/%Y').strftime('%Y-%m-%d')
+                thuoctinh.Ngay1 = datetime.strptime(item['ngay'],'%Y/%m/%d').strftime('%Y-%m-%d')
                 thuoctinh.Url = Url.objects.get(Url = item['url'])
                 thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
                 thuoctinh.Active = i['active']
