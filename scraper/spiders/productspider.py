@@ -435,6 +435,115 @@ class didongthongminhSpider(scrapy.Spider):
 
         return item
 
+class phucanhSpider(scrapy.Spider):
+    name = 'phucanh'
+    start_urls = ['https://www.phucanh.vn/dien-thoai-thong-minh.html']
+
+    def parse(self,response):
+        
+        def get_attr_from_name(name):
+            attr_bonho = 'None'
+            attr_mausac = 'None'
+            list_attr_bonho = ['512GB','256GB','128GB','64GB','8GB','16GB','32GB','4GB']
+            list_attr_mausac = ['Dương','Lá','Đỏ' ,'Đen' ,'Lục' ,'Cực' ,'Quang', 'tinh' ,'thạch', 'Ngọc', 'Trai','Bạc' ,'Hà','Lam', 'Thủy', 'Triều','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','lá','ngọc','lam','Sapphire']
+            for i in list_attr_bonho:
+                if i in name:
+                    attr_bonho = i
+            for i in list_attr_mausac:
+                if i in name:
+                    attr_mausac = i
+            return {'bonho':attr_bonho,'mausac':attr_mausac}
+        
+        def name_processing(name):
+            black_list = ['Chính', 'hãng', 'I', 'VN/A', 'chính','128GB','64GB','256GB','(','Fan', 'Edition',')',
+                    '4GB','8GB','3GB','-','32GB','6GB','Ram','2GB','5GB','(2021)','(6GB','128GB)',
+                    '(Đã', 'kích', 'hoạt','hành)','(Phiên', 'bản','mùa','hè)','Điện','thoại','2018','Trắng','thiên','vân',
+                    'xuân)','Mi','Festival)','(Fan','Edition),'
+                    'độc',' đáo',
+                    '6GB/128GB','Tím','Xám','Đen']
+            bl_list = ['(' , ')' , '-' ,'/',
+            '512GB','256GB','128GB','64GB','8GB','16GB','32GB','4GB',
+            'Dương','Lá','Đỏ' ,'Đen' ,'Lục' ,'Cực' ,'Quang', 'tinh' ,'thạch', 'Ngọc', 'Trai','Bạc' ,'Hà','Lam', 'Thủy', 'Triều','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','lá','ngọc','lam','Sapphire',
+            'độc','đáo','hạt','tiêu','(KHÔNG KÈM THẺ NHỚ)','Thoại','(2019)',
+            'hải' ,'quân' ,'san' ,'hô' ,'trai','dương','cẩm','KHÔNG KÈM THẺ NHỚ','San','Hô','Nhật','Thực','Sương','Mai','Đam','Mê','lục','bảo','Bảo','sương','hồng','Bích','tú','thủy','Hải','Âu','Hồng','pha','lê','quang','cực','Cam','hà','Phong','Vân'
+            ]
+
+            if name == None:
+                return ''
+            for character in bl_list:
+                name = name.replace(character,'')
+            
+            unprocess_name = name.split()
+            processed_name = []
+            for i in unprocess_name:
+                if i not in black_list:
+                    processed_name.append(i)
+            return ' '.join(processed_name)
+
+        for product in response.css('#content-left .category-pro-list ul.product-list li'):
+            item_link = 'https://www.phucanh.vn/' + product.css('a::attr(href)').get()
+            ten = product.css('h3::text').get()
+            attr = get_attr_from_name(ten)
+            ten = name_processing(ten)
+
+            if item_link == None:
+                continue
+            item = {
+                'ten': ten ,
+                'url': item_link,
+                'image': product.css('img::attr(data-original)').get(),
+                'ngay': date.today().strftime("%Y-%m-%d"),
+                'loaisanpham':'dienthoai',
+                'thuonghieu':'iphone',
+            }
+            yield scrapy.Request(url=item_link, meta={'item': item,'attr':attr}, callback=self.get_detail)
+
+        #next_page = response.css('ul.global_pagination li.next-item a::attr(href)').get()
+        #if next_page is not None:
+        #    yield response.follow(next_page,callback=self.parse)
+    
+
+
+    def get_detail(self, response):
+        
+        def check_bonho(attr):
+            if 'GB' in attr:
+                return True
+            else:
+                return False
+
+        item = response.meta['item']
+        attr = response.meta['attr']
+
+        option_old_price = response.css('#product-info-price span.detail-product-old-price::text').get()
+        option_new_price = response.css('.product_info_price .product_info_price_value-final span::text').get()
+
+        color_active = response.css('div#overview .config-attribute span.item.current::attr(data-name)').get()
+        bonho_active = response.css('.config-attribute span.item.current::attr(data-name)').get()
+
+        list_attr = response.css('div#overview .config-attribute span.item::attr(data-name)')
+
+        attributes = []
+        
+        for a in list_attr:
+            if check_bonho(a.get()):
+                bonho_active = a.get()
+            else:
+                color_active = a.get()
+
+
+        attributes.append({
+            'bonho': bonho_active if not attr['bonho'] else attr['bonho'],
+            'mausac': color_active if not attr['mausac'] else attr['mausac'],
+            'giagoc': option_old_price,
+            'giamoi': option_new_price,
+            'active': 'True'
+        })
+        item['thuoctinh'] = attributes
+
+        return item
+
+
 class shop24hstoreSpider(scrapy.Spider):
     name = '24hstore'
     start_urls = ['https://24hstore.vn/dien-thoai']
