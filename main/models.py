@@ -49,7 +49,7 @@ class NguonBan(models.Model):
 
 
 class SanPham(models.Model):
-    TenSP = models.CharField(max_length=100,null=True,blank=True,unique=True)
+    TenSP = models.CharField(max_length=100,null=True,blank=True)
     LoaiSanPham = models.ForeignKey(LoaiSanPham,on_delete=models.CASCADE,null=True,blank=True)
     ThuongHieu = models.ForeignKey(ThuongHieu,on_delete=models.CASCADE,null=True,blank=True)
     
@@ -72,6 +72,7 @@ class ThuocTinh(models.Model):
 #    GiaGoc = models.ForeignKey(GiaGoc,on_delete=models.CASCADE,null=True,blank=True)
     Url = models.ForeignKey(Url,on_delete=models.CASCADE,null=True,blank=True)
     SanPham = models.ForeignKey(SanPham,on_delete=models.CASCADE,null=True,blank=True)
+    NguonBan = models.ForeignKey(NguonBan,on_delete=models.CASCADE,null=True,blank=True)
     Active = models.BooleanField(null=True,blank=True)
     GiaGoc1 = models.FloatField(null=True,blank=True,default=0)
     GiaGoc2 = models.FloatField(null=True,blank=True,default=0)

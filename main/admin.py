@@ -12,7 +12,9 @@ class SanPhamAdmin(admin.ModelAdmin):
     search_fields = ['TenSP']
 
 class UrlAdmin(admin.ModelAdmin):
-    list_display = ['Url']
+    list_display = ['Url','SanPham']
+    search_fields = ['Url']
+    list_filter = ['NguonBan']
 
 class ThuongHieuAdmin(admin.ModelAdmin):
     list_display = ['TenTH']
@@ -23,7 +25,11 @@ class NguonBanAdmin(admin.ModelAdmin):
     list_display = ['TenNB']
     list_filter = ['TenNB']
     search_fields = ['TenNB']
-    
+
+class ThuocTinhAdmin(admin.ModelAdmin):
+    list_display = ['SanPham','MauSac','BoNho']
+    search_fields = ['MauSac']
+    list_filter = ['SanPham']
 # Register your models here.
 admin.site.register(LoaiSanPham,LoaiSanPhamAdmin)
 admin.site.register(SanPham,SanPhamAdmin)
@@ -32,4 +38,4 @@ admin.site.register(ThuongHieu,ThuongHieuAdmin)
 admin.site.register(NguonBan,NguonBanAdmin)
 #admin.site.register(GiaGoc)
 #admin.site.register(GiaMoi)
-admin.site.register(ThuocTinh)
+admin.site.register(ThuocTinh,ThuocTinhAdmin)

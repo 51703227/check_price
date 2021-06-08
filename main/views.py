@@ -21,6 +21,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from datetime import datetime
 
+from django.db import IntegrityError
+
 # Create your views here.
 
 def url_input(request):
@@ -45,7 +47,7 @@ def url_input(request):
                 thuoc_tinh_active = ThuocTinh.objects.get(Url = url_input,Active = "True")
             except ThuocTinh.DoesNotExist:
                 thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input)[0]
-            list_thuoc_tinh_url = ThuocTinh.objects.filter( Url = url_input)
+            list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = url_input.SanPham,NguonBan = url_input.NguonBan)
 
             #tạo form nhập thuộc tính
             mausac =[]
@@ -112,11 +114,10 @@ def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa 
     
     try:
         url = Url.objects.get(Url=url_in)
-        try:
-            
+        
+        try: 
             thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac,BoNho=bonho)
         except ThuocTinh.DoesNotExist:
-            print("-------",mausac, bonho)
             if mausac == 'None' and bonho == 'None':
                 thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,Active="True")
             elif mausac=='None':
@@ -124,7 +125,7 @@ def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa 
             elif bonho == 'None':
                 thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac)
             else:
-                thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url)
+                thuoc_tinh_urlin = ThuocTinh.objects.get(MauSac=mausac,BoNho=bonho,SanPham = url.SanPham, NguonBan = url.NguonBan)
         sanpham = SanPham.objects.get(TenSP__exact = url.SanPham.TenSP) #select Sản phẩm của url
     except Url.DoesNotExist:
         url = None
@@ -135,7 +136,16 @@ def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa 
         giakhuyenmaitrungbinh = (thuoc_tinh_urlin.GiaMoi1 +thuoc_tinh_urlin.GiaMoi2 +thuoc_tinh_urlin.GiaMoi3 +thuoc_tinh_urlin.GiaMoi4 +thuoc_tinh_urlin.GiaMoi5 )/5
         dotrungthuc = 80
 
-        list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
+        if mausac == 'None' and bonho == 'None':
+            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham) #list thuộc tính các sản phẩm giống input
+        elif mausac=='None':
+            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
+        elif bonho == 'None':
+            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham).filter(MauSac = mausac) #list thuộc tính các sản phẩm giống input
+        else:
+            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
+            print("-=--",list_thuoc_tinh_url)
+
         #lưu dữ liệu truy xuất và data
         data = {
             #'product': product, #obj
@@ -154,35 +164,45 @@ def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa 
 
 def import_data(request):   #Nạp data.json và database
 
-    f = open('data/update111_mobile_cellphones_data.json','r',encoding='utf-8')
+    f = open('data/nguyenkim_0806.json','r',encoding='utf-8')
     data = json.loads(f.read())
 
     for item in data:
+        
         try:
-            SanPham.objects.update_or_create(
-                TenSP = item['ten'],
-                LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
-                ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
-            )
-        except ThuongHieu.DoesNotExist:
-            SanPham.objects.update_or_create(
-                TenSP = item['ten'],
-                LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
-                ThuongHieu = ThuongHieu.objects.create(TenTH=item['thuonghieu'])
-            )
+            obj = SanPham.objects.get(TenSP = item['ten'])
+        except SanPham.DoesNotExist:
+            try:
+                obj = SanPham(
+                    TenSP = item['ten'],
+                    LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
+                    ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
+                )
+                obj.save()
+            except ThuongHieu.DoesNotExist:
+                obj = SanPham(
+                    TenSP = item['ten'],
+                    LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
+                    ThuongHieu = ''
+                )
+                obj.save()
+        except IntegrityError:
+            continue 
+        
         try:
-            Url.objects.update_or_create(
+            obj = Url.objects.get(Url = item['url'])
+            setattr(obj,'SanPham',SanPham.objects.get(TenSP=item['ten']))
+            setattr(obj,'NguonBan',NguonBan.objects.get(Domain = urlparse(item['url']).netloc))
+            setattr(obj,'UrlImage',item['image'])
+            obj.save()
+        except Url.DoesNotExist:
+            obj = Url(
                 Url = item['url'],
                 SanPham = SanPham.objects.get(TenSP=item['ten']) ,
                 NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
                 UrlImage = item['image']
             )
-        except NguonBan.DoesNotExist:
-            Url.objects.update_or_create(
-                Url = item['url'],
-                SanPham = SanPham.objects.get(TenSP=item['ten']) ,
-                UrlImage = item['image']
-            )            
+            obj.save()         
         
         for i in item['thuoctinh']:
             
@@ -192,11 +212,12 @@ def import_data(request):   #Nạp data.json và database
                     MauSac=i['mausac'],
                     BoNho=i['bonho']
                 )
+                setattr(obj,'NguonBan',NguonBan.objects.get(Domain = urlparse(item['url']).netloc))
                 obj.Ngay5 = obj.Ngay4
                 obj.Ngay4 = obj.Ngay3
                 obj.Ngay3 = obj.Ngay2
                 obj.Ngay2 = obj.Ngay1
-                obj.Ngay1 = datetime.strptime(item['ngay'],'%Y/%m/%d').strftime('%Y-%m-%d')
+                obj.Ngay1 = item['ngay']
                 
                 def rp(gia):
                     if gia==None:
@@ -225,14 +246,15 @@ def import_data(request):   #Nạp data.json và database
                 thuoctinh.BoNho = i['bonho']
                 thuoctinh.GiaGoc1 = 0 if i['giagoc']==None else i['giagoc'].replace('.','').replace('₫','')
                 thuoctinh.GiaMoi1 = 0 if i['giamoi']==None else i['giamoi'].replace('.','').replace('₫','')
-                thuoctinh.Ngay1 = datetime.strptime(item['ngay'],'%Y/%m/%d').strftime('%Y-%m-%d')
+                thuoctinh.Ngay1 = item['ngay']
                 thuoctinh.Url = Url.objects.get(Url = item['url'])
                 thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
                 thuoctinh.Active = i['active']
+                thuoctinh.NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc)
 
                 thuoctinh.save()
 
-    return HttpResponse("Complete Import Data")
+    return HttpResponse("Complete Import Data <br> <a href='/'>Quay lại</a>")
         
         
         
