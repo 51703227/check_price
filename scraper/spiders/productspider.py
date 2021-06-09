@@ -1,3 +1,4 @@
+from typing import Counter
 from django.db.models.fields import NullBooleanField
 import scrapy
 from datetime import date
@@ -95,9 +96,10 @@ def name_processing(name):
             '6GB/128GB','Tím','Xám','Đen']
     bl_list = ['(' , ')' , '-' ,'/','[',']',
     'huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao',
+    '+512GB','+256GB','+128GB','+64GB','+8GB','+16GB','+32GB','+4GB','+512Gb','+256Gb','+128Gb','+64Gb','+8Gb','+16Gb','+32Gb','+4Gb','+512G','+256G','+128G','+64G','+16G','+32G',
     '512GB','256GB','128GB','64GB','8GB','16GB','32GB','4GB','512Gb','256Gb','128Gb','64Gb','8Gb','16Gb','32Gb','4Gb','512G','256G','128G','64G','16G','32G',
     'Xanh lá','Vàng đồng','nước biển','Vàng đồng','lá','lục','Đồng','Khói','bích','huyền bí','nhật thực','Biển','mận','Dương','Lá','Đỏ' ,'Đen' ,'Lục' ,'Cực' ,'Quang', 'tinh' ,'thạch', 'Ngọc', 'Trai','Bạc' ,'Hà','Lam', 'Thủy', 'Triều','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','lá','ngọc','lam','Sapphire',
-    'Mint','Yellow','Champagne','Grey','Black','Gold','Graphite','Silver','Blue','Tím','Green','Sliver','Trắng','Xám','Pacific','Blue','White','Gray','Violet','Purple','Red','Browns',
+    'Deep Gray','Mint','Yellow','Champagne','Grey','Black','Gold','Graphite','Silver','Blue','Tím','Green','Sliver','Trắng','Xám','Pacific','Blue','White','Gray','Violet','Purple','Red','Browns',
     'độc','đáo','hạt','tiêu','(KHÔNG KÈM THẺ NHỚ)','Thoại','2019','2020',
     '6.67Inch','6.5Inch','6.9Inch','2 sim','6.1Inch','2 Sim','VNA','hải' ,'quân' ,'san' ,'hô' ,'trai','dương','cẩm','KHÔNG KÈM THẺ NHỚ','San','Hô','Nhật','Thực','Sương','Mai','Đam','Mê','lục','bảo','Bảo','sương','hồng','Bích','tú','thủy','Hải','Âu','Hồng','pha','lê','quang','cực','Cam','hà','Phong','Vân',
     '1 sim','1 Sim','Mỹ','New','BH12T','Certified','PreOwned','Special','Product', 'ram','cty','RAM','Edge', 'Batman', 'Injustice','Cty',
@@ -119,7 +121,7 @@ def name_processing(name):
     return ' '.join(processed_name).title()
 
 def format_price(price):
-    _list = ['đ','.','VNĐ','VND']
+    _list = ['đ','₫','.',',','VNĐ','VND','\r','\n','\t',' ']
     if not price:
         return None
     else:
@@ -156,7 +158,8 @@ def format_mausac(mausac):
         'Pacificblue':'Xanh Dương',
         'Pink':'Hồng',
         'Violet':'Tím',
-        'Xanh lục':'Xanh Lá'
+        'Xanh lục':'Xanh Lá',
+        'Xanh da trời':'Xanh Dương'
     }
     if not _dict.get(mausac):
         return mausac.title()
@@ -609,11 +612,9 @@ class mediamartSpider(scrapy.Spider):
 
     def parse(self,response):
         
-
-
         for product in response.css('.pl18-item-ul li'):   #####
-            item_link = 'https://mediamart.vn/'+ product.css('.pl18-item-image a::attr(href)').get()       #####
-            if item_link == 'https://mediamart.vn//smartphones/apple/apple-iphone-11-64g-yellow.htm':
+            item_link = 'https://mediamart.vn'+ product.css('.pl18-item-image a::attr(href)').get()       #####
+            if item_link == 'https://mediamart.vn/smartphones/itel/dien-thoai-itel-a13-deep-gray.htm':
                 
                 ten = product.css('.pl18-item-name a::attr(title)').get()      #####
                 attr = get_attr_from_name(ten)
@@ -642,8 +643,6 @@ class mediamartSpider(scrapy.Spider):
         #next_page = 'https://mediamart.vn/smartphones/?&trang='
         #if next_page is not None:
         #    yield response.follow(next_page,callback=self.parse)
-    
-
 
     def get_detail(self, response):
         
@@ -654,8 +653,8 @@ class mediamartSpider(scrapy.Spider):
             mausac = 'None'
             bonho = 'None'
             list_mausac = [
-                'Xanh lá','Xanh dương','Xám','Đỏ' ,'Đen' ,'Lục' ,'Lam','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','ngọc','lam','Sapphire',
-                'Yellow','Black','Gold','Graphite','Silver','Blue','Tím','Green','Sliver','Trắng','Xám','Pacific','Blue','White','Gray','Violet',
+                'Xám đậm','Xanh lá','Xanh dương','Xám','Đỏ' ,'Đen' ,'Lục' ,'Lam','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','ngọc','lam','Sapphire',
+                'Red','Purple','Yellow','Black','Gold','Graphite','Silver','Blue','Tím','Green','Sliver','Trắng','Xám','Pacific','Blue','White','Gray','Violet',
             ]
             list_bonho = [
                 '512GB','256GB','128GB','64GB','16GB','32GB','512Gb','256Gb','128Gb','64Gb','16Gb','32Gb',
@@ -675,8 +674,14 @@ class mediamartSpider(scrapy.Spider):
         attr_from_name = response.meta['attr']
         price = response.meta['price']
         
-        option_old_price = response.css('.pdrrp-price::attr(content)').get()  #####
-        option_new_price = response.css('.pd-evh-price b::text').get()    #####   
+        
+        pr = response.css('.pdrrp-pmarket::text').get()
+        if pr:
+            option_old_price = pr
+            option_new_price = response.css('.pdrrp-price::attr(content)').get()  ##### 
+        else:
+            option_old_price = response.css('.pdrrp-price::attr(content)').get()  #####
+            option_new_price = response.css('.pd-evh-price b::text').get()    #####   
 
         #color_active = response.css('.product-detail-wrapper .swiper-outer-wrapper div.option.active::attr(data-color)').get()
         #bonho_active = response.css('.product-detail-wrapper .list-block-options a.active::text').get()
@@ -697,6 +702,78 @@ class mediamartSpider(scrapy.Spider):
             'giamoi': format_price(option_new_price) ,
             'active': 'True'
         })
+        item['thuoctinh'] = attributes
+
+        return item
+
+
+
+class hoanghaSpider(scrapy.Spider):
+    name = 'hoangha'
+    start_urls = ['https://hoanghamobile.com/dien-thoai-di-dong?p=7']
+
+    def parse(self,response):
+        for product in response.css('div.list-product div.item'):   #####
+            item_link = 'https://hoanghamobile.com'+ product.css('.info a::attr(href)').get()       #####
+            if item_link:# == 'https://hoanghamobile.com/dien-thoai-di-dong/apple-iphone-12-pro-256gb-chinh-hang-vn-a':
+                
+                ten = product.css('.info a::attr(title)').get()      #####
+                attr = get_attr_from_name(ten)
+                ten = name_processing(ten)
+
+                if item_link == None:
+                    continue
+                item = {
+                    'ten': ten ,
+                    'url': item_link,
+                    'image': 'https://hoanghamobile.com'+product.css('.img img::attr(src)').get(), #####
+                    'ngay': date.today().strftime("%Y-%m-%d"),
+                    'loaisanpham':'dienthoai',
+                    'thuonghieu':'apple',
+                }
+                yield scrapy.Request(url=item_link, meta={'item': item,'attr':attr}, callback=self.get_detail)
+                #break
+            
+        
+        #next_page = 'https://mediamart.vn/smartphones/?&trang='
+        #if next_page is not None:
+        #    yield response.follow(next_page,callback=self.parse)
+
+    def get_detail(self, response):
+        
+        item = response.meta['item']
+        attr_from_name = response.meta['attr']
+        
+        
+        #option_new_price = response.css('.current-product-price strong::text').get()    #####   
+
+        
+        bonho_active = response.css('.product-details-container .product-option.version .options .item.selected strong::text').get()
+        color_active = response.css('.product-details-container .product-option.color .options .item.selected span strong::text').get()
+        list_color = response.css('.product-details-container .product-option.color .options .item')
+        print("------------attr--", attr_from_name['bonho'],attr_from_name['mausac'])
+        active = 'False'
+        attributes = []
+        for i in list_color:
+            color = i.css('span strong::text').get()
+            print('+++++++',color)
+
+            option_old_price = i.css('::attr(data-bestprice)').get()  #####
+            option_new_price = i.css('::attr(data-lastprice)').get()
+            
+            if color == color_active:
+                active = 'True'
+            else:
+                active = 'False'
+            
+            
+            attributes.append({
+                'bonho': format_bonho(bonho_active) ,
+                'mausac': format_mausac(color) ,
+                'giagoc': format_price(option_old_price) ,
+                'giamoi': format_price(option_new_price) ,
+                'active': active
+            })
         item['thuoctinh'] = attributes
 
         return item
