@@ -1,6 +1,6 @@
 {% extends "pages/base.html" %}
 {% block title %}
-Check Price
+Kiểm tra giá
 {% endblock title %}
 {% block main %}
     <section class="main">
@@ -10,11 +10,12 @@ Check Price
             <form action="." method="post">
                 <div class="wthree-field">
                     <!-- <input name="text1" id="text1" type="text" value="" placeholder="URL" required> -->
+                    
                     {% csrf_token %}
                     {{form}}
                 </div>
                 <div class="wthree-field">
-                    <button type="submit" class="btn">Check</button>
+                    <button type="submit" class="btn">Kiểm tra</button>
                 </div>
                 <div class="login-bottom">
                     <a href="#url" class="">OK</a>

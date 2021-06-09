@@ -117,9 +117,10 @@ body header{
     background: #22292f !important;
 }
 .thuoctinh{
+    margin-top: 1px;
     padding: 5px 10px;
     border-radius: .5rem;
-    margin-bottom: 10px;
+    margin-bottom: 0.9px;
     background: #708ff8;
 }
 
@@ -449,9 +450,18 @@ label.radio input:checked+span {
     background-color: white;
 }
 
-.card{
+.card-position{
     margin-right: 15px;
     margin-top: 15px;
+    height: 400px !important;
+    position: relative !important;
+}
+
+div.card-body-position {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: -5px !important;
 }
 
 .chart{
@@ -560,3 +570,4 @@ button.btn{
     background: white;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
 }
+

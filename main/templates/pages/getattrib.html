@@ -27,19 +27,20 @@ Chọn thuộc tính
                                     <div class="col-md-6">
                                         <form action="print-url/" method="post">
                                             {% csrf_token %} 
+                                            <h5><b>Thuộc tính hiện tại:</b></h5>
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <h5>Màu sắc</h5>
-                                                    <div class="d-flex align-items-center mt-2"> 
+                                                <div class="col-md-12">
+                                                    <label>Màu sắc</label>
+                                                    <div class="d-flex align-items-center"> 
                                                         <div class="thuoctinh">
                                                             <span>{{data.thuoc_tinh_active.MauSac}}</span>
                                                             <input name="mausac" type="hidden" value="{{data.thuoc_tinh_active.MauSac}}">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <h5>Bộ nhớ</h5>
-                                                    <div class="d-flex align-items-center mt-2"> 
+                                                <div class="col-md-12">
+                                                    <label>Bộ nhớ</label>
+                                                    <div class="d-flex align-items-center"> 
                                                         <div class="thuoctinh">
                                                             <span>{{data.thuoc_tinh_active.BoNho}}</span>
                                                             <input name="bonho" type="hidden" value="{{data.thuoc_tinh_active.BoNho}}">
@@ -56,6 +57,7 @@ Chọn thuộc tính
                                     </div>
                                     <div class="col-md-6">
                                         <form action="print-url/" method="post">
+                                            <h5><b>Kiểm tra thuộc tính khác</b></h5>
                                             <div class="wthree-field">
                                                 {% csrf_token %} 
                                                 {{data.form}}

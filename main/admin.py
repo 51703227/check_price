@@ -7,9 +7,9 @@ class LoaiSanPhamAdmin(admin.ModelAdmin):
     search_fields = ['TenLoai']
 
 class SanPhamAdmin(admin.ModelAdmin):
-    list_display = ['TenSP']
+    list_display = ['pk','TenSP']
     list_filter = ['TenSP']
-    search_fields = ['TenSP']
+    search_fields = ['TenSP','pk']
 
 class UrlAdmin(admin.ModelAdmin):
     list_display = ['Url','SanPham']
@@ -27,9 +27,9 @@ class NguonBanAdmin(admin.ModelAdmin):
     search_fields = ['TenNB']
 
 class ThuocTinhAdmin(admin.ModelAdmin):
-    list_display = ['SanPham','MauSac','BoNho']
+    list_display = ['pk','SanPham','MauSac','BoNho','NguonBan']
     search_fields = ['MauSac']
-    list_filter = ['SanPham']
+    list_filter = ['MauSac','NguonBan','SanPham']
 # Register your models here.
 admin.site.register(LoaiSanPham,LoaiSanPhamAdmin)
 admin.site.register(SanPham,SanPhamAdmin)

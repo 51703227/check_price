@@ -54,7 +54,7 @@ class SanPham(models.Model):
     ThuongHieu = models.ForeignKey(ThuongHieu,on_delete=models.CASCADE,null=True,blank=True)
     
     def __str__(self):
-        return self.TenSP
+        return str(self.pk) + ' - ' + self.TenSP
 
 class Url(models.Model):
     Url = models.URLField(unique=True) 
@@ -89,8 +89,9 @@ class ThuocTinh(models.Model):
     Ngay3 = models.DateField(null=True,blank=True)
     Ngay4 = models.DateField(null=True,blank=True)
     Ngay5 = models.DateField(null=True,blank=True)
+    
     def __str__(self):
-        return self.MauSac 
+        return str(self.pk) 
     
 
 

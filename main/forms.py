@@ -3,7 +3,7 @@ from django.utils.safestring import mark_safe
 
 
 class GetUrlForm(forms.Form):
-    url = forms.CharField(max_length=500)
+    url = forms.CharField(max_length=500,label="Vui lòng nhập URL")
 
 class GetAttribForm(forms.Form):
     def __init__(self,mausac,bonho,*args,**kwargs):

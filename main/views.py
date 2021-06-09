@@ -163,14 +163,15 @@ def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa 
         return False
 
 def import_data(request):   #Nạp data.json và database
-
-    f = open('data/nguyenkim_0806.json','r',encoding='utf-8')
+    ten_file =  'nguyenkim_0906.json'
+    f = open(ten_file,'r',encoding='utf-8')
     data = json.loads(f.read())
 
     for item in data:
         
         try:
             obj = SanPham.objects.get(TenSP = item['ten'])
+
         except SanPham.DoesNotExist:
             try:
                 obj = SanPham(
@@ -254,7 +255,7 @@ def import_data(request):   #Nạp data.json và database
 
                 thuoctinh.save()
 
-    return HttpResponse("Complete Import Data <br> <a href='/'>Quay lại</a>")
+    return HttpResponse("Complete Import Data "+ ten_file +" <br> <a href='/'>Quay lại</a>")
         
         
         
