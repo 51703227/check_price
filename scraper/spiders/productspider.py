@@ -95,11 +95,11 @@ def name_processing(name):
             'độc',' đáo',
             '6GB/128GB','Tím','Xám','Đen']
     bl_list = ['(' , ')' , '-' ,'/','[',']',
-    'huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao',
+    'Deep Gray','Máy Người Già','Phiên bản','mùa hè','Chính Hãng','huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao','Màu',
     '+512GB','+256GB','+128GB','+64GB','+8GB','+16GB','+32GB','+4GB','+512Gb','+256Gb','+128Gb','+64Gb','+8Gb','+16Gb','+32Gb','+4Gb','+512G','+256G','+128G','+64G','+16G','+32G',
     '512GB','256GB','128GB','64GB','8GB','16GB','32GB','4GB','512Gb','256Gb','128Gb','64Gb','8Gb','16Gb','32Gb','4Gb','512G','256G','128G','64G','16G','32G',
     'Xanh lá','Vàng đồng','nước biển','Vàng đồng','lá','lục','Đồng','Khói','bích','huyền bí','nhật thực','Biển','mận','Dương','Lá','Đỏ' ,'Đen' ,'Lục' ,'Cực' ,'Quang', 'tinh' ,'thạch', 'Ngọc', 'Trai','Bạc' ,'Hà','Lam', 'Thủy', 'Triều','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','lá','ngọc','lam','Sapphire',
-    'Deep Gray','Mint','Yellow','Champagne','Grey','Black','Gold','Graphite','Silver','Blue','Tím','Green','Sliver','Trắng','Xám','Pacific','Blue','White','Gray','Violet','Purple','Red','Browns',
+    'Deep Gray','Deep','Mint','Yellow','Champagne','Grey','Black','Gold','Graphite','Silver','Blue','Tím','Green','Sliver','Trắng','Xám','Pacific','Blue','White','Gray','Violet','Purple','Red','Browns',
     'độc','đáo','hạt','tiêu','(KHÔNG KÈM THẺ NHỚ)','Thoại','2019','2020',
     '6.67Inch','6.5Inch','6.9Inch','2 sim','6.1Inch','2 Sim','VNA','hải' ,'quân' ,'san' ,'hô' ,'trai','dương','cẩm','KHÔNG KÈM THẺ NHỚ','San','Hô','Nhật','Thực','Sương','Mai','Đam','Mê','lục','bảo','Bảo','sương','hồng','Bích','tú','thủy','Hải','Âu','Hồng','pha','lê','quang','cực','Cam','hà','Phong','Vân',
     '1 sim','1 Sim','Mỹ','New','BH12T','Certified','PreOwned','Special','Product', 'ram','cty','RAM','Edge', 'Batman', 'Injustice','Cty',
@@ -614,7 +614,7 @@ class mediamartSpider(scrapy.Spider):
         
         for product in response.css('.pl18-item-ul li'):   #####
             item_link = 'https://mediamart.vn'+ product.css('.pl18-item-image a::attr(href)').get()       #####
-            if item_link == 'https://mediamart.vn/smartphones/itel/dien-thoai-itel-a13-deep-gray.htm':
+            if item_link:# == 'https://mediamart.vn/smartphones/itel/dien-thoai-itel-a13-deep-gray.htm':
                 
                 ten = product.css('.pl18-item-name a::attr(title)').get()      #####
                 attr = get_attr_from_name(ten)
@@ -637,7 +637,7 @@ class mediamartSpider(scrapy.Spider):
                     'thuonghieu':'apple',
                 }
                 yield scrapy.Request(url=item_link, meta={'item': item,'attr':attr,'price':price}, callback=self.get_detail)
-                break
+                #break
             
         
         #next_page = 'https://mediamart.vn/smartphones/?&trang='

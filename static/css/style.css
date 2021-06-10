@@ -454,7 +454,7 @@ label.radio input:checked+span {
     margin-right: 15px;
     margin-top: 15px;
     height: 400px !important;
-    position: relative !important;
+    min-width: 100% !important;
 }
 
 div.card-body-position {

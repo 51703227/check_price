@@ -1,0 +1,54 @@
+{% extends "pages/base.html" %}
+{% block title %}
+Chọn thuộc tính
+{% endblock title %}
+{% block main %}
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <div class="urlin">
+                    <div class="row">
+                        <div class="col-md-5 ">
+                            <div class="url-input">
+                                <img src="{{data.anh_san_pham}}" alt="" style="min-width: 400px;max-width: 450px; ">
+                            </div>
+    
+                        </div>
+                        <div class="col-md-7">
+                            <div class="info url-input">
+                                <h4 class="font-weight-bold">{{data.san_pham.TenSP}}</h4>
+                                <!--<div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.MauSac}}</span><span class="mr-2 cut">{{data.url_in.ThuocTinh}}</span><span class="text-success">25% OFF</span></div>-->
+                                <!--<div class="d-flex flex-row">
+                                    <div class="icons mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div><span>1200 ratings &amp; 564 reviews</span>
+                                </div>-->
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="print-url/" method="post">
+                                            <h5><b>Chọn thuộc tính</b></h5>
+                                            <div class="wthree-field">
+                                                {% csrf_token %} 
+                                                {{data.form}}
+                                                <input name="nguon_ban" type="hidden" value="{{data.nguon_ban.pk}}">
+                                                <input name="san_pham" type="hidden" value="{{data.san_pham.pk}}">
+                                            </div>
+                                            <hr>       
+                                            <div class="wthree-field">
+                                                <button type="submit" class="btn btn-success">Kiểm tra</button>
+                                            </div>
+                                        </form>                                        
+                                    </div>
+                                </div>
+                                <div><span class="font-weight-bold">Nguồn bán:</span><a class="ml-2" href="{{data.nguon_ban.Domain}}">{{data.nguon_ban.TenNB}}</a></div>
+                                <div class="mt-3"><button class="btn mr-2" type="button">Chi tiết</button><a href="/"><button class="btn btn-primary" type="button">Quay lại trang chủ</button></a></div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
+
+

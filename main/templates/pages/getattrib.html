@@ -61,7 +61,7 @@ Chọn thuộc tính
                                             <div class="wthree-field">
                                                 {% csrf_token %} 
                                                 {{data.form}}
-                                                <input name="url" type="text" value="{{data.url_in.Url}}" style="display: none;">
+                                                <input name="url" type="hidden" value="{{data.url_in.Url}}">
                                             </div>
                                             <hr>       
                                             <div class="wthree-field">

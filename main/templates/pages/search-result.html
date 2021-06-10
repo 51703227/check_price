@@ -1,0 +1,25 @@
+{% extends "pages/base.html" %}
+{% block title %}
+Kết quả tìm kiếm: <strong>{{keyword}}</strong> 
+{% endblock title %}
+{% block main %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        {% for item in list_san_pham %}
+        <div class="col-lg-3 ">
+            <div class="card-position card d-inline-flex border">
+                <div class="row" style="justify-content: center;">
+                    <img class="card-img-top" src="{{item.san_pham_img}}" alt="Card image" style="width:100%">
+                    <div class="card-body card-body-position" style="text-align: center;">
+                        <h5 class="card-title">{{item.san_pham.TenSP}}</h5>
+                        <h6 class="card-text">Có {{item.length_list_nguon_ban}} nơi bán</h6>
+                        <a href= "{% url 'product_supplier' item.san_pham.pk %}" ><button class="btn btn-primary">Đến nơi bán</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main %}
+

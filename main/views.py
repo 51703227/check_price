@@ -1,4 +1,5 @@
 from os import pipe
+from django.conf.urls import url
 from django.db.models.fields import NullBooleanField
 from django.shortcuts import render,redirect
 from .forms import *
@@ -24,6 +25,84 @@ from datetime import datetime
 from django.db import IntegrityError
 
 # Create your views here.
+def product_supplier(request,id):
+    san_pham = SanPham.objects.get(pk = id)    #lấy obj sản phẩm từ request
+    list_url = Url.objects.filter(SanPham = san_pham)   #lấy list url có chung sản phẩm đầu vào 
+    
+    data = []
+    list_nguon_ban = []
+
+    #tạo list nguồn bán 
+    for each_url in list_url:
+        #lọc nguồn bán
+        if each_url.NguonBan not in list_nguon_ban:
+            list_nguon_ban.append(NguonBan.objects.get(pk = each_url.NguonBan.pk)) 
+        else:
+            continue
+    
+    for each_nguonban in list_nguon_ban:
+        #lọc url
+        list_url = Url.objects.filter(SanPham = san_pham).filter(NguonBan= each_nguonban)
+        min_price = 0.0
+        max_price = 0.0
+        for each_url in list_url:
+            list_thuoc_tinh = ThuocTinh.objects.filter(Url = each_url)
+
+            for each_thuoc_tinh in list_thuoc_tinh:
+                if each_thuoc_tinh.GiaMoi1 == 0:
+                    continue
+                if min_price ==0.0 and max_price == 0.0:
+                    min_price = each_thuoc_tinh.GiaMoi1
+                    max_price = each_thuoc_tinh.GiaMoi1
+                print(min_price,'+',max_price)
+                if each_thuoc_tinh.GiaMoi1 < min_price:
+                    min_price = each_thuoc_tinh.GiaMoi1
+                if each_thuoc_tinh.GiaMoi1 > max_price:
+                    max_price = each_thuoc_tinh.GiaMoi1
+            
+        data.append({
+            'nguon_ban': each_nguonban,
+            'list_url': list_url,
+            'anh_san_pham': list_url[0].UrlImage,
+            'length_list_url': len(list_url),
+            'min_price':min_price,
+            'max_price':max_price ,
+            'san_pham':san_pham
+        })
+
+    return render(request,'pages/product-supplier.html',{'list_nguon_ban':data})
+
+def get_attribute(request):
+    if request.method == "POST":
+        data_pk = request.POST.get('data_pk', None) #get data from user input
+        list_pk = data_pk.split() 
+        nguon_ban = NguonBan.objects.get(pk=list_pk[0]) #truy xuất URL = url đã nhập
+        san_pham = SanPham.objects.get(pk=list_pk[1])
+        anh_san_pham = pk=list_pk[2]
+
+        list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = san_pham,NguonBan = nguon_ban)
+
+        #tạo form nhập thuộc tính
+        mausac =[]
+        bonho = []
+
+        for attr in list_thuoc_tinh_url:
+            if (attr.MauSac,attr.MauSac) not in mausac:
+                mausac.append((attr.MauSac,attr.MauSac))
+            if (attr.BoNho,attr.BoNho) not in bonho:
+                bonho.append((attr.BoNho,attr.BoNho))
+
+        form = GetAttribForm(mausac=mausac,bonho=bonho)
+
+        data= {
+            'san_pham': san_pham,
+            'nguon_ban':nguon_ban,
+            'anh_san_pham': anh_san_pham,
+            'form': form
+        }
+        
+        #a = Url.objects.get(Url=url)
+        return render(request,'pages/get-attribute.html',{'data':data})
 
 def url_input(request):
     if request.method == "POST":
@@ -35,12 +114,30 @@ def url_input(request):
                 return JsonResponse({'error': 'Missing  args'})
             if not is_valid_url(url):
                 #return JsonResponse({'error': 'URL is invalid'})
-                search_result = SanPham.objects.filter(TenSP__icontains=url)
-                for item in search_result:
-                    print(item.TenSP)
-            
-            domain = urlparse(url).netloc #take netloc from urlparse to get domain
-            print(domain)
+                search_result = SanPham.objects.filter(TenSP__icontains=url)  
+                data = []
+                for san_pham in search_result:      #----1  
+
+                    list_url = Url.objects.filter(SanPham = san_pham)
+                    san_pham_img = list_url[0].UrlImage
+                    list_nguon_ban = []
+                    #list_thuoc_tinh = []
+                    for each_url in list_url:
+                        if each_url.NguonBan not in list_nguon_ban:
+                            list_nguon_ban.append(NguonBan.objects.get(pk = each_url.NguonBan.pk))
+                        else:
+                            continue
+                    
+                    data.append({
+                        'san_pham': san_pham,
+                        'san_pham_img': san_pham_img,
+                        'list_nguon_ban':list_nguon_ban,
+                        'length_list_nguon_ban': len(list_nguon_ban)
+                    })
+
+
+                return render(request,'pages/search-result.html',{'list_san_pham':data})
+
             #truy xuất thuộc tính url
             url_input = Url.objects.get(Url=url) #truy xuất URL = url đã nhập
             try:
@@ -96,8 +193,11 @@ def print_url(request):
         bonho = request.POST.get('bonho', None)
         print(bonho)
         url_in = request.POST.get('url', None)
+    
+        nguon_ban = request.POST.get('nguon_ban',None)
+        san_pham = request.POST.get('san_pham',None)
 
-        data = exporturl(url_in = url_in,mausac = mausac,bonho =bonho) #truy xuất database #
+        data = exporturl(url_in = url_in,mausac = mausac,bonho =bonho, nguon_ban=nguon_ban,san_pham=san_pham) #truy xuất database #
         if data == False:
             return HttpResponse("Không tìm thấy url")
         else:
@@ -110,8 +210,11 @@ def print_url(request):
         form = GetAttribForm(list_attr)
 
 
-def exporturl(url_in,mausac,bonho):     #Lấy dữ liệu trong database dựa vào thông tin đầu vào
+def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong database dựa vào thông tin đầu vào
     
+    if url_in == None:
+        print(kwargs['nguon_ban'],' ',kwargs['san_pham'])
+        return False
     try:
         url = Url.objects.get(Url=url_in)
         
