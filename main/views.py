@@ -70,7 +70,7 @@ def product_supplier(request,id):
             'san_pham':san_pham
         })
 
-    return render(request,'pages/product-supplier.html',{'list_nguon_ban':data})
+    return render(request,'pages/product-supplier.html',{'list_nguon_ban':data,'san_pham':san_pham})
 
 def get_attribute(request):
     if request.method == "POST":
@@ -136,7 +136,7 @@ def url_input(request):
                     })
 
 
-                return render(request,'pages/search-result.html',{'list_san_pham':data})
+                return render(request,'pages/search-result.html',{'list_san_pham':data,'keyword':url})
 
             #truy xuất thuộc tính url
             url_input = Url.objects.get(Url=url) #truy xuất URL = url đã nhập
@@ -213,40 +213,42 @@ def print_url(request):
 def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong database dựa vào thông tin đầu vào
     
     if url_in == None:
-        print(kwargs['nguon_ban'],' ',kwargs['san_pham'])
-        return False
-    try:
-        url = Url.objects.get(Url=url_in)
-        
-        try: 
-            thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac,BoNho=bonho)
-        except ThuocTinh.DoesNotExist:
-            if mausac == 'None' and bonho == 'None':
-                thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,Active="True")
-            elif mausac=='None':
-                thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,BoNho=bonho)
-            elif bonho == 'None':
-                thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac)
-            else:
-                thuoc_tinh_urlin = ThuocTinh.objects.get(MauSac=mausac,BoNho=bonho,SanPham = url.SanPham, NguonBan = url.NguonBan)
-        sanpham = SanPham.objects.get(TenSP__exact = url.SanPham.TenSP) #select Sản phẩm của url
-    except Url.DoesNotExist:
-        url = None
+        nguon_ban = NguonBan.objects.get(pk = kwargs['nguon_ban'])
+        san_pham = SanPham.objects.get(pk =kwargs['san_pham'])
+        thuoc_tinh_urlin = ThuocTinh.objects.get(MauSac=mausac,BoNho=bonho,SanPham = san_pham, NguonBan = nguon_ban)
+    else:
+        try:
+            url = Url.objects.get(Url=url_in)
+            
+            try: 
+                thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac,BoNho=bonho)
+            except ThuocTinh.DoesNotExist:
+                if mausac == 'None' and bonho == 'None':
+                    thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,Active="True")
+                elif mausac=='None':
+                    thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,BoNho=bonho)
+                elif bonho == 'None':
+                    thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac)
+                else:
+                    thuoc_tinh_urlin = ThuocTinh.objects.get(MauSac=mausac,BoNho=bonho,SanPham = url.SanPham, NguonBan = url.NguonBan)
+            san_pham = SanPham.objects.get(TenSP__exact = url.SanPham.TenSP) #select Sản phẩm của url
+        except Url.DoesNotExist:
+            return False
 
-    if url != None and thuoc_tinh_urlin!=None:
+    if  thuoc_tinh_urlin!=None:
         saleoff = (thuoc_tinh_urlin.GiaGoc1 / thuoc_tinh_urlin.GiaMoi1)*100
         giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 +thuoc_tinh_urlin.GiaGoc2 +thuoc_tinh_urlin.GiaGoc3 +thuoc_tinh_urlin.GiaGoc4 +thuoc_tinh_urlin.GiaGoc5 )/5
         giakhuyenmaitrungbinh = (thuoc_tinh_urlin.GiaMoi1 +thuoc_tinh_urlin.GiaMoi2 +thuoc_tinh_urlin.GiaMoi3 +thuoc_tinh_urlin.GiaMoi4 +thuoc_tinh_urlin.GiaMoi5 )/5
         dotrungthuc = 80
 
         if mausac == 'None' and bonho == 'None':
-            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham) #list thuộc tính các sản phẩm giống input
+            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham) #list thuộc tính các sản phẩm giống input
         elif mausac=='None':
-            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
+            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
         elif bonho == 'None':
-            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham).filter(MauSac = mausac) #list thuộc tính các sản phẩm giống input
+            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(MauSac = mausac) #list thuộc tính các sản phẩm giống input
         else:
-            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = sanpham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
+            list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
             print("-=--",list_thuoc_tinh_url)
 
         #lưu dữ liệu truy xuất và data

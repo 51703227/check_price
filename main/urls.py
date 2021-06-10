@@ -9,4 +9,5 @@ urlpatterns = [
     path('import-data/',views.import_data, name='import_data'),
     path('<int:id>', views.product_supplier, name= 'product_supplier' ),
     path('get-attribute/',views.get_attribute, name='get_attribute'),
+    path('get-attribute/print-url/',views.print_url, name='print_url_attr'),
 ]
