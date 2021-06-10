@@ -3,162 +3,163 @@
 Kết quả
 {% endblock title %}
 {% block main %}
-    <div class="container-fluid" style="margin-top: 3rem">
-        <div class="row bg-white border">
-            <div class="col-lg-4">
-                <div class="url-input">
-                    <img src="{{data.thuoc_tinh_urlin.Url.UrlImage}}" alt="" style="min-width: 400px;max-width: 450px; ">
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="info url-input">
-                    <h4 class="font-weight-bold">{{data.thuoc_tinh_urlin.SanPham.TenSP}}</h4>
-                    <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.GiaMoi1}} VNĐ</span><span class="mr-2 cut">{{data.thuoc_tinh_urlin.GiaGoc1}} VNĐ</span></div>
-                    <!--
-                    <div class="d-flex flex-row">
-                        <div class="icons mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div><span>1200 ratings &amp; 564 reviews</span>
-                    </div>
-                    -->
-                    <div class="row mb-1 mt-4 " style="align-items: center;">
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-center offers">
-                                <span class=" font-weight-bold">Phần trăm giảm</span>
+    <div class="container-fluid">
+        <div class="row mb-4 mt-4">
+            <div class="col-lg-12">
+                <div class="bg-white border">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="url-input">
+                                <img src="{{data.thuoc_tinh_urlin.Url.UrlImage}}" alt="" style="min-width: 400px;max-width: 450px; ">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.saleoff}}%;background-color: #1ed1a8;">{{data.analytics.saleoff}}%</div></div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-1 mt-1 " style="align-items: center;">
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-center offers mb-1"><span class=" font-weight-bold">Giá gốc trung bình</span></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.saleoff}}%;background-color: #1ed1a8;">{{data.analytics.saleoff}}%</div></div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-1 mt-1 " style="align-items: center;">
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-center offers mb-1"><span class=" font-weight-bold">Giá khuyến mãi TB</span></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.saleoff}}%;background-color: #1ed1a8;">{{data.analytics.saleoff}}%</div></div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-1 mt-1 " style="align-items: center;">
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-center offers"><span class=" font-weight-bold">Độ trung thực</span></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.dotrungthuc}}%;background-color: #1ed1a8;">{{data.analytics.dotrungthuc}} %</div></div>
-                        </div>
-                    </div>
-
-                    
-                    <hr>
-                    <div class="row">
-                        {% if data.thuoc_tinh_urlin.MauSac %}
-                            <div class="col-md-6">
-                                <label for="">Màu sắc</label>
-                                <div class="d-flex align-items-center mt-2"> 
-                                    <div class="thuoctinh">
-                                        <span>{{data.thuoc_tinh_urlin.MauSac}}</span> 
+                        <div class="col-lg-4">
+                            <div class="info url-input">
+                                <h4 class="font-weight-bold">{{data.thuoc_tinh_urlin.SanPham.TenSP}}</h4>
+                                <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.GiaMoi1}} VNĐ</span><span class="mr-2 cut">{{data.thuoc_tinh_urlin.GiaGoc1}} VNĐ</span></div>
+                                <!--
+                                <div class="d-flex flex-row">
+                                    <div class="icons mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div><span>1200 ratings &amp; 564 reviews</span>
+                                </div>
+                                -->
+                                <div class="row mb-1 mt-4 " style="align-items: center;">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center offers">
+                                            <span class=" font-weight-bold">Phần trăm giảm</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.saleoff}}%;background-color: #1ed1a8;">{{data.analytics.saleoff}}%</div></div>
                                     </div>
                                 </div>
-                            </div>                        
-                        {% endif %}
-                        {% if data.thuoc_tinh_urlin.BoNho %}
-                        <div class="col-md-6">
-                            <label for="">Bộ nhớ</label>
-                            <div class="d-flex align-items-center mt-2"> 
-                                <div class="thuoctinh">
-                                    <span>{{data.thuoc_tinh_urlin.BoNho}}</span> 
+            
+                                <div class="row mb-1 mt-1 " style="align-items: center;">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center offers mb-1"><span class=" font-weight-bold">Giá gốc trung bình</span></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.saleoff}}%;background-color: #1ed1a8;">{{data.analytics.saleoff}}%</div></div>
+                                    </div>
                                 </div>
+            
+                                <div class="row mb-1 mt-1 " style="align-items: center;">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center offers mb-1"><span class=" font-weight-bold">Giá khuyến mãi TB</span></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.saleoff}}%;background-color: #1ed1a8;">{{data.analytics.saleoff}}%</div></div>
+                                    </div>
+                                </div>
+            
+                                <div class="row mb-1 mt-1 " style="align-items: center;">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center offers"><span class=" font-weight-bold">Độ trung thực</span></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.dotrungthuc}}%;background-color: #1ed1a8;">{{data.analytics.dotrungthuc}} %</div></div>
+                                    </div>
+                                </div>
+            
+                                
+                                <hr>
+                                <div class="row">
+                                    {% if data.thuoc_tinh_urlin.MauSac %}
+                                        <div class="col-md-6">
+                                            <label for="">Màu sắc</label>
+                                            <div class="d-flex align-items-center mt-2"> 
+                                                <div class="thuoctinh">
+                                                    <span>{{data.thuoc_tinh_urlin.MauSac}}</span> 
+                                                </div>
+                                            </div>
+                                        </div>                        
+                                    {% endif %}
+                                    {% if data.thuoc_tinh_urlin.BoNho %}
+                                    <div class="col-md-6">
+                                        <label for="">Bộ nhớ</label>
+                                        <div class="d-flex align-items-center mt-2"> 
+                                            <div class="thuoctinh">
+                                                <span>{{data.thuoc_tinh_urlin.BoNho}}</span> 
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    {% endif %}
+            
+                                </div>
+                                <hr>
+                                <div><span class="font-weight-bold">Nguồn bán:</span><a class="ml-2" href="{{data.thuoc_tinh_urlin.Url.Url}}">{{data.thuoc_tinh_urlin.Url.NguonBan.TenNB}}</a></div>
+                                <div class="mt-3"><button class="btn mr-2" type="button">Chi tiết</button><a href="/"><button class="btn btn-primary" type="button">Quay lại trang chủ</button></a></div>
                             </div>
-                        </div> 
-                        {% endif %}
-
+                        </div>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <div class="col-lg-4">
+                            <div class="chart">
+                                <h4 class="font-weight-bold" style="text-align: center;">Biểu đồ lịch sử giá</h4>
+                                <canvas id="myChart" width="400" height="400"></canvas>
+                                <script>
+                                var ctx = document.getElementById('myChart').getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: ['{{data.thuoc_tinh_urlin.Ngay5}}', '{{data.thuoc_tinh_urlin.Ngay4}}', '{{data.thuoc_tinh_urlin.Ngay3}}', '{{data.thuoc_tinh_urlin.Ngay2}}', '{{data.thuoc_tinh_urlin.Ngay1}}'],
+                                        datasets: [
+                                            {
+                                            label: 'Giá mới',
+                                            data: [ {{data.thuoc_tinh_urlin.GiaMoi5}} , {{data.thuoc_tinh_urlin.GiaMoi4}}, {{data.thuoc_tinh_urlin.GiaMoi3}}, {{data.thuoc_tinh_urlin.GiaMoi2}}, {{data.thuoc_tinh_urlin.GiaMoi1}}],
+                                            backgroundColor: [
+                                                '#708ff8',
+                                            ],
+                                            borderColor: [
+                                                '#708ff8',
+                                            ],
+                                            borderWidth: 2,
+                                            order: 1
+                                            },
+                                            {
+                                            label: 'Giá gốc',
+                                            data: [ {{data.thuoc_tinh_urlin.GiaGoc5}} , {{data.thuoc_tinh_urlin.GiaGoc4}}, {{data.thuoc_tinh_urlin.GiaGoc3}}, {{data.thuoc_tinh_urlin.GiaGoc2}}, {{data.thuoc_tinh_urlin.GiaGoc1}}],
+                                            backgroundColor: [
+                                                '#1ed1a8',
+                                            ],
+                                            borderColor: [
+                                                '#1ed1a8',
+                                            ],
+                                            borderWidth: 2,
+                                            order: 2
+                                            }
+                                        ]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: false
+                                            }
+                                        }
+                                    }
+                                });
+                                </script>
+                            </div>
+                        </div>
                     </div>
-                    <hr>
-                    <div><span class="font-weight-bold">Nguồn bán:</span><a class="ml-2" href="{{data.thuoc_tinh_urlin.Url.Url}}">{{data.thuoc_tinh_urlin.Url.NguonBan.TenNB}}</a></div>
-                    <div class="mt-3"><button class="btn mr-2" type="button">Chi tiết</button><a href="/"><button class="btn btn-primary" type="button">Quay lại trang chủ</button></a></div>
                 </div>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <div class="col-lg-4">
-                <div class="chart">
-                    <h4 class="font-weight-bold" style="text-align: center;">Biểu đồ lịch sử giá</h4>
-                    <canvas id="myChart" width="400" height="400"></canvas>
-                    <script>
-                    var ctx = document.getElementById('myChart').getContext('2d');
-                    var myChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: ['{{data.thuoc_tinh_urlin.Ngay5}}', '{{data.thuoc_tinh_urlin.Ngay4}}', '{{data.thuoc_tinh_urlin.Ngay3}}', '{{data.thuoc_tinh_urlin.Ngay2}}', '{{data.thuoc_tinh_urlin.Ngay1}}'],
-                            datasets: [
-                                {
-                                label: 'Giá mới',
-                                data: [ {{data.thuoc_tinh_urlin.GiaMoi5}} , {{data.thuoc_tinh_urlin.GiaMoi4}}, {{data.thuoc_tinh_urlin.GiaMoi3}}, {{data.thuoc_tinh_urlin.GiaMoi2}}, {{data.thuoc_tinh_urlin.GiaMoi1}}],
-                                backgroundColor: [
-                                    '#708ff8',
-                                ],
-                                borderColor: [
-                                    '#708ff8',
-                                ],
-                                borderWidth: 2,
-                                order: 1
-                                },
-                                {
-                                label: 'Giá gốc',
-                                data: [ {{data.thuoc_tinh_urlin.GiaGoc5}} , {{data.thuoc_tinh_urlin.GiaGoc4}}, {{data.thuoc_tinh_urlin.GiaGoc3}}, {{data.thuoc_tinh_urlin.GiaGoc2}}, {{data.thuoc_tinh_urlin.GiaGoc1}}],
-                                backgroundColor: [
-                                    '#1ed1a8',
-                                ],
-                                borderColor: [
-                                    '#1ed1a8',
-                                ],
-                                borderWidth: 2,
-                                order: 2
-                                }
-                            ]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: false
-                                }
-                            }
-                        }
-                    });
-                    </script>
-                </div>
-            </div>
+            
         </div>
 
         <div class="row">
             {% for item in data.thuoc_tinh_urlout %}
-            <div class="col-lg-2 card-position card d-inline-flex border">
-                <div class="row">
-                    <img class="card-img-top" src="{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
-                    <div class="card-body card-body-position" style="text-align: center;">
-                        <h5 class="card-title">{{item.Url.NguonBan.TenNB}}</h5>
-                        <h6 class="card-text">Giá mới: {{item.GiaMoi1}}</h6>
-                        <h6 class="card-text">Giá gốc: <span class="cut">{{item.GiaGoc1}}</span> </h6>
+            <div class="col-lg-3">
+                <div class="card-position card d-inline-flex border" style="align-items: center;";>
+                        <img class="card-img-top" src="{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
+                        <div class="card-body card-body-position" style="text-align: center;">
+                            <h5 class="card-title">{{item.Url.NguonBan.TenNB}}</h5>
+                            <h6 class="card-text">Giá mới: {{item.GiaMoi1}}</h6>
+                            <h6 class="card-text">Giá gốc: <span class="cut">{{item.GiaGoc1}}</span> </h6>
                             <a href="{{item.Url.Url}}" ><button class="btn btn-primary">Đến nơi bán</button></a>
-                    </div>
+                        </div>
+                    
                 </div>
-
             </div>
             {% endfor %}
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 box">
-
-            </div>
         </div>
     </div>
 {% endblock main %}

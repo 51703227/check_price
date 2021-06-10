@@ -34,9 +34,10 @@
                   <a class="nav-link" href="/import-data">Nạp dữ liệu</a>
                 </li>
               </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="..." aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="">Tìm kiếm</button>
+              <form class="form-inline my-2 my-lg-0" action="/" method="POST">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" type="search" name="url" placeholder="Url hoặc Tên sản phẩm" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
               </form>
             </div>
         </nav>
@@ -47,15 +48,31 @@
     
     <main>    
     <div class="container-fluid">
-        <div class="row title" style="justify-content: center;">
-            <div class="text-center">
+        <div class="row" style="justify-content: center;">
+          <div class="col-lg-12">
+            <div class="title">  
+              <div class="text-center">
                 <h1>{% block title %}{% endblock title %}</h1>
+              </div>
             </div>
+          </div>
+         
+            
         </div>
     </div>
         {% block main %}
         
         {% endblock main %}
     </main>
+
+    <footer style="margin-top:100px;border-top: solid #626b7e 4px;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="mt-4 mb-4" style="color:#fff;text-align:center;">CHECK PRICE</div>
+          </div>
+        </div>
+      </div>
+    </footer>
 </body>
 </html>
