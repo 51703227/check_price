@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.urls import reverse
 
 from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError,MultipleObjectsReturned
 
 from urllib.parse import urlparse
 
@@ -46,6 +46,11 @@ def product_supplier(request,id):
         min_price = 0.0
         max_price = 0.0
         for each_url in list_url:
+            if is_valid_url(each_url.UrlImage):
+                san_pham_img = each_url.UrlImage
+                break
+
+        for each_url in list_url:
             list_thuoc_tinh = ThuocTinh.objects.filter(Url = each_url)
 
             for each_thuoc_tinh in list_thuoc_tinh:
@@ -63,7 +68,7 @@ def product_supplier(request,id):
         data.append({
             'nguon_ban': each_nguonban,
             'list_url': list_url,
-            'anh_san_pham': list_url[0].UrlImage,
+            'anh_san_pham': san_pham_img,
             'length_list_url': len(list_url),
             'min_price':min_price,
             'max_price':max_price ,
@@ -78,7 +83,7 @@ def get_attribute(request):
         list_pk = data_pk.split() 
         nguon_ban = NguonBan.objects.get(pk=list_pk[0]) #truy xuất URL = url đã nhập
         san_pham = SanPham.objects.get(pk=list_pk[1])
-        anh_san_pham = pk=list_pk[2]
+        anh_san_pham = list_pk[2]
 
         list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = san_pham,NguonBan = nguon_ban)
 
@@ -119,7 +124,11 @@ def url_input(request):
                 for san_pham in search_result:      #----1  
 
                     list_url = Url.objects.filter(SanPham = san_pham)
-                    san_pham_img = list_url[0].UrlImage
+
+                    for each_url in list_url:
+                        if is_valid_url(each_url.UrlImage):
+                            san_pham_img = each_url.UrlImage
+                            break
                     list_nguon_ban = []
                     #list_thuoc_tinh = []
                     for each_url in list_url:
@@ -139,13 +148,15 @@ def url_input(request):
                 return render(request,'pages/search-result.html',{'list_san_pham':data,'keyword':url})
 
             #truy xuất thuộc tính url
-            url_input = Url.objects.get(Url=url) #truy xuất URL = url đã nhập
             try:
-                thuoc_tinh_active = ThuocTinh.objects.get(Url = url_input,Active = "True")
-            except ThuocTinh.DoesNotExist:
-                thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input)[0]
-            list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = url_input.SanPham,NguonBan = url_input.NguonBan)
-
+                url_input = Url.objects.get(Url=url) #truy xuất URL = url đã nhập
+                try:
+                    thuoc_tinh_active = ThuocTinh.objects.get(Url = url_input,Active = "True")
+                except ThuocTinh.DoesNotExist:
+                    thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input)[0]
+                list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = url_input.SanPham,NguonBan = url_input.NguonBan)
+            except Url.DoesNotExist:
+                return render(request,'pages/404.html',{'type':'Url','data':url})
             #tạo form nhập thuộc tính
             mausac =[]
             bonho = []
@@ -198,8 +209,11 @@ def print_url(request):
         san_pham = request.POST.get('san_pham',None)
 
         data = exporturl(url_in = url_in,mausac = mausac,bonho =bonho, nguon_ban=nguon_ban,san_pham=san_pham) #truy xuất database #
+        print(data)
         if data == False:
             return HttpResponse("Không tìm thấy url")
+        elif data == 'TT False':
+            return render(request,'pages/404.html',{'type':'Thuộc tính'})
         else:
             print(data)
             return render(request,'pages/printurl.html',{'data':data})
@@ -215,7 +229,10 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
     if url_in == None:
         nguon_ban = NguonBan.objects.get(pk = kwargs['nguon_ban'])
         san_pham = SanPham.objects.get(pk =kwargs['san_pham'])
-        thuoc_tinh_urlin = ThuocTinh.objects.get(MauSac=mausac,BoNho=bonho,SanPham = san_pham, NguonBan = nguon_ban)
+        try:
+            thuoc_tinh_urlin = ThuocTinh.objects.get(MauSac=mausac,BoNho=bonho,SanPham = san_pham, NguonBan = nguon_ban)
+        except ThuocTinh.DoesNotExist:
+            return 'TT False'        
     else:
         try:
             url = Url.objects.get(Url=url_in)
@@ -223,14 +240,17 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             try: 
                 thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac,BoNho=bonho)
             except ThuocTinh.DoesNotExist:
-                if mausac == 'None' and bonho == 'None':
-                    thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,Active="True")
-                elif mausac=='None':
-                    thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,BoNho=bonho)
-                elif bonho == 'None':
-                    thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac)
-                else:
-                    thuoc_tinh_urlin = ThuocTinh.objects.get(MauSac=mausac,BoNho=bonho,SanPham = url.SanPham, NguonBan = url.NguonBan)
+                    if mausac == 'None' and bonho == 'None':
+                        thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,Active="True")
+                    elif mausac=='None':
+                        thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,BoNho=bonho)
+                    elif bonho == 'None':
+                        thuoc_tinh_urlin = ThuocTinh.objects.get(Url=url,MauSac=mausac)
+                    else:
+                        try:
+                            thuoc_tinh_urlin = ThuocTinh.objects.get(MauSac=mausac,BoNho=bonho,SanPham = url.SanPham, NguonBan = url.NguonBan)
+                        except ThuocTinh.DoesNotExist:
+                            return 'TT False'
             san_pham = SanPham.objects.get(TenSP__exact = url.SanPham.TenSP) #select Sản phẩm của url
         except Url.DoesNotExist:
             return False
@@ -268,99 +288,106 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         return False
 
 def import_data(request):   #Nạp data.json và database
-    ten_file =  'nguyenkim_0906.json'
-    f = open(ten_file,'r',encoding='utf-8')
-    data = json.loads(f.read())
+    list_file =  [
+        'mediamart_1106.json',
+        'hnam_1106.json',
+        'phucanh_1106.json',
+        'nguyenkim_1106.json',
+    ]
+    for ten_file in list_file:
+        f = open(ten_file,'r',encoding='utf-8')
+        data = json.loads(f.read())
 
-    for item in data:
-        
-        try:
-            obj = SanPham.objects.get(TenSP = item['ten'])
-
-        except SanPham.DoesNotExist:
-            try:
-                obj = SanPham(
-                    TenSP = item['ten'],
-                    LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
-                    ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
-                )
-                obj.save()
-            except ThuongHieu.DoesNotExist:
-                obj = SanPham(
-                    TenSP = item['ten'],
-                    LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
-                    ThuongHieu = ''
-                )
-                obj.save()
-        except IntegrityError:
-            continue 
-        
-        try:
-            obj = Url.objects.get(Url = item['url'])
-            setattr(obj,'SanPham',SanPham.objects.get(TenSP=item['ten']))
-            setattr(obj,'NguonBan',NguonBan.objects.get(Domain = urlparse(item['url']).netloc))
-            setattr(obj,'UrlImage',item['image'])
-            obj.save()
-        except Url.DoesNotExist:
-            obj = Url(
-                Url = item['url'],
-                SanPham = SanPham.objects.get(TenSP=item['ten']) ,
-                NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
-                UrlImage = item['image']
-            )
-            obj.save()         
-        
-        for i in item['thuoctinh']:
+        for item in data:
             
             try:
-                obj = ThuocTinh.objects.get(
-                    Url=Url.objects.get(Url = item['url']), 
-                    MauSac=i['mausac'],
-                    BoNho=i['bonho']
-                )
+                obj = SanPham.objects.get(TenSP = item['ten'])
+
+            except SanPham.DoesNotExist:
+                try:
+                    obj = SanPham(
+                        TenSP = item['ten'],
+                        LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
+                        ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
+                    )
+                    obj.save()
+                except ThuongHieu.DoesNotExist:
+                    obj = SanPham(
+                        TenSP = item['ten'],
+                        LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
+                        ThuongHieu = ''
+                    )
+                    obj.save()
+            except MultipleObjectsReturned:
+                return HttpResponse('Sản phẩm bị trùng lặp: ',item['ten']) 
+            
+            try:
+                obj = Url.objects.get(Url = item['url'])
+                setattr(obj,'SanPham',SanPham.objects.get(TenSP=item['ten']))
                 setattr(obj,'NguonBan',NguonBan.objects.get(Domain = urlparse(item['url']).netloc))
-                obj.Ngay5 = obj.Ngay4
-                obj.Ngay4 = obj.Ngay3
-                obj.Ngay3 = obj.Ngay2
-                obj.Ngay2 = obj.Ngay1
-                obj.Ngay1 = item['ngay']
-                
-                def rp(gia):
-                    if gia==None:
-                        return 0
-                    else:
-                        return gia.replace('.','').replace('₫','')
-
-                obj.GiaGoc5 = obj.GiaGoc4
-                obj.GiaGoc4 = obj.GiaGoc3
-                obj.GiaGoc3 = obj.GiaGoc2
-                obj.GiaGoc2 = obj.GiaGoc1
-                obj.GiaGoc1 = rp(i['giagoc'])  #0 if i['giagoc']==None else i['giamoi'].replace('.','').replace('₫','')
-
-                obj.GiaMoi5 = obj.GiaMoi4
-                obj.GiaMoi4 = obj.GiaMoi3
-                obj.GiaMoi3 = obj.GiaMoi2
-                obj.GiaMoi2 = obj.GiaMoi1
-                obj.GiaMoi1 = rp(i['giamoi'])  #0 if i['giamoi']==None else i['giamoi'].replace('.','').replace('₫','')
-                
+                setattr(obj,'UrlImage',item['image'])
                 obj.save()
+            except Url.DoesNotExist:
+                obj = Url(
+                    Url = item['url'],
+                    SanPham = SanPham.objects.get(TenSP=item['ten']) ,
+                    NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
+                    UrlImage = item['image']
+                )
+                obj.save()         
+            
+            for i in item['thuoctinh']:
+                
+                try:
+                    obj = ThuocTinh.objects.get(
+                        Url=Url.objects.get(Url = item['url']), 
+                        MauSac=i['mausac'],
+                        BoNho=i['bonho'],
+                        NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
+                        SanPham = SanPham.objects.get(TenSP=item['ten'])
+                    )
+                    obj.Ngay5 = obj.Ngay4
+                    obj.Ngay4 = obj.Ngay3
+                    obj.Ngay3 = obj.Ngay2
+                    obj.Ngay2 = obj.Ngay1
+                    obj.Ngay1 = item['ngay']
+                    
+                    def rp(gia):
+                        if gia==None:
+                            return 0
+                        else:
+                            return gia.replace('.','').replace('₫','')
 
-            except ThuocTinh.DoesNotExist:      
-                thuoctinh = ThuocTinh()
+                    obj.GiaGoc5 = obj.GiaGoc4
+                    obj.GiaGoc4 = obj.GiaGoc3
+                    obj.GiaGoc3 = obj.GiaGoc2
+                    obj.GiaGoc2 = obj.GiaGoc1
+                    obj.GiaGoc1 = rp(i['giagoc'])  #0 if i['giagoc']==None else i['giamoi'].replace('.','').replace('₫','')
 
-                thuoctinh.MauSac = i['mausac']
-                thuoctinh.BoNho = i['bonho']
-                thuoctinh.GiaGoc1 = 0 if i['giagoc']==None else i['giagoc'].replace('.','').replace('₫','')
-                thuoctinh.GiaMoi1 = 0 if i['giamoi']==None else i['giamoi'].replace('.','').replace('₫','')
-                thuoctinh.Ngay1 = item['ngay']
-                thuoctinh.Url = Url.objects.get(Url = item['url'])
-                thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
-                thuoctinh.Active = i['active']
-                thuoctinh.NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc)
+                    obj.GiaMoi5 = obj.GiaMoi4
+                    obj.GiaMoi4 = obj.GiaMoi3
+                    obj.GiaMoi3 = obj.GiaMoi2
+                    obj.GiaMoi2 = obj.GiaMoi1
+                    obj.GiaMoi1 = rp(i['giamoi'])  #0 if i['giamoi']==None else i['giamoi'].replace('.','').replace('₫','')
+                    
+                    obj.save()
 
-                thuoctinh.save()
+                except ThuocTinh.DoesNotExist:      
+                    thuoctinh = ThuocTinh()
 
-    return HttpResponse("Complete Import Data "+ ten_file +" <br> <a href='/'>Quay lại</a>")
+                    thuoctinh.MauSac = i['mausac']
+                    thuoctinh.BoNho = i['bonho']
+                    thuoctinh.GiaGoc1 = 0 if i['giagoc']==None else i['giagoc'].replace('.','').replace('₫','')
+                    thuoctinh.GiaMoi1 = 0 if i['giamoi']==None else i['giamoi'].replace('.','').replace('₫','')
+                    thuoctinh.Ngay1 = item['ngay']
+                    thuoctinh.Url = Url.objects.get(Url = item['url'])
+                    thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
+                    thuoctinh.Active = i['active']
+                    thuoctinh.NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc)
+
+                    thuoctinh.save()
+
+    return HttpResponse("Complete Import Data "+ str(list_file) +" <br> <a href='/'>Quay lại</a>")
         
         
         

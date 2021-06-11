@@ -1,0 +1,22 @@
+{% extends "pages/base.html" %}
+{% block title %}
+Không tìm thấy {{type}} 
+{% endblock title %}
+{% block main %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="content-w3ls text-center bg-white">
+            <div class="col-lg-12">
+                <div class="404" style="text-align: center;">
+                    <h1>404</h1>
+                    <h5>Không tìm thấy {{type}}: {{data}} </h5>
+                    <a href="/"><button type="" class="btn btn-primary">Quay lại trang chủ</button></a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}
+

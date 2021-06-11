@@ -6,28 +6,17 @@ Kiểm tra giá
     <section class="main">
         <div class="content-w3ls text-center">
             <!--<img src="" alt="" class="img-responsive">-->
-            
             <form action="." method="post">
                 <div class="wthree-field">
                     <!-- <input name="text1" id="text1" type="text" value="" placeholder="URL" required> -->
-                    
                     {% csrf_token %}
                     {{form}}
                 </div>
                 <div class="wthree-field">
                     <button type="submit" class="btn">Kiểm tra</button>
                 </div>
-                <div class="login-bottom">
-                    <a href="#url" class="">OK</a>
-                </div>
             </form>
-
-        </div>
-        <div class="copyright">
-            <p>51703227 - 51703161 <a
-                href="#" target="_blank">@</a></p>
         </div>
     </section>
-
 {% endblock main %}
 

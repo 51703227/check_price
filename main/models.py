@@ -61,7 +61,7 @@ class Url(models.Model):
     NguonBan = models.ForeignKey(NguonBan,on_delete=models.CASCADE,null=True,blank=True)
     SanPham = models.ForeignKey(SanPham,on_delete=models.CASCADE,null=True,blank=True)
     UrlImage = models.URLField(null=True,blank=True)
-    
+
     def __str__(self):
         return self.Url
 
