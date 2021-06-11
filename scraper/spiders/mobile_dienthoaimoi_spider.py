@@ -16,7 +16,7 @@ black_list = ['Chính', 'hãng', 'I', 'VN/A', 'chính','128GB','64GB','256GB','(
               ,'siêu', 'lướt','6GB/128GB','DGW','8GB/128GB','8GB/256GB','(4G)','6GB/64GB','6GB/128GB',
               '3GB/64GB','4GB/128GB','(8GB/128GB)','(6GB/128GB)','(6GB/64GB)','3GB/32GB','2GB/32GB','4GB/64GB',
               '(8GB','siêu', 'lướt','LL/A','bản','16GB','(4G)', ' đẹp', 'như',
-              '12GB/256GB','(Plus)']
+              '12GB/256GB','(Plus)','(8Gb/256Gb)','/','Đẹp','12Gb/512Gb']
 
 # Hàm xử lý tên sản phẩm
 def name_processing(name):
@@ -27,8 +27,28 @@ def name_processing(name):
       processed_name.append(i)
   return ' '.join(processed_name)
 
+#Xử lý price
+def format_price(price):
+    _list = ['đ','₫','.',',','VNĐ','VND','\r','\n','\t',' ']
+    if not price:
+        return None
+    else:
+        for i in _list:
+            price = price.replace(i,'')
+    return price
 
-# Lớp crawl dữ liệu
+#Xử lý bộ nhớ
+def format_bonho(name):
+    attr_bonho = 'None'
+    list_attr_bonho = ['512GB', '256GB', '128GB', '64GB', '16GB', '32GB', '512Gb', '256Gb', '128Gb', '64Gb', '16Gb',
+                       '32Gb']
+
+    for i in list_attr_bonho:
+        if i in name:
+            attr_bonho = i
+    return attr_bonho
+
+# Lớp crawl dữ liệu dienthoaimoi.vn
 class CellPhonesMobileSpider(scrapy.Spider):
     name = 'mobile_dienthoaimoi'
     start_urls = ['https://dienthoaimoi.vn/dien-thoai-pc135.html', ]
@@ -41,7 +61,7 @@ class CellPhonesMobileSpider(scrapy.Spider):
         self.log('products ' + str(len(products)))
         for product in products:
 
-            title = name_processing(product.css('div.frame_inner > h2 > a::text').get())
+            title = name_processing(product.css('div.frame_inner > h2 > a::text').get()).title()
             item_link = product.css('div.frame_inner > figure > a::attr(href)').get()
             thuong_hieu = item_link.split('/')[3].split('-')[0]
             image1 = product.css('div.frame_inner > figure > a > img::attr(src)').get()
@@ -50,7 +70,7 @@ class CellPhonesMobileSpider(scrapy.Spider):
                 'ten': title,
                 'url': item_link,
                 'image': image1,
-                'ngay': date.today().strftime("%Y/%m/%d"),
+                'ngay': date.today().strftime("%Y-%m-%d"),
                 'loaisanpham': 'dienthoai',
                 'thuonghieu': thuong_hieu
             }
@@ -65,17 +85,16 @@ class CellPhonesMobileSpider(scrapy.Spider):
         self.log('Visited ' + response.url)
         item = response.meta['item']
 
-        option_old_price = response.css('div.frame_center > div > div.price.cls > div.price_current::text').get().replace('\t','').replace('\r','').replace('\n','')
-        option_rom = response.css('div._attributes.clearfix.cls > ul > li > a.active::text').get().replace('\t','').replace('\r','').replace('\n','')
+        option_old_price = format_price(response.css('div.frame_center > div > div.price.cls > div.price_current::text').get())
+        option_rom = format_bonho(response.css('div._attributes.clearfix.cls > ul > li > a.active::text').get())
 
-        option_color = response.css('div.box_price > div > div > a.Selector.active::attr(data-name)').get()
-        option_new_price = option_old_price
+        option_color = response.css('div.box_price > div > div > a.Selector.active::attr(data-name)').get().title()
+        option_new_price = format_price(option_old_price)
         active = True
 
-        # image2 = response.css('div.frame_img > div > div.magic_zoom_area > a::attr(href)').get()
+        image2 = response.css('div.frame_img > div > div.magic_zoom_area > a::attr(href)').get()
 
         attributes = []
-
         attributes.append({
             'bonho': option_rom,
             'mausac': option_color,
@@ -85,7 +104,7 @@ class CellPhonesMobileSpider(scrapy.Spider):
         })
 
         item['thuoctinh'] = attributes
-
+        item['image'] = image2
         return item
 
 
@@ -111,7 +130,7 @@ class xtmobile_spider(scrapy.Spider):
                 'ten': title,
                 'url': item_link,
                 'image': image1,
-                'ngay': date.today().strftime("%Y/%m/%d"),
+                'ngay': date.today().strftime("%Y-%m-%d"),
                 'loaisanpham': 'dienthoai',
                 'thuonghieu': thuong_hieu
             }
