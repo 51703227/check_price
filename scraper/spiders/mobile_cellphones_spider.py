@@ -44,7 +44,7 @@ class CellPhonesSpider(scrapy.Spider):
                 'ten': title,
                 'url': item_link,
                 'image': product.css('li.cate-pro-short > div.lt-product-group-image > a > img::attr(data-src)').get(),
-                'ngay': date.today().strftime("%Y/%m/%d"),
+                'ngay': date.today().strftime("%Y-%m-%d"),
                 'loaisanpham': 'dienthoai',
                 'thuonghieu': thuong_hieu
             }

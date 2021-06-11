@@ -29,9 +29,9 @@ http://didongsinhvien.com/dien-thoai-dm70.html
 https://didongmogi.com/danh-muc-san-pham/dien-thoai/
 https://bachkhoastore.com/collections/dien-thoai
 https://galaxydidong.vn/
-https://mobileworld.com.vn/collections/dien-thoai
-https://thanhhienmobile.com/danh-muc/dien-thoai-di-dong
-https://www.anphatpc.com.vn/dien-thoai-di-dong.html
-https://www.minhducvn.com/danh-muc/dien-thoai/
-https://aeoneshop.com/collections/dien-thoai-di-dong
-https://www.didongmy.com/dien-thoai
+#(da crawl)https://mobileworld.com.vn/collections/dien-thoai
+(it sp)-https://thanhhienmobile.com/danh-muc/dien-thoai-di-dong
+(it sp)-https://www.anphatpc.com.vn/dien-thoai-di-dong.html
+#(da crawl)-https://www.minhducvn.com/danh-muc/dien-thoai/
+(it san pham)-https://aeoneshop.com/collections/dien-thoai-di-dong
+(chua crawl duoc)-https://www.didongmy.com/dien-thoai
