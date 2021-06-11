@@ -378,9 +378,6 @@ select {
     color: #aaa
 }
 
-img {
-    max-width: 250px;   
-}
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
@@ -450,7 +447,7 @@ label.radio input:checked+span {
 .card-position{
     margin-top: 15px;
     margin-right: 15px;
-    height: 400px !important;
+    height: 350px !important;
     min-width: 100% !important;
 }
 
@@ -458,6 +455,9 @@ img.card-img-top{
     border-radius: 1.5rem;
     max-height: 90%;
     max-width: 90%;
+}
+img{
+    max-width: -webkit-fill-available;
 }
 
 div.card-body-position {
@@ -475,10 +475,6 @@ div.card-body-position {
     color: #aaa
 }
 
-img {
-    max-width: 250px;   
-}
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
 .carousel-item {
@@ -486,7 +482,8 @@ img {
 }
 
 .price span {
-    font-size: 18px
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .cut {

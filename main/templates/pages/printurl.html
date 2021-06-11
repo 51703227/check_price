@@ -15,8 +15,8 @@ Kết quả
                         </div>
                         <div class="col-lg-4">
                             <div class="info url-input">
-                                <h4 class="font-weight-bold">{{data.thuoc_tinh_urlin.SanPham.TenSP}}</h4>
-                                <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.GiaMoi1}} VNĐ</span><span class="mr-2 cut">{{data.thuoc_tinh_urlin.GiaGoc1}} VNĐ</span></div>
+                                <h4 class="font-weight-bold" style="color:#1ed1a8">{{data.thuoc_tinh_urlin.SanPham.TenSP}}</h4>
+                                <div class="price" ><span class="mr-2"><i class="text-success"></i>{% load humanize %}{{data.thuoc_tinh_urlin.GiaMoi1 | floatformat:"0" |intcomma }} đ</span><span class="mr-2 cut">{{data.thuoc_tinh_urlin.GiaGoc1 | floatformat:"0" |intcomma}} đ</span></div>
                                 <!--
                                 <div class="d-flex flex-row">
                                     <div class="icons mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div><span>1200 ratings &amp; 564 reviews</span>
@@ -44,7 +44,7 @@ Kết quả
             
                                 <div class="row mb-1 mt-1 " style="align-items: center;">
                                     <div class="col-md-6">
-                                        <div class="d-flex align-items-center offers mb-1"><span class=" font-weight-bold">Giá khuyến mãi TB</span></div>
+                                        <div class="d-flex align-items-center offers mb-1"><span class=" font-weight-bold">Giá khuyến mãi</span></div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.saleoff}}%;background-color: #1ed1a8;">{{data.analytics.saleoff}}%</div></div>
@@ -87,24 +87,24 @@ Kết quả
                                 </div>
                                 <hr>
                                 <div><span class="font-weight-bold">Nguồn bán:</span><a class="ml-2" href="{{data.thuoc_tinh_urlin.Url.Url}}">{{data.thuoc_tinh_urlin.Url.NguonBan.TenNB}}</a></div>
-                                <div class="mt-3"><button class="btn mr-2" type="button">Chi tiết</button><a href="/"><button class="btn btn-primary" type="button">Quay lại trang chủ</button></a></div>
+                                <div class="mt-3"><a href="#thong_so"><button class="btn mr-2" type="button">Chi tiết</button></a><a href="/"><button class="btn btn-primary" type="button">Quay lại trang chủ</button></a></div>
                             </div>
                         </div>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <div class="col-lg-4">
                             <div class="chart">
-                                <h4 class="font-weight-bold" style="text-align: center;">Biểu đồ lịch sử giá</h4>
+                                <h4 class="font-weight-bold" style="text-align: center;color:#1ed1a8">Biểu đồ lịch sử giá</h4>
                                 <canvas id="myChart" width="400" height="400"></canvas>
                                 <script>
                                 var ctx = document.getElementById('myChart').getContext('2d');
                                 var myChart = new Chart(ctx, {
                                     type: 'line',
                                     data: {
-                                        labels: ['{{data.thuoc_tinh_urlin.Ngay5}}', '{{data.thuoc_tinh_urlin.Ngay4}}', '{{data.thuoc_tinh_urlin.Ngay3}}', '{{data.thuoc_tinh_urlin.Ngay2}}', '{{data.thuoc_tinh_urlin.Ngay1}}'],
+                                        labels: ['{{data.thuoc_tinh_urlin.Ngay5 | date:"d/m"}}', '{{data.thuoc_tinh_urlin.Ngay4 | date:"d/m"}}', '{{data.thuoc_tinh_urlin.Ngay3 | date:"d/m"}}', '{{data.thuoc_tinh_urlin.Ngay2 | date:"d/m"}}', '{{data.thuoc_tinh_urlin.Ngay1 | date:"d/m"}}'],
                                         datasets: [
                                             {
                                             label: 'Giá mới',
-                                            data: [ {{data.thuoc_tinh_urlin.GiaMoi5}} , {{data.thuoc_tinh_urlin.GiaMoi4}}, {{data.thuoc_tinh_urlin.GiaMoi3}}, {{data.thuoc_tinh_urlin.GiaMoi2}}, {{data.thuoc_tinh_urlin.GiaMoi1}}],
+                                            data: [ {{data.thuoc_tinh_urlin.GiaMoi5 }} , {{data.thuoc_tinh_urlin.GiaMoi4}}, {{data.thuoc_tinh_urlin.GiaMoi3}}, {{data.thuoc_tinh_urlin.GiaMoi2}}, {{data.thuoc_tinh_urlin.GiaMoi1}}],
                                             backgroundColor: [
                                                 '#708ff8',
                                             ],
@@ -144,23 +144,247 @@ Kết quả
             </div>
             
         </div>
-
+        
         <div class="row">
-            {% for item in data.thuoc_tinh_urlout %}
-            <div class="col-lg-3">
-                <div class="card-position card d-inline-flex border" style="align-items: center;";>
-                        <img class="card-img-top" src="{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
-                        <div class="card-body card-body-position" style="text-align: center;">
-                            <h5 class="card-title">{{item.Url.NguonBan.TenNB}}</h5>
-                            <h6 class="card-text">Giá mới: {{item.GiaMoi1}}</h6>
-                            <h6 class="card-text">Giá gốc: <span class="cut">{{item.GiaGoc1}}</span> </h6>
-                            <a href="{{item.Url.Url}}" ><button class="btn btn-primary">Đến nơi bán</button></a>
+            <div class="col-lg-8">
+                <div class="row">
+                    {% for item in data.thuoc_tinh_urlout %}
+                    <div class="col-lg-3">
+                        <div class="card-position card d-inline-flex border" style="align-items: center;";>
+                                <img class="card-img-top" src="{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
+                                <div class="card-body card-body-position" style="text-align: center;">
+                                    <h5 class="card-title" style="color: #708ff8;font-weight:600">{{item.Url.NguonBan.TenNB}}</h5>
+                                    <h6 class="card-text">Giá mới: <strong>{{item.GiaMoi1| floatformat:"0" | intcomma}} đ</strong> </h6>
+                                    <h6 class="card-text">Giá gốc: <span class="cut">{{item.GiaGoc1| floatformat:"0" | intcomma}} đ</span> </h6>
+                                    <a href="{{item.Url.Url}}" ><button class="btn btn-primary">Đến nơi bán</button></a>
+                                </div>
+                            
                         </div>
-                    
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                    <div class="bg-white border" style="padding: 30px;">
+                        <h2 style="border-bottom: #708ff8 solid 2px;padding-bottom: 10px;margin-bottom: 30px;">Mô tả</h2>
+                            
+                            <div class="nd" style="width: 100%;">
+                                <h2>Apple iPhone 12 128GB (VN/A) (Black)</h2>
+                        <p>Sự lột xác đầy mạnh mẽ lần này của Apple không chỉ gây bất ngờ đến người dùng mà còn đánh dấu một kỷ nguyên mới trong nền phát triển smartphone Apple. Và đây cũng được xem là một trong những bộ series iPhone mà Apple đặt nhiều tâm huyết, mục đích và đầy tính năng mạnh mẽ chưa từng thấy.</p>
+                        <h3>Thiết kế toát lên vẻ ngoài sang chảnh</h3>
+                        <p>Về ngoại hình&nbsp;<strong><a title="iPhone 12 tại Phúc Anh" href="https://www.phucanh.vn/dien-thoai-apple.html?filter=%2C28725%2C">iPhone 12</a></strong> có thiết kế hoài niệm với phần cạnh được làm vuông vức tương tự trên mẫu iPhone 4. Ở mặt trước <strong>iPhone 12</strong> phần tai thỏ được làm nhỏ gọn hơn và cũng là nơi chứa cảm biến Face ID có thể nhận diện khuôn mặt một cách nhanh chóng và chính xác.</p>
+                        <p><strong>iPhone 12</strong> được trang bị màn hình Super Retina XDR OLED tràn viền có kích thước 6.1 inch, cho bạn không gian trải nghiệm lớn cũng như những giây phút giải trí hấp dẫn trên một màn ảnh vô cùng chất lượng.</p>
+                        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://phucanhcdn.com/media/lib/40750_iPhone12BVh6.jpg" alt="Apple iPhone 12" width="469" height="619"></p>
+                        <p>Máy được chế tác có độ hoàn thiện cực cao với thiết kế nguyên khối, khung nhôm và mặt sau là kính cường lực cao cấp toát lên vẻ ngoài sang chảnh cũng như mang lại độ hiệu quả an toàn cao mỗi khi sử dụng.</p>
+                        <p>Và để cho thiết bị trở nên hoàn hảo hơn nên không thể thiếu khả năng kháng nước, bụi chuẩn IP68 giúp người dùng yên tâm sử dụng với những buổi đi chơi biển mà không hề lo chiếc máy bị nhúng nước.</p>
+                        <h3>Hiệu năng vượt xa mọi giới hạn</h3>
+                        <p>Apple đã trang bị con chip mới nhất của hãng (tính đến 11/2020) cho <strong>iPhone 12</strong> đó là A14 Bionic, được sản xuất trên tiến trình 5 nm với hiệu suất ổn định hơn so với chip A13 được trang bị trên phiên bản tiền nhiệm iPhone 11.</p>
+                        <p>Với CPU Apple A14 Bionic, bạn có thể dễ dàng trải nghiệm mọi tựa game với những pha chuyển cảnh mượt mà hay hàng loạt hiệu ứng đồ họa tuyệt đẹp ở mức đồ họa cao mà không lo tình trạng giật lag.</p>
+                        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://phucanhcdn.com/media/lib/40750_iPhone12BVh11.jpg" alt="Apple iPhone 12" width="800" height="450"></p>
+                        <p>Chưa hết, Apple còn gây bất ngờ đến người dùng với hệ thống 5G lần đầu tiên được trang bị trên những <span style="color: #0000ff;"><a style="color: #0000ff;" title="Iphone tại Phúc Anh" href="https://www.phucanh.vn/dien-thoai-apple.html">chiếc iPhone</a></span>, cho tốc độ truyền tải dữ liệu nhanh hơn, ổn định hơn.</p>
+                        <p><strong>iPhone 12</strong> sẽ chạy trên hệ điều hành iOS 14 với nhiều tính năng hấp dẫn như hỗ trợ Widget cũng như những nâng cấp tối ưu phần mềm đáng kể mang lại những trải nghiệm thú vị mới lạ đến người dùng.</p>
+                        <h3>Cụm camera không ngừng cải tiến</h3>
+                        <p><strong>iPhone 12</strong> được trang bị hệ thống camera kép bao gồm camera góc rộng và camera siêu rộng có cùng độ phân giải là 12 MP, chế độ ban đêm (Night Mode) trên bộ đôi camera này cũng đã được nâng cấp về phần cứng lẫn thuật toán xử lý, khi chụp những bức ảnh thiếu sáng bạn sẽ nhận được kết quả ấn tượng với màu sắc, độ chi tiết rõ nét đáng kinh ngạc.</p>
+                        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://phucanhcdn.com/media/lib/40750_iPhone12BVh3.jpg" alt="Apple iPhone 12" width="1008" height="1008"></p>
+                        <p>Bạn có thể khám phá thêm những tính năng của camera trên iPhone 12 như chế độ smart HDR 3 giúp cân bằng yếu tố ánh sáng trong ảnh, làm nổi bật chi tiết đối tượng và cây cối trong khi vẫn giữ được màu sắc phong phú của bầu trời ngay cả vào buổi trưa nắng gắt.</p>
+                        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://phucanhcdn.com/media/lib/40750_iPhone12BVh8.jpg" alt="Apple iPhone 12" width="652" height="870"></p>
+                        <p>Chế độ chụp chân dung đã tốt nay còn tốt hơn trong việc làm mờ hậu cảnh một cách nghệ thuật để dồn hết sự tập trung vào đối tượng mà bạn muốn chụp.</p>
+                        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://phucanhcdn.com/media/lib/40750_iPhone12BVh7.jpg" alt="Apple iPhone 12" width="1068" height="801"></p>
+                        <p>Bạn sẽ dễ dàng quay video 4K HDR với chuẩn điện ảnh Dolby Vision và chỉnh sửa ngay trên chiếc điện thoại của mình, bạn có thể đưa video lên TV của bạn để thưởng thức thước phim sắc nét chất lượng cao.</p>
+                        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://phucanhcdn.com/media/lib/40750_iPhone12BVh9.jpg" alt="Apple iPhone 12" width="698" height="349"></p>
+                        <p>Sự kết hợp của 2 cảm biến chất lượng này đã tạo nên một hệ thống camera chuyên nghiệp không khác gì những chiếc máy ảnh thực thụ, dễ dàng đem lại những bức hình sắc nét tuyệt đối, độ chi tiết cao và đa dạng chế độ chụp cho người dùng linh hoạt sử dụng.</p>
+                        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://phucanhcdn.com/media/lib/40750_iPhone12BVh2.jpg" alt="Apple iPhone 12" width="980" height="735"></p>
+                        <h3>Trải nghiệm xuyên suốt, liền mạch cả ngày dài</h3>
+                        <p>Để bạn có những giây phút trải nghiệm liền mạch, Apple đã trang bị một viên pin có dung lượng 2815 mAh, tích hợp cho khả năng tiết kiệm pin giúp người dùng có thể giải trí đa phương tiện lên đến 17 giờ và nghe nhạc liên tục lên đến 65 giờ.</p>
+                        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://phucanhcdn.com/media/lib/40750_iPhone12BVh10.jpg" alt="Apple iPhone 12" width="230" height="462"></p>
+                        <p>Không thể thiếu đó chính là tính năng sạc nhanh, iPhone 12 có khả năng sạc pin nhanh qua cáp công suất 20 W, chỉ trong vòng 30 phút thì chiếc máy đã có thế sạc được 50% pin. Thêm vào đó là khả năng sạc không dây MagSafe vô cùng tiện dụng.</p>
+                        <p><em>Lưu ý: Hình ảnh trong bài&nbsp;chỉ mang tính&nbsp;minh họa</em></p>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <div class="bg-white border" style="padding: 30px;">
+                            <h2 style="border-bottom: #708ff8 solid 2px;padding-bottom: 10px;margin-bottom: 30px;" id="thong_so">Thông số kỹ thuật</h2>
+                            
+        
+                            <div class="tbl-technical nd" style="width: 100%; height: auto; overflow: hidden;">
+                                <table style="border-collapse: collapse; width: 516pt;" width="687">
+                                    <tbody>
+                                    <tr style="height: 28.5pt;">
+                                    <td style="height: 28.5pt; width: 136pt;" width="181">Sản phẩm</td>
+                                    <td style="width: 380pt;" width="506">Điện thoại thông minh</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Hãng sản xuất</td>
+                                    <td style="width: 380pt;" width="506">Apple</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Model</td>
+                                    <td style="width: 380pt;" width="506">iPhone 12 128GB (VN/A)</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Màn hình</td>
+                                    <td style="width: 380pt;" width="506">Super Rentina XDR6.1Inch</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Độ phân giải</td>
+                                    <td style="width: 380pt;" width="506">1170x2532</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Chipset/ CPU</td>
+                                    <td style="width: 380pt;" width="506">Apple A14 Bionic</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">RAM</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Bộ nhớ trong (ROM)</td>
+                                    <td style="width: 380pt;" width="506">128Gb</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Hỗ trợ thẻ nhớ</td>
+                                    <td style="width: 380pt;" width="506">Không</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Camera</td>
+                                    <td style="width: 380pt;" width="506">Camera sau: 12.0Mp (camera kép), Camera trước: 12MP</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Sim</td>
+                                    <td style="width: 380pt;" width="506">1 sim (NanoSim)</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Bảo mật vân tay</td>
+                                    <td style="width: 380pt;" width="506">Không</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Hệ điều hành</td>
+                                    <td style="width: 380pt;" width="506">IOS 14</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Dung lượng pin</td>
+                                    <td style="width: 380pt;" width="506">0 mAh</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Trọng lượng</td>
+                                    <td style="width: 380pt;" width="506">0.164 kg</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Kích thước</td>
+                                    <td style="width: 380pt;" width="506">146.7 x 71.5 x 7.4 mm cm</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Màu sắc</td>
+                                    <td style="width: 380pt;" width="506">Black</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Cổng kết nối</td>
+                                    <td style="width: 380pt;" width="506">NanoSIM, Lightning, Wifi, 4G, Bluetooth</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Phụ kiện kèm theo</td>
+                                    <td style="width: 380pt;" width="506">Sách hướng dẫn</td>
+                                    </tr>
+                                    <tr style="height: 14.25pt;">
+                                    <td style="height: 14.25pt;">Chức năng khác</td>
+                                    <td style="width: 380pt;" width="506">Face ID, chống nước, sạc nhanh</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+        
                 </div>
             </div>
-            {% endfor %}
+
+            <div class="col-lg-4">
+                <div class="sticky-top">
+                    <div class="flex-column">
+                        <div class="bg-white border">
+                            <div class="text-center">
+                                <h4 style="margin-top: 20px;">Sản phẩm nổi bật</h4>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img class="card-img-top" src="https://phucanhcdn.com/media/product/40750_iphone_12_ha1.jpg{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="card-body card-body-position" style="text-align: center;">
+                                            <h5 class="card-title" style="color: #708ff8;font-weight:600">Iphone 12 Pro</h5>
+                                            <a href="{{item.Url.Url}}" ><button class="btn btn-primary">Check sản phẩm</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img class="card-img-top" src="https://phucanhcdn.com/media/product/40750_iphone_12_ha1.jpg{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="card-body card-body-position" style="text-align: center;">
+                                            <h5 class="card-title" style="color: #708ff8;font-weight:600">Iphone 12 Pro Max</h5>
+                                            <a href="{{item.Url.Url}}" ><button class="btn btn-primary">Check sản phẩm</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img class="card-img-top" src="https://phucanhcdn.com/media/product/40750_iphone_12_ha1.jpg{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="card-body card-body-position" style="text-align: center;">
+                                            <h5 class="card-title" style="color: #708ff8;font-weight:600">Iphone 12 Plus</h5>
+                                            <a href="{{item.Url.Url}}" ><button class="btn btn-primary">Check sản phẩm</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img class="card-img-top" src="https://phucanhcdn.com/media/product/40750_iphone_12_ha1.jpg{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="card-body card-body-position" style="text-align: center;">
+                                            <h5 class="card-title" style="color: #708ff8;font-weight:600">Iphone 12 Plus</h5>
+                                            <a href="{{item.Url.Url}}" ><button class="btn btn-primary">Check sản phẩm</button></a>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img class="card-img-top" src="https://phucanhcdn.com/media/product/40750_iphone_12_ha1.jpg{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="card-body card-body-position" style="text-align: center;">
+                                            <h5 class="card-title" style="color: #708ff8;font-weight:600">Iphone 12 Plus</h5>
+                                            <a href="{{item.Url.Url}}" ><button class="btn btn-primary">Check sản phẩm</button></a>
+                                        </div>
+                                    </div>
+                                </div> 
+                                           
+                                        
+                                    
+                               
+     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
+
+
     </div>
 {% endblock main %}
 
