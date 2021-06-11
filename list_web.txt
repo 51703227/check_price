@@ -16,7 +16,7 @@ https://www.phucanh.vn/dien-thoai-thong-minh.html
 #https://dienthoaimoi.vn/
 #https://mobileworld.com.vn/collections/dien-thoai
 #https://nhattao.com/f/dien-thoai.543/
-#https://www.duchuymobile.com/dien-thoai
+##https://www.duchuymobile.com/dien-thoai
 #https://cellphones.com.vn/
 
 https://didongmango.com/dien-thoai-pc58.html
