@@ -95,7 +95,7 @@ def name_processing(name):
             'độc',' đáo',
             '6GB/128GB','Tím','Xám','Đen']
     bl_list = ['(' , ')' , '-' ,'/','[',']',
-    'Deep Gray','Máy Người Già','Phiên bản','mùa hè','Chính Hãng','huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao','Màu',
+    'Đẹp','đẹp','Deep Gray','Máy Người Già','Phiên bản','mùa hè','Chính Hãng','huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao','Màu',
     '+512GB','+256GB','+128GB','+64GB','+8GB','+16GB','+32GB','+4GB','+512Gb','+256Gb','+128Gb','+64Gb','+8Gb','+16Gb','+32Gb','+4Gb','+512G','+256G','+128G','+64G','+16G','+32G',
     '512GB','256GB','128GB','64GB','8GB','16GB','32GB','4GB','512Gb','256Gb','128Gb','64Gb','8Gb','16Gb','32Gb','4Gb','512G','256G','128G','64G','16G','32G',
     'Xanh lá','Vàng đồng','nước biển','Vàng đồng','lá','lục','Đồng','Khói','bích','huyền bí','nhật thực','Biển','mận','Dương','Lá','Đỏ' ,'Đen' ,'Lục' ,'Cực' ,'Quang', 'tinh' ,'thạch', 'Ngọc', 'Trai','Bạc' ,'Hà','Lam', 'Thủy', 'Triều','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','lá','ngọc','lam','Sapphire',
@@ -105,7 +105,7 @@ def name_processing(name):
     '1 sim','1 Sim','Mỹ','New','BH12T','Certified','PreOwned','Special','Product', 'ram','cty','RAM','Edge', 'Batman', 'Injustice','Cty',
     'Apple','APPLE','6.4Inch','5.3Inch','6.4Inch','6.23Inch','6.2Inch','5.7Inch','6.2Inch','6.4Inch','Đại',
     'Đtdđ','ĐTDĐ',
-    '2+32',
+    '2+32','9798%','98%','97%','99%'
     ]
 
     if name == None:
@@ -139,6 +139,12 @@ def format_bonho(bonho):
     return bonho.upper()
 
 def format_mausac(mausac):
+    _list = ['\n','\t','99%']
+    if not mausac:
+        return None
+    else:
+        for i in _list:
+            mausac = mausac.replace(i,'')
     _dict = {
         'Blue':'Xanh Dương',
         'Graphite':'Than',
@@ -205,10 +211,6 @@ class nguyenkimSpider(scrapy.Spider):
         item = response.meta['item']
 
         option_old_price = response.css('.product_info_price .product_info_price_value-real span::text').get()
-#        option_rom = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color:nth-child(2) a.active span::text').get()
-
-#        rom_active = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color:nth-child(2) a.active span::text').get()
-#        color_active = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color:nth-child(1) a.active span::text').get()
 
         attr_active = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color .color a.opt-var.active::attr(title)')
 
@@ -294,9 +296,7 @@ class nguyenkimSpider(scrapy.Spider):
         item = response.meta['item']
 
         option_old_price = response.css('.product_info_price .product_info_price_value-real span::text').get()
-#        option_rom = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color:nth-child(2) a.active span::text').get()
-#        rom_active = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color:nth-child(2) a.active span::text').get()
-#        color_active = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color:nth-child(1) a.active span::text').get()
+
         attr_active = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color .color a.opt-var.active::attr(title)')
 
         attributes = []
@@ -321,17 +321,9 @@ class nguyenkimSpider(scrapy.Spider):
                 else:
                     color_active = attr.get()
 
-            #for attribute in _attributes:
-            #if check_bonho(attribute.get()):
-            #    continue
 
-            #option_color = attribute.get()
             option_new_price = response.css('.product_info_price .product_info_price_value-final span::text').get()
 
-            #if option_color == color_active :
-            #    active = True
-            #else:
-            #    active = False
 
             attributes.append({
                 'bonho': format_bonho(rom_active) ,
@@ -384,10 +376,7 @@ class didongthongminhSpider(scrapy.Spider):
         attr = response.meta['attr']
 
         option_old_price = response.css('.product_info_price .product_info_price_value-real span::text').get()
-#        option_rom = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color:nth-child(2) a.active span::text').get()
 
-#        rom_active = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color:nth-child(2) a.active span::text').get()
-#        color_active = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color:nth-child(1) a.active span::text').get()
         attr['mausac']
         attr['bonho']
         
@@ -774,6 +763,329 @@ class hoanghaSpider(scrapy.Spider):
                 'giamoi': format_price(option_new_price) ,
                 'active': active
             })
+        item['thuoctinh'] = attributes
+
+        return item
+
+
+class didongmangoSpider(scrapy.Spider):
+    name = 'didongmango'
+    start_urls = ['https://didongmango.com/dien-thoai-pc58.html']
+
+    def parse(self,response):
+        for product in response.css('.products-cat-frame .product_grid .item'):   #####
+            item_link = product.css('.product_image a::attr(href)').get()       #####
+            if item_link:# == 'https://hoanghamobile.com/dien-thoai-di-dong/apple-iphone-12-pro-256gb-chinh-hang-vn-a':
+                
+                ten = product.css('h3 a::text').get()      #####
+                attr = get_attr_from_name(ten)
+                ten = name_processing(ten)
+
+                if item_link == None:
+                    continue
+                item = {
+                    'ten': ten ,
+                    'url': item_link,
+                    'image': product.css('.product_image img::attr(src)').get(), #####
+                    'ngay': date.today().strftime("%Y-%m-%d"),
+                    'loaisanpham':'dienthoai',
+                    'thuonghieu':'apple',
+                }
+                yield scrapy.Request(url=item_link, meta={'item': item,'attr':attr}, callback=self.get_detail)
+                #break
+            
+        
+        next_page = 'https://didongmango.com' + response.css('.pagination a.next-page::attr(href)').get()
+        if next_page is not None:
+            yield response.follow(next_page,callback=self.parse)
+
+    def get_detail(self, response):
+        
+        item = response.meta['item']
+        attr_from_name = response.meta['attr']
+        
+        
+        #option_new_price = response.css('.current-product-price strong::text').get()    #####   
+
+        
+        bonho_active = attr_from_name['bonho']
+        color_active = response.css('.product_base ._color a.active .color_name::text').get()
+        list_color = response.css('.product_base ._color a')
+        print("------------attr--", attr_from_name['bonho'],attr_from_name['mausac'])
+        active = 'False'
+        option_old_price = response.css('.product_base .price .price_old::text').get()
+
+        attributes = []
+        for i in list_color:
+            color = i.css('span.color_name::text').get()
+            print('+++++++',color)
+
+            option_new_price = i.css('span.price_follow_color::text').get()  #####
+            
+            if color == color_active:
+                active = 'True'
+            else:
+                active = 'False'
+            
+            
+            attributes.append({
+                'bonho': format_bonho(bonho_active) ,
+                'mausac': format_mausac(color) ,
+                'giagoc': format_price(option_old_price) ,
+                'giamoi': format_price(option_new_price) ,
+                'active': active
+            })
+        item['thuoctinh'] = attributes
+
+        return item
+
+
+class didonghanhphucSpider(scrapy.Spider):
+    name = 'didonghanhphuc'
+    start_urls = ['https://didonghanhphuc.vn/collections/dien-thoai']
+
+    def parse(self,response):
+        for product in response.css('.collection-body .product-item'):   #####
+            item_link = 'https://didonghanhphuc.vn' + product.css('.product-title a::attr(href)').get()       #####
+            if item_link:# == 'https://hoanghamobile.com/dien-thoai-di-dong/apple-iphone-12-pro-256gb-chinh-hang-vn-a':
+                
+                ten = product.css('.product-title a::text').get()      #####
+                attr = get_attr_from_name(ten)
+                ten = name_processing(ten)
+
+                if item_link == None:
+                    continue
+                item = {
+                    'ten': ten ,
+                    'url': item_link,
+                    'image': 'https://didonghanhphuc.vn' + product.css('.product-img img::attr(src)').get(), #####
+                    'ngay': date.today().strftime("%Y-%m-%d"),
+                    'loaisanpham':'dienthoai',
+                    'thuonghieu':'apple',
+                }
+                yield scrapy.Request(url=item_link, meta={'item': item,'attr':attr}, callback=self.get_detail)
+                #break
+            
+        
+        next_page = 'https://didonghanhphuc.vn' + response.css('.pagination span.nextPage a::attr(href)').get()
+        if next_page is not None:
+            yield response.follow(next_page,callback=self.parse)
+
+    def get_detail(self, response):
+        
+        item = response.meta['item']
+        attr_from_name = response.meta['attr']
+        
+        
+        #option_new_price = response.css('.current-product-price strong::text').get()    #####   
+
+        
+        bonho_active = attr_from_name['bonho']
+
+        color_active = response.css('.select-swatch .swatch-product-single .select-swap .swatch-element.color label span::text').get()
+
+        #list_color = response.css('.product_base ._color a')
+        print("------------attr--", attr_from_name['bonho'],attr_from_name['mausac'])
+        
+        option_old_price = response.css('.product-content .original-price s::text').get()
+
+        attributes = []
+
+        option_new_price = response.css('.product-content .current-price::text').get()  #####
+
+            
+            
+        attributes.append({
+            'bonho': format_bonho(bonho_active) ,
+            'mausac': format_mausac(color_active) ,
+            'giagoc': format_price(option_old_price) ,
+            'giamoi': format_price(option_new_price) ,
+            'active': 'True'
+        })
+        item['thuoctinh'] = attributes
+
+        return item
+
+class didongmogiSpider(scrapy.Spider):
+    name = 'didongmogi'
+    start_urls = ['https://didongmogi.com/danh-muc-san-pham/dien-thoai/']
+
+    def parse(self,response):
+        for product in response.css('.products .product'):   #####
+            item_link = product.css('p.name.product-title a::attr(href)').get()       #####
+            if item_link:# == 'https://hoanghamobile.com/dien-thoai-di-dong/apple-iphone-12-pro-256gb-chinh-hang-vn-a':
+                
+                ten = product.css('p.name.product-title a::text').get()      #####
+                attr = get_attr_from_name(ten)
+                ten = name_processing(ten)
+
+                if item_link == None:
+                    continue
+                item = {
+                    'ten': ten ,
+                    'url': item_link,
+                    'image':  product.css('.box-image img::attr(src)').get(), #####
+                    'ngay': date.today().strftime("%Y-%m-%d"),
+                    'loaisanpham':'dienthoai',
+                    'thuonghieu':'apple',
+                }
+                yield scrapy.Request(url=item_link, meta={'item': item,'attr':attr}, callback=self.get_detail)
+                #break
+            
+        
+        next_page = response.css('ul.page-numbers a.next.page-number::attr(href)').get()
+        if next_page is not None:
+            yield response.follow(next_page,callback=self.parse)
+
+    def get_detail(self, response):
+        
+        item = response.meta['item']
+        attr_from_name = response.meta['attr']
+        
+        option_old_price = response.css('.price.product-page-price del span.amount::text').get()
+
+        attributes = []
+
+        option_new_price = response.css('.price.product-page-price ins span.amount::text').get()  #####
+    
+        attributes.append({
+            'bonho': format_bonho(attr_from_name['bonho']) ,
+            'mausac': format_mausac(attr_from_name['mausac']) ,
+            'giagoc': format_price(option_old_price) ,
+            'giamoi': format_price(option_new_price) ,
+            'active': 'True'
+        })
+        item['thuoctinh'] = attributes
+
+        return item
+
+class galaxydidongSpider(scrapy.Spider):
+    name = 'galaxydidong'
+    start_urls = ['https://galaxydidong.vn/']
+
+    def parse(self,response):
+        for product in response.css('.motsanpham'):   #####
+            item_link = product.css('.tieude-sanpham a::attr(href)').get()       #####
+            if item_link:# == 'https://hoanghamobile.com/dien-thoai-di-dong/apple-iphone-12-pro-256gb-chinh-hang-vn-a':
+                
+                ten = product.css('.tieude-sanpham a::text').get()      #####
+                attr = get_attr_from_name(ten)
+                ten = name_processing(ten)
+
+                if item_link == None:
+                    continue
+                item = {
+                    'ten': ten ,
+                    'url': item_link,
+                    'image': product.css('.anhsanpham img::attr(src)').get(), #####
+                    'ngay': date.today().strftime("%Y-%m-%d"),
+                    'loaisanpham':'dienthoai',
+                    'thuonghieu':'apple',
+                }
+                yield scrapy.Request(url=item_link, meta={'item': item,'attr':attr}, callback=self.get_detail)
+                #break
+            
+        
+        #next_page = 'https://didongmango.com' + response.css('.pagination a.next-page::attr(href)').get()
+        #if next_page is not None:
+        #    yield response.follow(next_page,callback=self.parse)
+
+    def get_detail(self, response):
+        
+        item = response.meta['item']
+        attr_from_name = response.meta['attr']
+        
+        
+        #option_new_price = response.css('.current-product-price strong::text').get()    #####   
+
+        
+        bonho_active = attr_from_name['bonho']
+        color_active = response.css('.detail-product .detail-main .detail-product-right .choose-color ul li.active div.variable-wrap::text')[1].get()
+        list_color = response.css('.detail-product .detail-main .detail-product-right .choose-color ul li')
+        print("------------attr--", attr_from_name['bonho'],attr_from_name['mausac'])
+        active = 'False'
+        
+        option_old_price = 'None'
+
+        attributes = []
+        for i in list_color:
+            color = i.css(' div.variable-wrap::text')[1].get()
+            print('+++++++',color)
+
+            option_new_price = i.css(' div.variable-wrap p span::text').get()  #####
+            
+            if format_mausac(color) == format_mausac(color_active):
+                active = 'True'
+            else:
+                active = 'False'
+            
+            attributes.append({
+                'bonho': format_bonho(bonho_active) ,
+                'mausac': format_mausac(color) ,
+                'giagoc': format_price(option_old_price) ,
+                'giamoi': format_price(option_new_price) ,
+                'active': active
+            })
+        item['thuoctinh'] = attributes
+
+        return item
+
+
+class dienthoaigiasocSpider(scrapy.Spider):
+    name = 'dienthoaigiasoc'
+    start_urls = [
+        'https://dienthoaigiasoc.vn/danh-muc/apple-iphone/',
+        'https://dienthoaigiasoc.vn/danh-muc/samsung-galaxy-chinh-hang/',
+        'https://dienthoaigiasoc.vn/danh-muc/oppo/',
+        'https://dienthoaigiasoc.vn/danh-muc/xiaomi/',
+        'https://dienthoaigiasoc.vn/danh-muc/dien-thoai-khac-realme-xiaomi-nokia-vsmart/',
+    ]
+
+    def parse(self,response):
+        for product in response.css('div.full-section .item-st3'):   #####
+            item_link = product.css('h4.name-item-st3 a::attr(href)').get()       #####
+            if item_link:# == 'https://hoanghamobile.com/dien-thoai-di-dong/apple-iphone-12-pro-256gb-chinh-hang-vn-a':
+                
+                ten = product.css('h4.name-item-st3 a::text').get()      #####
+                attr = get_attr_from_name(ten)
+                ten = name_processing(ten)
+
+                if item_link == None:
+                    continue
+                item = {
+                    'ten': ten ,
+                    'url': item_link,
+                    'image':  product.css('.img-item-st3 img::attr(src)').get(), #####
+                    'ngay': date.today().strftime("%Y-%m-%d"),
+                    'loaisanpham':'dienthoai',
+                    'thuonghieu':'apple',
+                }
+                yield scrapy.Request(url=item_link, meta={'item': item,'attr':attr}, callback=self.get_detail)
+                #break
+            
+        
+        next_page = response.css('div.nextpage li:last-child a::attr(href)').get()
+        if next_page is not None:
+            yield response.follow(next_page,callback=self.parse)
+
+    def get_detail(self, response):
+        
+        item = response.meta['item']
+        attr_from_name = response.meta['attr']
+        
+        option_old_price = response.css('.detail-product-top .price .price-old::text').get()
+
+        attributes = []
+
+        option_new_price = response.css('.detail-product-top .price .price-new::text').get()  #####
+    
+        attributes.append({
+            'bonho': format_bonho(attr_from_name['bonho']) ,
+            'mausac': format_mausac(attr_from_name['mausac']) ,
+            'giagoc': format_price(option_old_price) ,
+            'giamoi': format_price(option_new_price) ,
+            'active': 'True'
+        })
         item['thuoctinh'] = attributes
 
         return item

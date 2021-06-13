@@ -26,9 +26,14 @@ https://hc.com.vn/ords/c--dien-thoai
 https://ishop.com.vn/dien-thoai-di-dong-pc323843.html
 https://didonghathanh.com.vn/san-pham/
 http://didongsinhvien.com/dien-thoai-dm70.html
-https://didongmogi.com/danh-muc-san-pham/dien-thoai/
+#https://didongmogi.com/danh-muc-san-pham/dien-thoai/
 https://bachkhoastore.com/collections/dien-thoai
 https://galaxydidong.vn/
+
+https://www.truesmart.com.vn/dien-thoai/
+https://dienmaythienhoa.vn/dien-thoai-di-dong.html
+https://didongvietnam.com/dien-thoai-smartphone-2193/?trang=1
+
 <<<<<<< HEAD
 #(da crawl)https://mobileworld.com.vn/collections/dien-thoai
 (it sp)-https://thanhhienmobile.com/danh-muc/dien-thoai-di-dong
