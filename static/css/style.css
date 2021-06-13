@@ -378,10 +378,6 @@ select {
     color: #aaa
 }
 
-img {
-    max-width: 250px;   
-}
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
 .carousel-item {
@@ -450,8 +446,12 @@ label.radio input:checked+span {
 .card-position{
     margin-top: 15px;
     margin-right: 15px;
-    height: 400px !important;
+    height: 400px;
     min-width: 100% !important;
+}
+
+img{
+    max-width: -webkit-fill-available;
 }
 
 img.card-img-top{
@@ -475,9 +475,6 @@ div.card-body-position {
     color: #aaa
 }
 
-img {
-    max-width: 250px;   
-}
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
@@ -486,7 +483,8 @@ img {
 }
 
 .price span {
-    font-size: 18px
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .cut {
