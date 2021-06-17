@@ -175,93 +175,6 @@ def format_mausac(mausac):
 
 
 class nguyenkimSpider(scrapy.Spider):
-    name = 'nguyenkim1'
-    start_urls = ['https://www.nguyenkim.com/dien-thoai-di-dong/']
-
-    def parse(self,response):
-
-        for product in response.css('div.item-list'):
-            item_link = product.css('.product-header a::attr(href)').get()
-            ten = name_processing(product.css('.product-body .product-title a::text').get()) 
-            if item_link == None:
-                continue
-            item = {
-                'ten': ten ,
-                'url': item_link,
-                'image': product.css('.product-image img::attr(data-src)').get(),
-                'ngay': date.today().strftime("%Y-%m-%d"),
-                'loaisanpham':'dienthoai',
-                'thuonghieu':'iphone',
-            }
-            yield scrapy.Request(url=item_link, meta={'item': item}, callback=self.get_detail)
-
-        next_page = response.css('.ty-pagination a.btn_next::attr(href)').get()
-        if next_page is not None:
-            yield response.follow(next_page,callback=self.parse)
-    
-
-
-    def get_detail(self, response):
-        def check_bonho(attr):
-            if 'GB' in attr:
-                return True
-            else:
-                return False
-                
-        self.log('Visited ' + response.url)
-        item = response.meta['item']
-
-        option_old_price = response.css('.product_info_price .product_info_price_value-real span::text').get()
-
-        attr_active = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color .color a.opt-var.active::attr(title)')
-
-        attributes = []
-        _attributes = response.css('.NkPdp_productInfo .productInfo_col-23 .productInfo_col-2 .product_pick_color .color a.opt-var::attr(title)')
-        
-        if not _attributes:
-            option_new_price = response.css('.product_info_price .product_info_price_value-final span::text').get()
-            attributes.append({
-                    'bonho': 'None',
-                    'mausac': 'None',
-                    'giagoc': format_price(option_old_price) ,
-                    'giamoi': format_price(option_new_price) ,
-                    'active': 'True'
-                })
-            item['thuoctinh'] = attributes
-        else:
-            rom_active = 'None'
-            color_active ='None'
-            for attr in attr_active:
-                if check_bonho(attr.get()):
-                    rom_active = attr.get()
-                else:
-                    color_active = attr.get()
-
-            #for attribute in _attributes:
-            #if check_bonho(attribute.get()):
-            #    continue
-
-            #option_color = attribute.get()
-            option_new_price = response.css('.product_info_price .product_info_price_value-final span::text').get()
-
-            #if option_color == color_active :
-            #    active = True
-            #else:
-            #    active = False
-
-            attributes.append({
-                'bonho': rom_active,
-                'mausac': color_active,
-                'giagoc': format_price(option_old_price) ,
-                'giamoi': format_price(option_new_price) ,
-                'active': 'True'
-            })
-            item['thuoctinh'] = attributes
-
-        return item
-
-
-class nguyenkimSpider(scrapy.Spider):
     name = 'nguyenkim'
     start_urls = ['https://www.nguyenkim.com/dien-thoai-di-dong/']
 
@@ -313,6 +226,8 @@ class nguyenkimSpider(scrapy.Spider):
                     'active': 'True'
                 })
             item['thuoctinh'] = attributes
+            item['tskt'] = response.css('.productSpecification_brief table').get()
+            item['mota'] = response.css('.pdp-box #content_description.wysiwyg-content .productFeature_content').get().replace('display: none;','').replace('src="https://cdn.nguyenkimmall.com/design/themes/responsive/media/images/lazy_img.jpg"','').replace('data-src','src')
         else:
             rom_active = 'None'
             color_active ='None'
@@ -334,7 +249,8 @@ class nguyenkimSpider(scrapy.Spider):
                 'active': 'True'
             })
             item['thuoctinh'] = attributes
-
+            item['tskt'] = response.css('.productSpecification_brief table').get()
+            item['mota'] = response.css('.pdp-box #content_description.wysiwyg-content .productFeature_content').get().replace('display: none;','').replace('src="https://cdn.nguyenkimmall.com/design/themes/responsive/media/images/lazy_img.jpg"','').replace('data-src','src')
         return item
 
 class didongthongminhSpider(scrapy.Spider):

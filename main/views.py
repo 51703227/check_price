@@ -289,10 +289,10 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
 
 def import_data(request):   #Nạp data.json và database
     list_file =  [
-        'mediamart_1106.json',
-        'hnam_1106.json',
-        'phucanh_1106.json',
-        'nguyenkim_1106.json',
+        #'mediamart_1106.json',
+        #'hnam_1106.json',
+        #'phucanh_1106.json',
+        'nguyenkim_1706.json',
     ]
     for ten_file in list_file:
         f = open(ten_file,'r',encoding='utf-8')
@@ -326,13 +326,17 @@ def import_data(request):   #Nạp data.json và database
                 setattr(obj,'SanPham',SanPham.objects.get(TenSP=item['ten']))
                 setattr(obj,'NguonBan',NguonBan.objects.get(Domain = urlparse(item['url']).netloc))
                 setattr(obj,'UrlImage',item['image'])
+                setattr(obj,'Tskt',item['tskt'])
+                setattr(obj,'MoTa',item['mota'])
                 obj.save()
             except Url.DoesNotExist:
                 obj = Url(
                     Url = item['url'],
                     SanPham = SanPham.objects.get(TenSP=item['ten']) ,
                     NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
-                    UrlImage = item['image']
+                    UrlImage = item['image'],
+                    Tskt = item['tskt'],
+                    MoTa = item['mota']
                 )
                 obj.save()         
             
