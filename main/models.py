@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import BooleanField
 
 # Create your models here.
 
@@ -18,7 +19,7 @@ class ThuongHieu(models.Model):
 class NguonBan(models.Model):
     TenNB = models.CharField(max_length=100,unique=True)
     Domain = models.CharField(max_length=100,null=True,unique=True)
-    Logo = models.URLField(null=True)
+    Logo = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return self.TenNB

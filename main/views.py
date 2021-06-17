@@ -289,10 +289,16 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
 
 def import_data(request):   #Nạp data.json và database
     list_file =  [
-        #'mediamart_1106.json',
-        #'hnam_1106.json',
-        #'phucanh_1106.json',
+        'mediamart_1706.json',
+        'hnam_1706.json',
+        'phucanh_1706.json',
         'nguyenkim_1706.json',
+        'hoangha_1706.json',
+        'galaxydidong_1706.json',
+        'dienthoaigiasoc_1706.json',
+        'didongmango_1706.json',
+        'didongmogi_1706.json',
+        'didonghanhphuc_1706.json',
     ]
     for ten_file in list_file:
         f = open(ten_file,'r',encoding='utf-8')
