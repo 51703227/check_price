@@ -153,10 +153,16 @@ def url_input(request):
                 try:
                     thuoc_tinh_active = ThuocTinh.objects.get(Url = url_input,Active = "True")
                 except ThuocTinh.DoesNotExist:
-                    thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input)[0]
+                    thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input).first()
                 list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = url_input.SanPham,NguonBan = url_input.NguonBan)
             except Url.DoesNotExist:
                 return render(request,'pages/404.html',{'type':'Url','data':url})
+            
+            list_sp_chung_nb = []
+            list_url_chung_nb = Url.objects.filter(NguonBan = url_input.NguonBan)
+            list_sp_chung_nb = list_url_chung_nb[0:8]
+            
+            print(list_sp_chung_nb)
             #tạo form nhập thuộc tính
             mausac =[]
             bonho = []
@@ -172,6 +178,7 @@ def url_input(request):
             data= {
                 'url_in': url_input,
                 'thuoc_tinh_active':thuoc_tinh_active,
+                'list_sp_chung_nb':list_sp_chung_nb,
                 'form': form
             }
             
@@ -181,8 +188,13 @@ def url_input(request):
             #return HttpResponseRedirect('/print_url',url)
     else:
         form = GetUrlForm()
-
-    return render(request, 'pages/geturl.html',{'form':form})
+        product_feature = SanPham.objects.filter(TenSP__icontains = 'Iphone 12')
+        product_feature = product_feature[0:4]
+        data = {
+            'form':form,
+            'product_feature':product_feature
+        }   
+    return render(request, 'pages/geturl.html',data)
 
 def is_valid_url(url):
     validate = URLValidator()
@@ -256,7 +268,7 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             return False
 
     if  thuoc_tinh_urlin!=None:
-        saleoff = (thuoc_tinh_urlin.GiaGoc1 / thuoc_tinh_urlin.GiaMoi1)*100
+        saleoff = (thuoc_tinh_urlin.GiaMoi1 / thuoc_tinh_urlin.GiaGoc1)*100
         giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 +thuoc_tinh_urlin.GiaGoc2 +thuoc_tinh_urlin.GiaGoc3 +thuoc_tinh_urlin.GiaGoc4 +thuoc_tinh_urlin.GiaGoc5 )/5
         giakhuyenmaitrungbinh = (thuoc_tinh_urlin.GiaMoi1 +thuoc_tinh_urlin.GiaMoi2 +thuoc_tinh_urlin.GiaMoi3 +thuoc_tinh_urlin.GiaMoi4 +thuoc_tinh_urlin.GiaMoi5 )/5
         dotrungthuc = 80
@@ -271,11 +283,14 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
             print("-=--",list_thuoc_tinh_url)
 
+        list_url_chung_nb = Url.objects.filter(NguonBan = url.NguonBan)
+        list_url_chung_nb = list_url_chung_nb[0:5]
         #lưu dữ liệu truy xuất và data
         data = {
             #'product': product, #obj
             'thuoc_tinh_urlin': thuoc_tinh_urlin, #obj
             'thuoc_tinh_urlout': list_thuoc_tinh_url,
+            'list_url_chung_nb':list_url_chung_nb,
             'analytics':{
                 'saleoff':round(saleoff,2),
                 'giagoctrungbinh': "{:,.2f} VNĐ".format(giagoctrungbinh),
@@ -289,39 +304,51 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
 
 def import_data(request):   #Nạp data.json và database
     list_file =  [
-        'mediamart_1706.json',
-        'hnam_1706.json',
-        'phucanh_1706.json',
-        'nguyenkim_1706.json',
-        'hoangha_1706.json',
-        'galaxydidong_1706.json',
-        'dienthoaigiasoc_1706.json',
-        'didongmango_1706.json',
-        'didongmogi_1706.json',
-        'didonghanhphuc_1706.json',
+        #'mediamart.json',
+        #'hnam.json',
+        #'phucanh.json',
+        #'nguyenkim.json',
+        #'hoangha.json',
+        #'galaxydidong.json',
+        #'dienthoaigiasoc.json',
+        #'didongmango.json',
+        #'didongmogi.json',
+        #'didonghanhphuc.json',
+
+        'xtmobile.json',
+        'aeoneshop.json',
+        'anphatpc.json',
+        'cellphones.json',
+        'didongmy.json',
+        'didongsinhvien.json',
+        'didongthongminh.json',
+        'dienthoaimoi.json',
+        'minhducvn.json',
+        'mobileworld.json'
     ]
     for ten_file in list_file:
-        f = open(ten_file,'r',encoding='utf-8')
+        f = open('./data/mobile/'+ten_file,'r',encoding='utf-8')
         data = json.loads(f.read())
 
         for item in data:
             
             try:
                 obj = SanPham.objects.get(TenSP = item['ten'])
-
             except SanPham.DoesNotExist:
                 try:
                     obj = SanPham(
                         TenSP = item['ten'],
                         LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
-                        ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu'])
+                        ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu']),
+                        ImgSP = item['image']
                     )
                     obj.save()
                 except ThuongHieu.DoesNotExist:
                     obj = SanPham(
                         TenSP = item['ten'],
                         LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
-                        ThuongHieu = ''
+                        
+                        ImgSP = item['image']
                     )
                     obj.save()
             except MultipleObjectsReturned:
@@ -347,7 +374,11 @@ def import_data(request):   #Nạp data.json và database
                 obj.save()         
             
             for i in item['thuoctinh']:
-                
+                def rp(gia):
+                    if (gia==None) or (gia in ['liên hệ','liênhệ','Liên hệ','Liênhệ','None','none','NONE','']):
+                        return 0
+                    else:
+                        return gia.replace('.','').replace('₫','').replace('đ','')
                 try:
                     obj = ThuocTinh.objects.get(
                         Url=Url.objects.get(Url = item['url']), 
@@ -361,12 +392,6 @@ def import_data(request):   #Nạp data.json và database
                     obj.Ngay3 = obj.Ngay2
                     obj.Ngay2 = obj.Ngay1
                     obj.Ngay1 = item['ngay']
-                    
-                    def rp(gia):
-                        if (gia==None) or (gia in ['liên hệ','liênhệ','Liên hệ','Liênhệ','None','none','NONE']):
-                            return 0
-                        else:
-                            return gia.replace('.','').replace('₫','')
 
                     obj.GiaGoc5 = obj.GiaGoc4
                     obj.GiaGoc4 = obj.GiaGoc3
@@ -387,8 +412,8 @@ def import_data(request):   #Nạp data.json và database
 
                     thuoctinh.MauSac = i['mausac']
                     thuoctinh.BoNho = i['bonho']
-                    thuoctinh.GiaGoc1 = 0 if i['giagoc']==None else rp(i['giagoc'])
-                    thuoctinh.GiaMoi1 = 0 if i['giamoi']==None else rp(i['giamoi'])
+                    thuoctinh.GiaGoc1 =rp(i['giagoc'])
+                    thuoctinh.GiaMoi1 =rp(i['giamoi'])
                     thuoctinh.Ngay1 = item['ngay']
                     thuoctinh.Url = Url.objects.get(Url = item['url'])
                     thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])

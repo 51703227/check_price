@@ -2,6 +2,7 @@
 {% block title %}
 Chọn thuộc tính
 {% endblock title %}
+{% load humanize %}
 {% block main %}
     <div class="container-fluid py-5">
         <div class="row">
@@ -17,7 +18,7 @@ Chọn thuộc tính
                         <div class="col-md-7">
                             <div class="info url-input">
                                 <h4 class="font-weight-bold">{{data.url_in.SanPham.TenSP}}</h4>
-                                <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_active.GiaMoi1}} VNĐ</span><span class="mr-2 cut">{{data.thuoc_tinh_active.GiaGoc1}} VNĐ</span></div>
+                                <div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_active.GiaMoi1| floatformat:"0" | intcomma}} VNĐ</span><span class="mr-2 cut">{{data.thuoc_tinh_active.GiaGoc1| floatformat:"0" | intcomma}} VNĐ</span></div>
                                 <!--<div class="price"><span class="mr-2"><i class="text-success"></i>{{data.thuoc_tinh_urlin.MauSac}}</span><span class="mr-2 cut">{{data.url_in.ThuocTinh}}</span><span class="text-success">25% OFF</span></div>-->
                                 <!--<div class="d-flex flex-row">
                                     <div class="icons mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div><span>1200 ratings &amp; 564 reviews</span>
@@ -91,6 +92,22 @@ Chọn thuộc tính
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            {% for item in data.list_sp_chung_nb %}
+                <div class="col-lg-3 ">
+                    <div class="card-position card d-inline-flex border">
+                        <div class="row" style="justify-content: center;">
+                            <img class="card-img-top" src="{{item.UrlImage}}" alt="Card image" style="width:100%">
+                            <div class="card-body card-body-position" style="text-align: center;">
+                                <h5 class="card-title">{{item.SanPham.TenSP}}</h5>
+                                <a href= "" ><button class="btn btn-primary">Check</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>        
     </div>
 {% endblock main %}
 

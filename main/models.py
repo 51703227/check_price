@@ -53,7 +53,7 @@ class SanPham(models.Model):
     TenSP = models.CharField(max_length=100,null=True,blank=True)
     LoaiSanPham = models.ForeignKey(LoaiSanPham,on_delete=models.CASCADE,null=True,blank=True)
     ThuongHieu = models.ForeignKey(ThuongHieu,on_delete=models.CASCADE,null=True,blank=True)
-    
+    ImgSP = models.URLField(null=True,blank=True)
     def __str__(self):
         return str(self.pk) + ' - ' + self.TenSP
 

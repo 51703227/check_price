@@ -94,7 +94,8 @@ def name_processing(name):
             'xuân)','Mi','Festival)','(Fan','Edition),'
             'độc',' đáo',
             '6GB/128GB','Tím','Xám','Đen']
-    bl_list = ['(' , ')' , '-','–' ,'/','[',']',
+    bl_list = ['(' , ')' , '-','–' ,'/','[',']',',',
+    'mới 100%','nguyên seal','chưa active','Quốc tế','95%','QT','100%','Chưa Active','2017','Sạc Ít Lần',
     'Bản','Mới 100%','Quốc Tế','Hàn Quốc','Bản Hàn Quốc','tím','màu','Đẹp','đẹp','Deep Gray','Máy Người Già','Máy người già',
     'Phiên bản','mùa hè','Chính Hãng','huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao','Màu','Mới','mới',
     '+512GB','+256GB','+128GB','+64GB','+8GB','+16GB','+32GB','+4GB','+512Gb','+256Gb','+128Gb','+64Gb','+8Gb','+16Gb','+32Gb','+4Gb','+512G','+256G','+128G','+64G','+16G','+32G',
