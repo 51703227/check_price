@@ -363,7 +363,7 @@ def import_data(request):   #Nạp data.json và database
                     obj.Ngay1 = item['ngay']
                     
                     def rp(gia):
-                        if gia==None:
+                        if (gia==None) or (gia in ['liên hệ','liênhệ','Liên hệ','Liênhệ','None','none','NONE']):
                             return 0
                         else:
                             return gia.replace('.','').replace('₫','')
@@ -387,8 +387,8 @@ def import_data(request):   #Nạp data.json và database
 
                     thuoctinh.MauSac = i['mausac']
                     thuoctinh.BoNho = i['bonho']
-                    thuoctinh.GiaGoc1 = 0 if i['giagoc']==None else i['giagoc'].replace('.','').replace('₫','')
-                    thuoctinh.GiaMoi1 = 0 if i['giamoi']==None else i['giamoi'].replace('.','').replace('₫','')
+                    thuoctinh.GiaGoc1 = 0 if i['giagoc']==None else rp(i['giagoc'])
+                    thuoctinh.GiaMoi1 = 0 if i['giamoi']==None else rp(i['giamoi'])
                     thuoctinh.Ngay1 = item['ngay']
                     thuoctinh.Url = Url.objects.get(Url = item['url'])
                     thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])

@@ -3,7 +3,7 @@
 Chọn thuộc tính
 {% endblock title %}
 {% block main %}
-    <div class="container py-5">
+    <div class="container-fluid py-5">
         <div class="row">
             <div class="col-lg-12 mx-auto">
                 <div class="urlin">
@@ -33,7 +33,13 @@ Chọn thuộc tính
                                                     <label>Màu sắc</label>
                                                     <div class="d-flex align-items-center"> 
                                                         <div class="thuoctinh">
-                                                            <span>{{data.thuoc_tinh_active.MauSac}}</span>
+                                                            <span>
+                                                            {% if data.thuoc_tinh_active.MauSac == 'None' or data.thuoc_tinh_active.MauSac == 'NONE' %}
+                                                                Không có
+                                                            {% else %}
+                                                                {{data.thuoc_tinh_active.MauSac}}
+                                                            {% endif %} 
+                                                            </span>
                                                             <input name="mausac" type="hidden" value="{{data.thuoc_tinh_active.MauSac}}">
                                                         </div>
                                                     </div>
@@ -42,7 +48,13 @@ Chọn thuộc tính
                                                     <label>Bộ nhớ</label>
                                                     <div class="d-flex align-items-center"> 
                                                         <div class="thuoctinh">
-                                                            <span>{{data.thuoc_tinh_active.BoNho}}</span>
+                                                            <span>
+                                                            {% if data.thuoc_tinh_active.BoNho == 'None' or data.thuoc_tinh_active.BoNho == 'NONE' %}
+                                                                Không có
+                                                            {% else %}
+                                                                {{data.thuoc_tinh_active.BoNho}}
+                                                            {% endif %} 
+                                                            </span>                                                            
                                                             <input name="bonho" type="hidden" value="{{data.thuoc_tinh_active.BoNho}}">
                                                         </div>
                                                     </div>

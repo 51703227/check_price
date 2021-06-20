@@ -456,8 +456,9 @@ img{
 
 img.card-img-top{
     border-radius: 1.5rem;
-    max-height: 90%;
-    max-width: 90%;
+    max-height: 80%;
+    max-width: 80%;
+    padding-top: 5px;
 }
 
 div.card-body-position {
@@ -579,4 +580,24 @@ body footer{
 
 body main{
     min-height: 73vh;
+}
+
+.list-group{
+    margin: 2em auto;
+}
+
+.list-group li:first-child{
+    border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.list-group li:last-child{
+    border-radius: 0 0 1.5rem 1.5rem;
+}
+
+.carousel{
+    margin-top: 2em;
+}
+
+.list-group-item a {
+    color: #708ff8 !important;
 }
