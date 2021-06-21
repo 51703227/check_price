@@ -6,10 +6,10 @@ Kết quả tìm kiếm: <strong>{{san_pham.TenSP}}</strong>
 <div class="container-fluid mt-4">
     <div class="row">
         {% for item in list_nguon_ban %}
-        <div class="col-lg-3 ">
+        <div class="col-lg-2 ">
             <div class="card-position card d-inline-flex border">
                 <div class="row" style="justify-content: center;">
-                    <img class="card-img-top" src="{{item.nguon_ban.Logo}}" alt="Card image" style="width:100%">
+                    <img class="card-img-top" src="{{item.nguon_ban.Logo}}" alt="Card image" style="width:80%">
                     <div class="card-body card-body-position" style="text-align: center;">
                         <h5 class="card-title">{{item.nguon_ban.TenNB}}</h5>
                         <h6 class="card-text">Có {{item.length_list_url}} Sản phẩm</h6>

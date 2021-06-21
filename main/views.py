@@ -237,7 +237,7 @@ def print_url(request):
 
 
 def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong database dựa vào thông tin đầu vào
-    
+
     if url_in == None:
         nguon_ban = NguonBan.objects.get(pk = kwargs['nguon_ban'])
         san_pham = SanPham.objects.get(pk =kwargs['san_pham'])
@@ -283,8 +283,13 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
             print("-=--",list_thuoc_tinh_url)
 
-        list_url_chung_nb = Url.objects.filter(NguonBan = url.NguonBan)
-        list_url_chung_nb = list_url_chung_nb[0:5]
+        list_url_chung_nb =[]
+        if url_in == None:
+            list_url_chung_nb = Url.objects.filter(NguonBan = nguon_ban)
+            list_url_chung_nb = list_url_chung_nb[0:5]
+        else:
+            list_url_chung_nb = Url.objects.filter(NguonBan = url.NguonBan)
+            list_url_chung_nb = list_url_chung_nb[0:5]
         #lưu dữ liệu truy xuất và data
         data = {
             #'product': product, #obj
