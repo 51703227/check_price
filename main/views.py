@@ -237,6 +237,16 @@ def print_url(request):
 
 
 def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong database dựa vào thông tin đầu vào
+  
+    def checktrungthuc(list_gia_goc):
+        r = 0
+        for gia_goc in list_gia_goc:
+            if gia_goc  == 0:
+                list_gia_goc.remove(gia_goc)
+        for gia_goc in list_gia_goc:        
+            if list_gia_goc[0] <= gia_goc:
+                r = r+1
+        return (r/len(list_gia_goc))*100
 
     if url_in == None:
         nguon_ban = NguonBan.objects.get(pk = kwargs['nguon_ban'])
@@ -269,9 +279,8 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
 
     if  thuoc_tinh_urlin!=None:
         saleoff = (thuoc_tinh_urlin.GiaMoi1 / thuoc_tinh_urlin.GiaGoc1)*100
-        giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 +thuoc_tinh_urlin.GiaGoc2 +thuoc_tinh_urlin.GiaGoc3 +thuoc_tinh_urlin.GiaGoc4 +thuoc_tinh_urlin.GiaGoc5 )/5
-        giakhuyenmaitrungbinh = (thuoc_tinh_urlin.GiaMoi1 +thuoc_tinh_urlin.GiaMoi2 +thuoc_tinh_urlin.GiaMoi3 +thuoc_tinh_urlin.GiaMoi4 +thuoc_tinh_urlin.GiaMoi5 )/5
-        dotrungthuc = 80
+        
+        
 
         if mausac == 'None' and bonho == 'None':
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham) #list thuộc tính các sản phẩm giống input
@@ -281,7 +290,20 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(MauSac = mausac) #list thuộc tính các sản phẩm giống input
         else:
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
-            print("-=--",list_thuoc_tinh_url)
+        
+        list_gia_moi_1 = []
+        list_gia_goc_1 = []
+        for each_thuoc_tinh in list_thuoc_tinh_url:
+            if each_thuoc_tinh.GiaGoc1 != 0 and each_thuoc_tinh.GiaGoc1 !=None and each_thuoc_tinh.GiaMoi1 != 0 and each_thuoc_tinh.GiaMoi1 !=None:
+                list_gia_goc_1.append(each_thuoc_tinh.GiaGoc1)
+                list_gia_moi_1.append(each_thuoc_tinh.GiaMoi1) 
+
+        giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 / (sum(list_gia_goc_1)/len(list_gia_goc_1)) ) *100
+        giamoitrungbinh = (thuoc_tinh_urlin.GiaMoi1 / (sum(list_gia_moi_1)/len(list_gia_moi_1)) ) *100
+
+        list_gia_goc = [thuoc_tinh_urlin.GiaGoc1,thuoc_tinh_urlin.GiaGoc2,thuoc_tinh_urlin.GiaGoc3,thuoc_tinh_urlin.GiaGoc4,thuoc_tinh_urlin.GiaGoc5]
+        dotrungthuc = checktrungthuc(list_gia_goc)
+
 
         list_url_chung_nb =[]
         if url_in == None:
@@ -290,6 +312,7 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         else:
             list_url_chung_nb = Url.objects.filter(NguonBan = url.NguonBan)
             list_url_chung_nb = list_url_chung_nb[0:5]
+        
         #lưu dữ liệu truy xuất và data
         data = {
             #'product': product, #obj
@@ -298,14 +321,19 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             'list_url_chung_nb':list_url_chung_nb,
             'analytics':{
                 'saleoff':round(saleoff,2),
-                'giagoctrungbinh': "{:,.2f} VNĐ".format(giagoctrungbinh),
-                'giakhuyenmaitrungbinh':"{:,.2f} VNĐ".format(giakhuyenmaitrungbinh),
+                'giagoctrungbinh': giagoctrungbinh,
+                'giamoitrungbinh':giamoitrungbinh,
                 'dotrungthuc':dotrungthuc,
             }
         } 
         return data
     else:
         return False
+
+
+
+
+
 
 def import_data(request):   #Nạp data.json và database
     list_file =  [
