@@ -182,11 +182,10 @@ def url_input(request):
                 'form': form
             }
             
-            #a = Url.objects.get(Url=url)
             return render(request,'pages/getattrib.html',{'data':data})
-            #return redirect(getattrib)
-            #return HttpResponseRedirect('/print_url',url)
     else:
+        url = request.GET.get('url', None)
+        print('hhahahah'+url)
         form = GetUrlForm()
         product_feature = SanPham.objects.filter(TenSP__icontains = 'Iphone 12')
         product_feature = product_feature[0:4]
@@ -195,6 +194,9 @@ def url_input(request):
             'product_feature':product_feature
         }   
     return render(request, 'pages/geturl.html',data)
+
+def xu_ly_url(request,url):
+    return HttpResponse(url)
 
 def is_valid_url(url):
     validate = URLValidator()
@@ -212,28 +214,25 @@ def print_url(request):
 
         #lấy các thuộc tính của sản phẩm từ người dùng
         mausac = request.POST.get('mausac', None)
-        print(mausac) 
+        
         bonho = request.POST.get('bonho', None)
-        print(bonho)
+        
         url_in = request.POST.get('url', None)
     
         nguon_ban = request.POST.get('nguon_ban',None)
         san_pham = request.POST.get('san_pham',None)
 
         data = exporturl(url_in = url_in,mausac = mausac,bonho =bonho, nguon_ban=nguon_ban,san_pham=san_pham) #truy xuất database #
-        print(data)
+        
         if data == False:
             return HttpResponse("Không tìm thấy url")
         elif data == 'TT False':
             return render(request,'pages/404.html',{'type':'Thuộc tính'})
         else:
-            print(data)
+            
             return render(request,'pages/printurl.html',{'data':data})
 
-    else:
-        list_attr = [
-        ]
-        form = GetAttribForm(list_attr)
+
 
 
 def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong database dựa vào thông tin đầu vào

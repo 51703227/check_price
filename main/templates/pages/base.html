@@ -36,7 +36,7 @@
                   <a class="nav-link" href="/import-data">Nạp dữ liệu</a>
                 </li>
               </ul>
-              <form class="form-inline my-2 my-lg-0" action="/" method="POST">
+              <form class="form-inline my-2 my-lg-0" action="/" method="GET">
                 {% csrf_token %}
                 <input class="form-control mr-sm-2" type="search" name="url" placeholder="Url hoặc Tên sản phẩm" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>

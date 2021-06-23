@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:id>', views.product_supplier, name= 'product_supplier' ),
     path('get-attribute/',views.get_attribute, name='get_attribute'),
     path('get-attribute/print-url/',views.print_url, name='print_url_attr'),
+    path('<url>',views.xu_ly_url, name='url_handling'),
 ]
