@@ -1,51 +1,36 @@
-#https://www.nguyenkim.com/dien-thoai-di-dong/
-#https://viettelstore.vn/dien-thoai
-#https://dienmaycholon.vn/dien-thoai-di-dong
-https://hoanghamobile.com/dien-thoai-di-dong
-#https://didongviet.vn/dien-thoai
-https://mediamart.vn/smartphones/
-https://didongthongminh.vn/dien-thoai
-https://clickbuy.com.vn/danh-muc/dien-thoai/
-https://www.hnammobile.com/dien-thoai
-https://hc.com.vn/ords/c--dien-thoai
-https://www.xtmobile.vn/dien-thoai
-https://pico.vn/dien-thoai-di-dong-nhom-75.html
-https://hoangphat360.vn/collections/dien-thoai
-#https://24hstore.vn/dien-thoai
-https://www.phucanh.vn/dien-thoai-thong-minh.html
-#https://dienthoaimoi.vn/
-#https://mobileworld.com.vn/collections/dien-thoai
-#https://nhattao.com/f/dien-thoai.543/
-#https://www.duchuymobile.com/dien-thoai
-#https://cellphones.com.vn/
-
-https://didongmango.com/dien-thoai-pc58.html
-http://gfcd.org.vn/dien-thoai/dien-thoai-di-dong
-https://didonghanhphuc.vn/collections/dien-thoai
-https://hc.com.vn/ords/c--dien-thoai
-https://ishop.com.vn/dien-thoai-di-dong-pc323843.html
-https://didonghathanh.com.vn/san-pham/
-http://didongsinhvien.com/dien-thoai-dm70.html
-#https://didongmogi.com/danh-muc-san-pham/dien-thoai/
-https://bachkhoastore.com/collections/dien-thoai
-https://galaxydidong.vn/
-
-https://www.truesmart.com.vn/dien-thoai/
-https://dienmaythienhoa.vn/dien-thoai-di-dong.html
-https://didongvietnam.com/dien-thoai-smartphone-2193/?trang=1
-
-<<<<<<< HEAD
-#(da crawl)https://mobileworld.com.vn/collections/dien-thoai
-(it sp)-https://thanhhienmobile.com/danh-muc/dien-thoai-di-dong
-(it sp)-https://www.anphatpc.com.vn/dien-thoai-di-dong.html
-#(da crawl)-https://www.minhducvn.com/danh-muc/dien-thoai/
-(it san pham)-https://aeoneshop.com/collections/dien-thoai-di-dong
-(chua crawl duoc)-https://www.didongmy.com/dien-thoai
-=======
-https://mobileworld.com.vn/collections/dien-thoai
-https://thanhhienmobile.com/danh-muc/dien-thoai-di-dong
-https://www.anphatpc.com.vn/dien-thoai-di-dong.html
-https://www.minhducvn.com/danh-muc/dien-thoai/
+mobile
 https://aeoneshop.com/collections/dien-thoai-di-dong
+https://www.anphatpc.com.vn/dien-thoai-di-dong.html
+https://cellphones.com.vn/mobile.html?p=%1
+https://didonghanhphuc.vn/collections/dien-thoai
+https://didongmango.com/dien-thoai-pc58.html
+https://didongmogi.com/danh-muc-san-pham/dien-thoai/
 https://www.didongmy.com/dien-thoai
->>>>>>> 3cf4c93efadaaaaacea47142ca9a06e2184c291f
+http://didongsinhvien.com/dien-thoai-dm70.html
+https://didongthongminh.vn/dien-thoai
+https://dienthoaigiasoc.vn/
+10
+https://dienthoaimoi.vn/
+https://galaxydidong.vn/
+https://www.hnammobile.com/dien-thoai
+https://hoanghamobile.com/dien-thoai-di-dong
+https://mediamart.vn/smartphones/
+https://www.minhducvn.com/danh-muc/dien-thoai/
+https://mobileworld.com.vn/collections/dien-thoai
+https://www.nguyenkim.com/dien-thoai-di-dong/
+https://www.phucanh.vn/dien-thoai-thong-minh.html
+https://www.xtmobile.vn/dien-thoai
+
+laptop
+https://www.xtmobile.vn/macbook
+https://www.anphatpc.com.vn/may-tinh-xach-tay-laptop.html
+https://cellphones.com.vn/laptop.html?p=%1
+https://aeoneshop.com/collections/laptop-may-tinh-bang
+https://www.hanoicomputer.vn/laptop-may-tinh-xach-tay
+https://dienmaythienhoa.vn/laptop-notebook-netbook.html
+https://hangchinhhieu.vn/collections/laptop
+http://hoanlong.com.vn/Laptop/
+https://laptopnew.vn/laptop?q=collections:2097189&page=1&view=grid
+https://hoangphatvn.vn/laptop.html?page=1
+10
+
