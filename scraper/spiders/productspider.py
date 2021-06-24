@@ -100,6 +100,7 @@ def name_processing(name):
     'Phiên bản','mùa hè','Chính Hãng','huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao','Màu','Mới','mới',
     '+512GB','+256GB','+128GB','+64GB','+8GB','+16GB','+32GB','+4GB','+512Gb','+256Gb','+128Gb','+64Gb','+8Gb','+16Gb','+32Gb','+4Gb','+512G','+256G','+128G','+64G','+16G','+32G',
     '512GB','256GB','128GB','64GB','8GB','16GB','32GB','4GB','512Gb','256Gb','128Gb','64Gb','8Gb','16Gb','32Gb','4Gb','512G','256G','128G','64G','16G','32G',
+    '512 GB','256 GB','128 GB','64 GB','8 GB','16 GB','32 GB','4 GB',
     '512gb','256gb','128gb','64gb','8gb','16gb','32gb','4gb','512g','256g','128g','64g','8g','16g','32g','4g',
     'Xanh lá','Vàng đồng','nước biển','Vàng đồng','lá','lục','Đồng','Khói','bích','huyền bí','nhật thực','Biển','mận','Dương','Lá','Đỏ' ,'Đen' ,'Lục' ,'Cực' ,'Quang', 'tinh' ,'thạch', 'Ngọc', 'Trai','Bạc' ,'Hà','Lam', 'Thủy', 'Triều','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','lá','ngọc','lam','Sapphire',
     'Deep Gray','Deep','Mint','Yellow','Champagne','Grey','Black','Gold','Graphite','Silver','Blue','Tím','Green','Sliver','Trắng','Xám','Pacific','Blue','White','Gray','Violet','Purple','Red','Browns',
@@ -133,7 +134,7 @@ def format_price(price):
     return price
 
 def format_bonho(bonho):
-    _list = [' ']
+    _list = [' ','Mới','100%']
     if not bonho:
         return None
     else:
@@ -168,7 +169,9 @@ def format_mausac(mausac):
         'Pink':'Hồng',
         'Violet':'Tím',
         'Xanh lục':'Xanh Lá',
-        'Xanh da trời':'Xanh Dương'
+        'Xanh da trời':'Xanh Dương',
+        'Đen Cuốn Hút':'Đen',
+
     }
     if not _dict.get(mausac):
         return mausac.title()

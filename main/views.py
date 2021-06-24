@@ -384,7 +384,7 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         else:
             saleoff = (thuoc_tinh_urlin.GiaMoi1 / thuoc_tinh_urlin.GiaGoc1)*100
         
-
+        
         if mausac == 'None' and bonho == 'None':
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham) #list thuộc tính các sản phẩm giống input
         elif mausac=='None':
@@ -432,9 +432,6 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         return data
     else:
         return False
-
-
-
 
 
 
