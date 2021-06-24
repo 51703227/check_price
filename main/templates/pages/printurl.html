@@ -52,7 +52,7 @@ Kết quả
                                         <div class="d-flex align-items-center offers mb-1"><span class=" font-weight-bold" data-toggle="tooltip" title="Chênh lệch giá khuyến mãi trung bình: Biểu thị % chênh lệch giá khuyến mãi của sản phẩm so với giá khuyến mãi của các sản phẩm cùng loại">CL Giá KM TB</span></div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.giamoitrungbinh}}%;background-color: #1ed1a8;">{{data.analytics.giamoitrungbinh| floatformat:'2'   }}%</div></div>
+                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.giamoitrungbinh}}%;background-color: #1ed1a8;">{{data.analytics.giamoitrungbinh | floatformat:'2'   }}%</div></div>
                                     </div>
                                 </div>
             
@@ -61,7 +61,7 @@ Kết quả
                                         <div class="d-flex align-items-center offers"><span class=" font-weight-bold" data-toggle="tooltip" title="Dựa trên sự thay đổi lịch sử giá của sản phẩm">Độ trung thực</span></div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.dotrungthuc}}%;background-color: #1ed1a8;">{{data.analytics.dotrungthuc}} %</div></div>
+                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.dotrungthuc}}%;background-color: #1ed1a8;">{{data.analytics.dotrungthuc | floatformat:'2' }} %</div></div>
                                     </div>
                                 </div>
             
@@ -220,7 +220,7 @@ Kết quả
                                         <div class="col-lg-8">
                                             <div class="card-body card-body-position" style="text-align: center;">
                                                 <h6 class="card-title" style="color: #708ff8;font-weight:600">{{item.SanPham.TenSP}}</h6>
-                                                <a href="{{item.Url}}" ><button class="btn btn-primary">Xem sản phẩm</button></a>
+                                                <a href="{% url 'url_handling' item.SanPham.TenSP %}" ><button class="btn btn-primary">Xem sản phẩm</button></a>
                                             </div>
                                         </div>
                                     </div>

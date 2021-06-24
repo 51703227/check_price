@@ -103,7 +103,7 @@ Chọn thuộc tính
                             <img class="card-img-top" src="{{item.UrlImage}}" alt="Card image" style="width:70%">
                             <div class="card-body card-body-position" style="text-align: center;">
                                 <h5 class="card-title">{{item.SanPham.TenSP}}</h5>
-                                <a href= "" ><button class="btn btn-primary">Check</button></a>
+                                <a href= "{% url 'url_handling' item.SanPham.TenSP %}" ><button class="btn btn-primary">Check</button></a>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@
 Kết quả tìm kiếm: <strong>{{san_pham.TenSP}}</strong> 
 {% endblock title %}
 {% block main %}
+{% load humanize %}
 <div class="container-fluid mt-4">
     <div class="row">
         {% for item in list_nguon_ban %}
@@ -13,7 +14,7 @@ Kết quả tìm kiếm: <strong>{{san_pham.TenSP}}</strong>
                     <div class="card-body card-body-position" style="text-align: center;">
                         <h5 class="card-title">{{item.nguon_ban.TenNB}}</h5>
                         <h6 class="card-text">Có {{item.length_list_url}} Sản phẩm</h6>
-                        <h6 class="card-text">Từ {{item.min_price}} VNĐ đến {{item.min_price}} VNĐ</h6>
+                        <h6 class="card-text">Từ {{item.min_price| floatformat:"0" |intcomma}} VNĐ đến {{item.max_price| floatformat:"0" |intcomma}} VNĐ</h6>
                         <form action="get-attribute/" method="POST">
                             {% csrf_token %} 
                             <input name="data_pk" type="hidden" value="{{item.nguon_ban.pk}} {{item.san_pham.pk}} {{item.anh_san_pham}}">

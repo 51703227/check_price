@@ -36,7 +36,7 @@ Kiểm tra giá
             <div class="col-lg-3">
                 <ul class="list-group border">
                     <li class="list-group-item active"> Danh mục</li>
-                    <li class="list-group-item"><a href="">Điện thoại</a> </li>
+                    <li class="list-group-item"><a href="{% url 'category' 'dienthoai' %}">Điện thoại</a> </li>
                     <li class="list-group-item"><a href="">Laptop - Máy tính bảng</a> </li>
                     <li class="list-group-item"><a href="">Điện lạnh</a> </li>
                     <li class="list-group-item"><a href="">Gia dụng</a> </li>
@@ -88,7 +88,8 @@ Kiểm tra giá
                           <img class="card-img-top" src="{{item.ImgSP}}" alt="Card image cap">
                           <div class="card-body">
                             <h5 class="card-title">{{item.TenSP}}</h5>
-                            <a href= "" ><button class="btn btn-primary">Check</button></a>
+                            <a href= "{% url 'url_handling' item.TenSP %}" ><button class="btn btn-primary">Check</button></a>
+                          
                           </div>
                         </div>
                       </div>                      

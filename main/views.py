@@ -162,6 +162,9 @@ def url_input(request):
             list_url_chung_nb = Url.objects.filter(NguonBan = url_input.NguonBan)
             list_sp_chung_nb = list_url_chung_nb[0:8]
             
+            danhmuc ={
+                
+            }
             print(list_sp_chung_nb)
             #tạo form nhập thuộc tính
             mausac =[]
@@ -179,13 +182,14 @@ def url_input(request):
                 'url_in': url_input,
                 'thuoc_tinh_active':thuoc_tinh_active,
                 'list_sp_chung_nb':list_sp_chung_nb,
+                'danhmuc':danhmuc,
                 'form': form
             }
             
             return render(request,'pages/getattrib.html',{'data':data})
     else:
         url = request.GET.get('url', None)
-        print('hhahahah'+url)
+        print(url)
         form = GetUrlForm()
         product_feature = SanPham.objects.filter(TenSP__icontains = 'Iphone 12')
         product_feature = product_feature[0:4]
@@ -195,8 +199,106 @@ def url_input(request):
         }   
     return render(request, 'pages/geturl.html',data)
 
+def category(request,cat):
+    loaisp = LoaiSanPham.objects.get(TenLoai =cat)
+    search_result = SanPham.objects.filter(LoaiSanPham=loaisp)  
+    data = []
+    for san_pham in search_result:      #----1  
+
+        list_url = Url.objects.filter(SanPham = san_pham)
+
+        for each_url in list_url:
+            if is_valid_url(each_url.UrlImage):
+                san_pham_img = each_url.UrlImage
+                break
+        list_nguon_ban = []
+        #list_thuoc_tinh = []
+        for each_url in list_url:
+            if each_url.NguonBan not in list_nguon_ban:
+                list_nguon_ban.append(NguonBan.objects.get(pk = each_url.NguonBan.pk))
+            else:
+                continue
+        
+        data.append({
+            'san_pham': san_pham,
+            'san_pham_img': san_pham_img,
+            'list_nguon_ban':list_nguon_ban,
+            'length_list_nguon_ban': len(list_nguon_ban)
+        })
+
+
+    return render(request,'pages/search-result.html',{'list_san_pham':data,'keyword':url})    
+    
 def xu_ly_url(request,url):
-    return HttpResponse(url)
+
+    if not url:
+        return JsonResponse({'error': 'Missing  args'})
+    if not is_valid_url(url):
+        #return JsonResponse({'error': 'URL is invalid'})
+        search_result = SanPham.objects.filter(TenSP__icontains=url)  
+        data = []
+        for san_pham in search_result:      #----1  
+
+            list_url = Url.objects.filter(SanPham = san_pham)
+
+            for each_url in list_url:
+                if is_valid_url(each_url.UrlImage):
+                    san_pham_img = each_url.UrlImage
+                    break
+            list_nguon_ban = []
+            #list_thuoc_tinh = []
+            for each_url in list_url:
+                if each_url.NguonBan not in list_nguon_ban:
+                    list_nguon_ban.append(NguonBan.objects.get(pk = each_url.NguonBan.pk))
+                else:
+                    continue
+            
+            data.append({
+                'san_pham': san_pham,
+                'san_pham_img': san_pham_img,
+                'list_nguon_ban':list_nguon_ban,
+                'length_list_nguon_ban': len(list_nguon_ban)
+            })
+
+
+        return render(request,'pages/search-result.html',{'list_san_pham':data,'keyword':url})
+
+    #truy xuất thuộc tính url
+    try:
+        url_input = Url.objects.get(Url=url) #truy xuất URL = url đã nhập
+        try:
+            thuoc_tinh_active = ThuocTinh.objects.get(Url = url_input,Active = "True")
+        except ThuocTinh.DoesNotExist:
+            thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input).first()
+        list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = url_input.SanPham,NguonBan = url_input.NguonBan)
+    except Url.DoesNotExist:
+        return render(request,'pages/404.html',{'type':'Url','data':url})
+    
+    list_sp_chung_nb = []
+    list_url_chung_nb = Url.objects.filter(NguonBan = url_input.NguonBan)
+    list_sp_chung_nb = list_url_chung_nb[0:8]
+    
+    print(list_sp_chung_nb)
+    #tạo form nhập thuộc tính
+    mausac =[]
+    bonho = []
+
+    for attr in list_thuoc_tinh_url:
+        if (attr.MauSac,attr.MauSac) not in mausac:
+            mausac.append((attr.MauSac,attr.MauSac))
+        if (attr.BoNho,attr.BoNho) not in bonho:
+            bonho.append((attr.BoNho,attr.BoNho))
+
+    form = GetAttribForm(mausac=mausac,bonho=bonho)
+
+    data= {
+        'url_in': url_input,
+        'thuoc_tinh_active':thuoc_tinh_active,
+        'list_sp_chung_nb':list_sp_chung_nb,
+        'form': form
+    }
+    
+    return render(request,'pages/getattrib.html',{'data':data})
 
 def is_valid_url(url):
     validate = URLValidator()
@@ -251,7 +353,7 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         nguon_ban = NguonBan.objects.get(pk = kwargs['nguon_ban'])
         san_pham = SanPham.objects.get(pk =kwargs['san_pham'])
         try:
-            thuoc_tinh_urlin = ThuocTinh.objects.get(MauSac=mausac,BoNho=bonho,SanPham = san_pham, NguonBan = nguon_ban)
+            thuoc_tinh_urlin = ThuocTinh.objects.filter(MauSac=mausac,BoNho=bonho,SanPham = san_pham, NguonBan = nguon_ban).first()
         except ThuocTinh.DoesNotExist:
             return 'TT False'        
     else:
@@ -277,8 +379,10 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             return False
 
     if  thuoc_tinh_urlin!=None:
-        saleoff = (thuoc_tinh_urlin.GiaMoi1 / thuoc_tinh_urlin.GiaGoc1)*100
-        
+        if thuoc_tinh_urlin.GiaGoc1 == 0 or thuoc_tinh_urlin.GiaGoc1 == None:
+            saleoff = 0
+        else:
+            saleoff = (thuoc_tinh_urlin.GiaMoi1 / thuoc_tinh_urlin.GiaGoc1)*100
         
 
         if mausac == 'None' and bonho == 'None':
