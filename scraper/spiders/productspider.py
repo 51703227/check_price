@@ -95,27 +95,31 @@ def name_processing(name):
             'độc',' đáo',
             '6GB/128GB','Tím','Xám','Đen']
     bl_list = ['(' , ')' , '-','–' ,'/','[',']',',',
-    'mới 100%','nguyên seal','chưa active','Quốc tế','95%','QT','100%','Chưa Active','2017','Sạc Ít Lần',
+    'Không Có Google','Pin 100%','qt','bảo hành chính hãng','quốc tế mới 100%','mới 100%','nguyên seal','chưa active','Quốc tế','95%','QT','100%','Chưa Active','2017','Sạc Ít Lần','Fullbox',
     'Bản','Mới 100%','Quốc Tế','Hàn Quốc','Bản Hàn Quốc','tím','màu','Đẹp','đẹp','Deep Gray','Máy Người Già','Máy người già',
-    'Phiên bản','mùa hè','Chính Hãng','huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao','Màu','Mới','mới',
+    'Phiên bản','mùa hè','Chính Hãng','huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao','Màu','Mới','mới','Rom',
     '+512GB','+256GB','+128GB','+64GB','+8GB','+16GB','+32GB','+4GB','+512Gb','+256Gb','+128Gb','+64Gb','+8Gb','+16Gb','+32Gb','+4Gb','+512G','+256G','+128G','+64G','+16G','+32G',
-    '512GB','256GB','128GB','64GB','8GB','16GB','32GB','4GB','512Gb','256Gb','128Gb','64Gb','8Gb','16Gb','32Gb','4Gb','512G','256G','128G','64G','16G','32G',
+    '512GB','256GB','128GB','64GB','8GB','16GB','32GB','4GB','512Gb','256Gb','128Gb','64Gb','8Gb','16Gb','32Gb','4Gb','512G','256G','128G','64G','16G','32G','2GB','3GB',
     '512 GB','256 GB','128 GB','64 GB','8 GB','16 GB','32 GB','4 GB',
-    '512gb','256gb','128gb','64gb','8gb','16gb','32gb','4gb','512g','256g','128g','64g','8g','16g','32g','4g',
-    'Xanh lá','Vàng đồng','nước biển','Vàng đồng','lá','lục','Đồng','Khói','bích','huyền bí','nhật thực','Biển','mận','Dương','Lá','Đỏ' ,'Đen' ,'Lục' ,'Cực' ,'Quang', 'tinh' ,'thạch', 'Ngọc', 'Trai','Bạc' ,'Hà','Lam', 'Thủy', 'Triều','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','lá','ngọc','lam','Sapphire',
-    'Deep Gray','Deep','Mint','Yellow','Champagne','Grey','Black','Gold','Graphite','Silver','Blue','Tím','Green','Sliver','Trắng','Xám','Pacific','Blue','White','Gray','Violet','Purple','Red','Browns',
-    'độc','đáo','hạt','tiêu','(KHÔNG KÈM THẺ NHỚ)','Thoại','2019','2020',
-    '6.67Inch','6.5Inch','6.9Inch','2 sim','6.1Inch','2 Sim','VNA','hải' ,'quân' ,'san' ,'hô' ,'trai','dương','cẩm','KHÔNG KÈM THẺ NHỚ','San','Hô','Nhật','Thực','Sương','Mai','Đam','Mê','lục','bảo','Bảo','sương','hồng','Bích','tú','thủy','Hải','Âu','Hồng','pha','lê','quang','cực','Cam','hà','Phong','Vân',
+    '512gb','256gb','128gb','64gb','8gb','16gb','32gb','4gb','512g','256g','128g','64g','8g','16g','32g','4g','6g','3g',
+    'Xanh đại dương','đại dương','ánh sao','hoàng hôn','Xanh lá','Vàng đồng','nước biển','Vàng đồng','lá','lục','Đồng','Khói','bích','huyền bí','nhật thực','Biển','mận','Dương','Lá','Đỏ' ,'Đen' ,'Lục' ,'Cực' ,'Quang', 'tinh' ,'thạch', 'Ngọc', 'Trai','Bạc' ,'Hà','Lam', 'Thủy', 'Triều','Đồng','Vàng','Xanh','Đen','Trắng','Thạch','Anh','lá','ngọc','lam','Sapphire',
+    'Pink','Deep Gray','Deep','Mint','Yellow','Champagne','Grey','Black','Gold','Graphite','Silver','Blue','Tím','Green','Sliver','Trắng','Xám','Pacific','Blue','White','Gray','Violet','Purple','Red','Browns',
+    'bảo hành','độc','đáo','hạt','tiêu','(KHÔNG KÈM THẺ NHỚ)','Thoại','2019','2020','2018','2017','Bộ 3 Camera','Bộ 4 Camera Sau 48Mp','Siêu Màn Hình','Màn Hình Giọt Nước','Sạc Nhanh',
+    '6.67Inch','6.5Inch','6.9Inch','2 sim','6.1Inch','2 Sim','VNA','hải' ,'quân' ,'san hô','trai','dương','cẩm','KHÔNG KÈM THẺ NHỚ','San Hô','Nhật Thực','Sương Mai','Đam Mê','lục','bảo','Bảo','sương','hồng','Bích','tú','thủy','Hải','Âu','Hồng','pha','lê','quang','cực','Cam','hà','Phong','Vân',
     '1 sim','1 Sim','Mỹ','New','BH12T','Certified','PreOwned','Special','Product', 'ram','cty','RAM','Edge', 'Batman', 'Injustice','Cty',
-    'Apple','APPLE','6.4Inch','5.3Inch','6.4Inch','6.23Inch','6.2Inch','5.7Inch','6.2Inch','6.4Inch','Đại',
+    'Apple','APPLE','6.4Inch','5.3Inch','6.4Inch','6.23Inch','6.2Inch','5.7Inch','6.2Inch','6.4Inch','Đại','like',
     'Đtdđ','ĐTDĐ',
-    '2+32','9798%','98%','97%','99%'
+    '2+32','9798%','98%','97%','99%','95%','Camera Sau','Active | Pin 4000Ma, Chip Snap 835','Pin 5000Mah'
     ]
 
     if name == None:
         return ''
     for character in bl_list:
-        name = name.replace(character,'')
+        if character in name or character.lower() in name or character.title() in name or character.upper():
+            name = name.replace(character,'')
+            name = name.replace(character.lower(),'')
+            name = name.replace(character.title(),'')
+            name = name.replace(character.upper(),'')
     
     unprocess_name = name.split()
     processed_name = []
@@ -232,7 +236,7 @@ class nguyenkimSpider(scrapy.Spider):
                 })
             item['thuoctinh'] = attributes
             item['tskt'] = response.css('.productSpecification_brief table').get()
-            item['mota'] = response.css('.pdp-box #content_description.wysiwyg-content .productFeature_content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+            item['mota'] = response.css('.pdp-box #content_description.wysiwyg-content .productFeature_content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         else:
             rom_active = 'None'
             color_active ='None'
@@ -255,7 +259,7 @@ class nguyenkimSpider(scrapy.Spider):
             })
             item['thuoctinh'] = attributes
             item['tskt'] = response.css('.productSpecification_brief table').get()
-            item['mota'] = response.css('.pdp-box #content_description.wysiwyg-content .productFeature_content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+            item['mota'] = response.css('.pdp-box #content_description.wysiwyg-content .productFeature_content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 
@@ -336,7 +340,7 @@ class phucanhSpider(scrapy.Spider):
         })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.tbl-technical table').get()
-        item['mota'] = response.css('.content-tab-left .nd').get().replace('height:450px;overflow: hidden;','').replace('display: none;','').replace('src','d-src').replace('data-src','src')
+        item['mota'] = response.css('.content-tab-left .nd').get().replace('height:450px;overflow: hidden;','').replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 class hnamSpider(scrapy.Spider):
@@ -423,7 +427,7 @@ class hnamSpider(scrapy.Spider):
         })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.section-open-box table').get()
-        item['mota'] = response.css('.article-news .article-main-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+        item['mota'] = response.css('.article-news .article-main-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 
@@ -525,7 +529,7 @@ class mediamartSpider(scrapy.Spider):
         })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.pd-tskt .pd-attrvalue').get()
-        item['mota'] = response.css('.pd-info-left .pd-news-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+        item['mota'] = response.css('.pd-info-left .pd-news-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 
@@ -598,7 +602,7 @@ class hoanghaSpider(scrapy.Spider):
             })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.product-layout .specs-special').get()
-        item['mota'] = response.css('.product-layout .product-text').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+        item['mota'] = response.css('.product-layout .product-text').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 
@@ -671,7 +675,7 @@ class didongmangoSpider(scrapy.Spider):
             })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.product table.charactestic_table').get()
-        item['mota'] = response.css('.product .product_tab_content .box_conten_linfo_inner').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+        item['mota'] = response.css('.product .product_tab_content .box_conten_linfo_inner').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 
@@ -739,7 +743,7 @@ class didonghanhphucSpider(scrapy.Spider):
         })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.tskt table').get()
-        item['mota'] = response.css('.pdTabs .pro-tabcontent').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+        item['mota'] = response.css('.pdTabs .pro-tabcontent').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 class didongmogiSpider(scrapy.Spider):
@@ -793,7 +797,7 @@ class didongmogiSpider(scrapy.Spider):
         })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.product-short-description').get()    
-        item['mota'] = response.css('.boxArticle article').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+        item['mota'] = response.css('.boxArticle article').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 class galaxydidongSpider(scrapy.Spider):
@@ -863,7 +867,7 @@ class galaxydidongSpider(scrapy.Spider):
             })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.feature-item table').get()
-        item['mota'] = response.css('.description-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+        item['mota'] = response.css('.description-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 
@@ -924,5 +928,5 @@ class dienthoaigiasocSpider(scrapy.Spider):
         })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.thongso').get()
-        item['mota'] = response.css('.info-detail-product .des-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src')
+        item['mota'] = response.css('.info-detail-product .des-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item

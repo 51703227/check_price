@@ -11,5 +11,5 @@ urlpatterns = [
     path('get-attribute/',views.get_attribute, name='get_attribute'),
     path('get-attribute/print-url/',views.print_url, name='print_url_attr'),
     path('url=<url>',views.xu_ly_url, name='url_handling'),
-    path('<cat>',views.category,name='category'),
+    path('cat=<cat>',views.category,name='category'),
 ]

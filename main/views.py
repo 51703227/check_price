@@ -467,6 +467,7 @@ def import_data(request):   #Nạp data.json và database
             
             try:
                 obj = SanPham.objects.get(TenSP = item['ten'])
+                setattr(obj,'ImgSP',item['image'])
             except SanPham.DoesNotExist:
                 try:
                     obj = SanPham(
