@@ -683,8 +683,8 @@ body main{
   
   .logosImgs img {
     max-height: 100%;
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
     opacity: .65;
     transition: all .5s;
   }

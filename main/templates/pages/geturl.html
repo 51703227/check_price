@@ -106,18 +106,9 @@ Kiểm tra giá
                 <div class="col-lg-12">
                   <div class="brand-slider border bg-white">
                     <div class="bxslider logosImgs">
-                      <div><img src="https://dummyimage.com/400x250/EC184B/fff.png" alt="ClientName" title="ClientName1"></div>
-                      <div><img src="https://dummyimage.com/400x250/18ECB9/fff.png" alt="ClientName" title="ClientName2"></div>
-                      <div><img src="https://dummyimage.com/400x250/184BEC/fff.png" alt="ClientName" title="ClientName3"></div>
-                      <div><img src="https://dummyimage.com/400x250/9417ED/fff.png" alt="ClientName" title="ClientName4"></div>
-                      <div><img src="https://dummyimage.com/400x250/EC184B/fff.png" alt="ClientName" title="ClientName5"></div>
-                      <div><img src="https://dummyimage.com/400x250/18ECB9/fff.png" alt="ClientName" title="ClientName6"></div>
-                      <div><img src="https://dummyimage.com/400x250/184BEC/fff.png" alt="ClientName" title="ClientName7"></div>
-                      <div><img src="https://dummyimage.com/400x250/9417ED/fff.png" alt="ClientName" title="ClientName8"></div>
-                      <div><img src="https://dummyimage.com/400x250/EC184B/fff.png" alt="ClientName" title="ClientName9"></div>
-                      <div><img src="https://dummyimage.com/400x250/18ECB9/fff.png" alt="ClientName" title="ClientName10"></div>
-                      <div><img src="https://dummyimage.com/400x250/184BEC/fff.png" alt="ClientName" title="ClientName11"></div>
-                      <div><img src="https://dummyimage.com/400x250/9417ED/fff.png" alt="ClientName" title="ClientName12"></div>
+                      {% for nguon_ban in list_nguon_ban  %}
+                        <div><img src="{{nguon_ban.Logo}}" alt="{{nguon_ban.TenNB}}" title="{{nguon_ban.TenNB}}"></div>
+                      {% endfor %}
                     </div>
                   </div>
                   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">

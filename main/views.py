@@ -193,9 +193,11 @@ def url_input(request):
         form = GetUrlForm()
         product_feature = SanPham.objects.filter(TenSP__icontains = 'Iphone 12')
         product_feature = product_feature[0:4]
+        list_nguon_ban = NguonBan.objects.filter()
         data = {
             'form':form,
-            'product_feature':product_feature
+            'product_feature':product_feature,
+            'list_nguon_ban':list_nguon_ban,
         }   
     return render(request, 'pages/geturl.html',data)
 
