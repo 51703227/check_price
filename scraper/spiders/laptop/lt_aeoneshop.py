@@ -6,49 +6,127 @@ basedir = os.path.dirname(os.path.realpath('__file__'))
 
 
 # Xử lý tên sản phẩm
+# Hàm xử lý tên laptop
+list_product_names = ['MacBook',
+                      'Pro', 'Air', 'Macbook',
+                      'Mac', 'Mini', 'Imac', '24',
 
-# Hàm xử lý tên sản phẩm
+                      'Asus', 'ASUS',
+                      'ProArt', 'StudioBook', 'Pro', 'X', 'One',
+                      'ROG', 'Zephyrus', 'Strix', 'Flow', 'X13', 'Scar',
+                      'TUF', 'Gaming', 'ExpertBook', 'Premium', 'Transformer',
+                      'Tuf', 'Rog', 'Dash',
+                      '17', '15',
+                      'ZenBook', 'Pro', 'S', 'Flip', 'Duo',
+                      'VivoBook', 'Pro', 'S', 'Flip', 'Vivobook',
+                      'Zenbook', 'Studiobook', 'Expertbook',
+                      'ChromeBook', 'Detachable',
+                      'A17', 'G17', 'S14', 'S15', 'G14', 'F15',
+                      'M415', 'M515', 'X415', 'X515', 'BR1100C',
+                      'BR1100F', 'E510', 'M570', 'E210', 'E410',
+                      'X509', 'M509', 'X545', 'X409', 'M409', 'X507',
+                      'X407', 'E402', 'W202', 'X540', 'X543', 'X541',
+                      'Mini', 'T102', 'E203', 'E200',
+                      'E202', 'E403', 'X441', 'X555', 'X556', 'Book',
+                      'T101', 'X751', 'X570', 'T103', 'X756', 'X401',
+
+
+                      'HP', 'Hp',
+                      'Spectre', 'Chromebook', 'ENVY',
+                      '13', '15', '17', '14S'
+                      'Pavilion', 'Clamshell', 'Folio', 'OMEN', 'Gaming',
+                      'Envy', 'Elite', 'EliteBook', 'Elitebook', 'ProBook',
+                      'Probook', 'Omen', 'Convertible', 'Studio',
+                      'Pavilion',
+                      'Zbook', 'ZBook', 'Firefly', 'Fury', 'Power',
+                      '340S', 'X360', '430', '240', '450', '245',
+                      '348',
+                      'G7', '14S', 'G8', '15S', '14', '15s', '14s',
+
+                      'Lenovo',
+                      'IdeaPad', 'Ideapad', 'Slim', 'Gaming', 'Flex',
+                      'Legion', 'V15', 'Yoga', 'Duet',
+                      'ThinkBook', 'Thinkbook', 'Carbon', 'Notebook',
+                      'ThinkPad', 'Thinkpad', 'Fold', 'NoteBook',
+                      '7', '6',
+                      'E14', 'E15', 'L14', 'L15',
+                      'E13', 'L13', 'X390', 'P15s', '14', 'X390', 'X13',
+                      'X12', 'P15v', 'X1', 'TP', 'X1',
+                      'T14', 'P15', 'P1', 'P17', 'T14S',
+
+                      'Acer', 'ACER',
+                      'Spin', 'Predator', 'Helios', 'Nitro', 'Aspire',
+                      '3', '5', '7', '3X',
+                      'Enduro', 'N3', 'Swift',
+                      'One', 'ChromeBook', 'TravelMate', 'Extensa',
+
+                      'Dell',
+                      'Latitude', 'Education', 'Rugged', 'Vostro', 'Mobile',
+                      'Inspiron', 'Precision', 'XPS', 'Alienware', 'Chromebook',
+                      'Workstation', 'Gaming',
+                      '13', '15', '11', '14',
+                      'M15', 'M17',
+                      'G3', 'G5', 'G7', 'M5550', 'M7550', 'N5505',
+                      '3000', '5000', '7000', '7306', '5406', '7400',
+                      '3410', '5301', '9310', '3510', '9500', '3401',
+                      '3502', '5520', '5420', '3520', '7320', '5520',
+                      '7420', '5502', '5405', '3501', '5502', '3593',
+                      '3493', '7490', '5402',
+
+                      'LG', 'Lg',
+                      'Gram', 'Thin', 'Ultra', 'PC',
+                      '14', '16',
+
+                      'MSI', 'Msi',
+                      'Katana', 'Gaming', 'leopard', 'Titan', 'Stealth', 'Raider',
+                      'Dragon', 'Edition', 'Tiamat', 'Leopard', 'Pulse', 'Crosshair',
+                      'Sword', 'Thin', 'Alpha', 'Bravo', 'Modern', 'Prestige',
+                      'Creator', 'EVO', 'Evo',
+                      '17', '15', '14',
+                      'GF65', 'GF63', 'GL65', 'GF66', 'GT76', 'GS76',
+                      'GS66', '15M', 'GS75', 'GE76', 'GE66', 'GE75',
+                      'GP76', 'GP66', 'GP75', 'GP65', 'GL76', 'GL66',
+                      'GL75', 'GL65', 'GF76', 'GF66', 'GF75', 'GF65', 'GF63',
+                      'Gf65', 'Gf63', 'Gl65', 'Gf66', 'Gt76', 'Gs76', 'Gs66', 'Gs75',
+                      'Ge76', 'Ge75', 'Gp76', 'Gp66', 'Gp75', 'Gp65', 'Gl76', 'Gl66',
+                      'Gl75', 'Gl65', 'Gf76', 'Gf66', 'Gf75', 'Gf65', 'Gf63',
+
+                      'Gigabyte', 'GIGABYTE',
+                      'Aorus', 'Aero',
+                      '15P', '15',
+                      'G5', 'KC', 'Kc', 'G7',
+
+                      'Fujitsu', 'FUJITSU',
+                      'LifeBook', 'Lifebook',
+                      'U9311',
+
+                      'Microsoft', 'MICROSOFT',
+                      'Surface', 'Pro', 'X', 'Go',
+                      '7',
+
+                      'Huawei',
+                      'MateBook', 'Matebook',
+                      '13',
+
+                      'Avita',
+                      'Liber', 'V14',
+
+                      'Ipad',
+                      'Pro', '11', '12.9',
+
+                      'VGS', 'Vgs',
+                      'Imperium',
+                      ]
+
+
 def name_processing(name):
-    black_list = ['Chính', 'hãng', 'I', 'VN/A', 'chính', '|', '-', ]
-    bl_list = ['(', ')', '-', '/', '[', ']','256Gb',
-               '+512GB', '+256GB', '+128GB', '+64GB', '+8GB', '+16GB', '+32GB', '+4GB', '+512Gb', '+256Gb', '+128Gb',
-               '+64Gb', '+8Gb', '+16Gb', '+32Gb', '+4Gb', '+512G', '+256G', '+128G', '+64G', '+16G', '+32G',
-               '512GB', '256GB', '128GB', '64GB', '8GB', '16GB', '32GB', '4GB', '512Gb', '256Gb', '128Gb', '64Gb',
-               '8Gb', '16Gb', '32Gb', '4Gb', '512G', '256G', '128G', '64G', '16G', '32G',
-               'Xanh lá', 'Vàng đồng', 'nước biển', 'Vàng đồng', 'lá', 'lục', 'Đồng', 'Khói', 'bích', 'huyền bí',
-               'nhật thực', 'Biển', 'mận', 'Dương', 'Lá', 'Đỏ', 'Đen', 'Lục', 'Cực', 'Quang', 'tinh', 'thạch', 'Ngọc',
-               'Trai', 'Bạc', 'Hà', 'Lam', 'Thủy', 'Triều', 'Đồng', 'Vàng', 'Xanh', 'Đen', 'Trắng', 'Thạch', 'Anh',
-               'lá', 'ngọc', 'lam', 'Sapphire','256Gb'
-               'Deep Gray', 'Deep', 'Mint', 'Yellow', 'Champagne', 'Grey', 'Black', 'Gold', 'Graphite', 'Silver',
-               'Blue', 'Tím', 'Green', 'Sliver', 'Trắng', 'Xám', 'Pacific', 'Blue', 'White', 'Gray', 'Violet',
-               'Purple', 'Red', 'Browns',
-               'độc', 'đáo', 'hạt', 'tiêu', '(KHÔNG KÈM THẺ NHỚ)', 'Thoại', '2019', '2020',
-               '6.67Inch', '6.5Inch', '6.9Inch', '2 sim', '6.1Inch', '2 Sim', 'VNA', 'hải', 'quân', 'san', 'hô', 'trai',
-               'dương', 'cẩm', 'KHÔNG KÈM THẺ NHỚ', 'San', 'Hô', 'Nhật', 'Thực', 'Sương', 'Mai', 'Đam', 'Mê', 'lục',
-               'bảo', 'Bảo', 'sương', 'hồng', 'Bích', 'tú', 'thủy', 'Hải', 'Âu', 'Hồng', 'pha', 'lê', 'quang', 'cực',
-               'Cam', 'hà', 'Phong', 'Vân', 'Màu', 'Điện', 'Ảnh',
-               '1 sim', '1 Sim', 'Mỹ', 'New', 'BH12T', 'Certified', 'PreOwned', 'Special', 'Product', 'ram', 'cty',
-               'RAM', 'Edge', 'Batman', 'Injustice', 'Cty',
-               'Apple', 'APPLE', '6.4Inch', '5.3Inch', '6.4Inch', '6.23Inch', '6.2Inch', '5.7Inch', '6.2Inch',
-               '6.4Inch', 'Đại', 'Điện', 'Di', 'Động','Obox'
-               'Đtdđ', 'ĐTDĐ', 'Quoc', 'Moi', 'Ll', '12Gb', 'Cũ',
-               '2+32', '.', '100%', 'Lbox', 'Hộp', 'Đã', 'Kích', 'Hoạt', 'Trải', 'Nghiệm',
-               'Phép', 'Màu', 'Điện', 'Ảnh', 'Phiên', 'Bản', 'Mới',
-               'Nhập', 'Khẩu','Hongkong','Quốc','|','Cty','%','Snapdragon','Chip','865+','Nobox',
-               '6Gb','12Gb',
-               ]
-
-    if name == None:
-        return ''
-    for character in bl_list:
-        name = name.replace(character, '')
-
-    unprocess_name = name.split()
+    unprocess_name = name.title()
     processed_name = []
-    for i in unprocess_name:
-        if i not in black_list:
+    for i in unprocess_name.split(" "):
+        if i in list_product_names:
             processed_name.append(i)
-    return ' '.join(processed_name).title()
+
+    return ' '.join(processed_name)
 
 
 # Xử lý price

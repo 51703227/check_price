@@ -39,8 +39,8 @@ def format_bonho(name):
     return attr_bonho
 
 #crawl xtmobile website
-class laptop_xtmobile(scrapy.Spider):
-    name = 'laptop_xttmobile'
+class lt_xttmobile(scrapy.Spider):
+    name = 'lt_xttmobile'
     start_urls = ['https://www.xtmobile.vn/macbook', ]
 
     def parse(self, response):
