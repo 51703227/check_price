@@ -8,7 +8,7 @@ class LoaiSanPhamAdmin(admin.ModelAdmin):
 
 class SanPhamAdmin(admin.ModelAdmin):
     list_display = ['pk','TenSP']
-    list_filter = ['TenSP']
+    list_filter = ['TenSP','LoaiSanPham']
     search_fields = ['TenSP','pk']
 
 class UrlAdmin(admin.ModelAdmin):

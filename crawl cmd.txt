@@ -1,0 +1,9 @@
+scrapy crawl dienthoaigiasoc -o dienthoaigiasoc.json
+scrapy crawl hnam -o hnam.json
+scrapy crawl phucanh -o phucanh.json
+scrapy crawl nguyenkim -o nguyenkim.json
+scrapy crawl hoangha -o hoangha.json
+scrapy crawl galaxydidong -o galaxydidong.json
+scrapy crawl didongmango -o didongmango.json
+scrapy crawl didongmogi -o didongmogi.json
+scrapy crawl didonghanhphuc -o didonghanhphuc.json

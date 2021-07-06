@@ -361,8 +361,8 @@ class hnamSpider(scrapy.Spider):
             'active': 'True'
         })
         item['thuoctinh'] = attributes
-        #item['tskt'] = response.css('.section-open-box table').get()
-        #item['mota'] = response.css('.article-news .article-main-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
+        item['tskt'] = response.css('.section-open-box table').get()
+        item['mota'] = response.css('.article-news .article-main-content').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
         return item
 
 

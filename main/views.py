@@ -352,10 +352,16 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         return (r/len(list_gia_goc))*100
 
     if url_in == None:
+        
         nguon_ban = NguonBan.objects.get(pk = kwargs['nguon_ban'])
         san_pham = SanPham.objects.get(pk =kwargs['san_pham'])
         try:
-            thuoc_tinh_urlin = ThuocTinh.objects.filter(MauSac=mausac,BoNho=bonho,SanPham = san_pham, NguonBan = nguon_ban).first()
+            print('++',type(mausac),bonho)
+            if mausac == '' and bonho == '':
+                print('sometj')
+                thuoc_tinh_urlin = ThuocTinh.objects.filter(SanPham = san_pham, NguonBan = nguon_ban).first() 
+            else:
+                thuoc_tinh_urlin = ThuocTinh.objects.filter(MauSac=mausac,BoNho=bonho,SanPham = san_pham, NguonBan = nguon_ban).first()
         except ThuocTinh.DoesNotExist:
             return 'TT False'        
     else:
@@ -386,12 +392,13 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         else:
             saleoff = (thuoc_tinh_urlin.GiaMoi1 / thuoc_tinh_urlin.GiaGoc1)*100
         
-        
-        if mausac == 'None' and bonho == 'None':
+        print('something')
+        if mausac == ('None' or None ) and bonho == ('None' or None):
+            print('something')
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham) #list thuộc tính các sản phẩm giống input
-        elif mausac=='None':
+        elif mausac==('None' or None ):
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
-        elif bonho == 'None':
+        elif bonho == ('None' or None ):
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(MauSac = mausac) #list thuộc tính các sản phẩm giống input
         else:
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
@@ -403,8 +410,15 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
                 list_gia_goc_1.append(each_thuoc_tinh.GiaGoc1)
                 list_gia_moi_1.append(each_thuoc_tinh.GiaMoi1) 
 
-        giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 / (sum(list_gia_goc_1)/len(list_gia_goc_1)) ) *100
-        giamoitrungbinh = (thuoc_tinh_urlin.GiaMoi1 / (sum(list_gia_moi_1)/len(list_gia_moi_1)) ) *100
+        if len(list_gia_goc_1) == 0:
+            giagoctrungbinh =0
+        else:
+            giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 / (sum(list_gia_goc_1)/len(list_gia_goc_1)) ) *100
+
+        if len(list_gia_moi_1)==0:
+            giamoitrungbinh=0
+        else:
+            giamoitrungbinh = (thuoc_tinh_urlin.GiaMoi1 / (sum(list_gia_moi_1)/len(list_gia_moi_1)) ) *100
 
         list_gia_goc = [thuoc_tinh_urlin.GiaGoc1,thuoc_tinh_urlin.GiaGoc2,thuoc_tinh_urlin.GiaGoc3,thuoc_tinh_urlin.GiaGoc4,thuoc_tinh_urlin.GiaGoc5]
         dotrungthuc = checktrungthuc(list_gia_goc)
@@ -432,23 +446,22 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             }
         } 
         return data
-    else:
-        return False
+
 
 
 
 def import_data(request):   #Nạp data.json và database
     list_file =  [
-        #'mediamart.json',
-        #'hnam.json',
-        #'phucanh.json',
-        #'nguyenkim.json',
-        #'hoangha.json',
-        #'galaxydidong.json',
-        #'dienthoaigiasoc.json',
-        #'didongmango.json',
-        #'didongmogi.json',
-        #'didonghanhphuc.json',
+        'mediamart.json',
+        'hnam.json',
+        'phucanh.json',
+        'nguyenkim.json',
+        'hoangha.json',
+        'galaxydidong.json',
+        'dienthoaigiasoc.json',
+        'didongmango.json',
+        'didongmogi.json',
+        'didonghanhphuc.json',
 
         'xtmobile.json',
         'aeoneshop.json',
@@ -460,6 +473,28 @@ def import_data(request):   #Nạp data.json và database
         'dienthoaimoi.json',
         'minhducvn.json',
         'mobileworld.json'
+    ]
+    list_file_lt = [
+       'lt_24laptop.json',
+        'lt_aeoneshop.json',
+        'lt_ankhang.json',
+        'lt_anphatpc.json',
+        'lt_cellphones.json', 
+        'lt_dienmaythienhoa.json' ,
+        'lt_hangchinhhieu.json',
+        'lt_hanoicomputer.json',
+        'lt_hnammobile.json' ,
+        'lt_hoanghamobile.json' ,
+        'lt_hoangphat.json' ,
+        'lt_hoangphatgaming.json' ,
+        'lt_hoanlong.json',
+        'lt_laptop888.json',
+        'lt_laptopnew.json',
+        'lt_mediamart.json',
+        'lt_nguyenkim.json',
+        'lt_phucanh.json',
+        'lt_tmdpc.json',
+        'lt_xttmobile.json',
     ]
     for ten_file in list_file:
         f = open('./data/mobile/'+ten_file,'r',encoding='utf-8')
@@ -475,7 +510,7 @@ def import_data(request):   #Nạp data.json và database
                     obj = SanPham(
                         TenSP = item['ten'],
                         LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
-                        ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu']),
+                        #ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu']),
                         ImgSP = item['image']
                     )
                     obj.save()
@@ -511,10 +546,10 @@ def import_data(request):   #Nạp data.json và database
             
             for i in item['thuoctinh']:
                 def rp(gia):
-                    if (gia==None) or (gia in ['liên hệ','liênhệ','Liên hệ','Liênhệ','None','none','NONE','']):
+                    if (gia==None) or (gia in ['liên hệ','liênhệ','Liên hệ','Liênhệ','None','none','NONE','','Hếthàng']):
                         return 0
                     else:
-                        return gia.replace('.','').replace('₫','').replace('đ','')
+                        return gia.replace('.','').replace('₫','').replace('đ','').replace('vn','').replace('Đ','')
                 try:
                     obj = ThuocTinh.objects.get(
                         Url=Url.objects.get(Url = item['url']), 
@@ -546,14 +581,14 @@ def import_data(request):   #Nạp data.json và database
                 except ThuocTinh.DoesNotExist:      
                     thuoctinh = ThuocTinh()
 
-                    thuoctinh.MauSac = i['mausac']
-                    thuoctinh.BoNho = i['bonho']
+                    thuoctinh.MauSac = i['mausac']#'None'#
+                    thuoctinh.BoNho = i['bonho']#'None'#
                     thuoctinh.GiaGoc1 =rp(i['giagoc'])
                     thuoctinh.GiaMoi1 =rp(i['giamoi'])
                     thuoctinh.Ngay1 = item['ngay']
                     thuoctinh.Url = Url.objects.get(Url = item['url'])
                     thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
-                    thuoctinh.Active = i['active']
+                    thuoctinh.Active = i['active']#'True'#
                     thuoctinh.NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc)
 
                     thuoctinh.save()
