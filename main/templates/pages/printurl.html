@@ -61,11 +61,27 @@ Kết quả
                                         <div class="d-flex align-items-center offers"><span class=" font-weight-bold" data-toggle="tooltip" title="Dựa trên sự thay đổi lịch sử giá của sản phẩm">Độ trung thực</span></div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.dotrungthuc}}%;background-color: #1ed1a8;">{{data.analytics.dotrungthuc | floatformat:'2' }} %</div></div>
+                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated {% if data.analytics.dotrungthuc < 80 and data.analytics.dotrungthuc > 60 %}bg-warning{% endif %}{% if data.analytics.dotrungthuc <= 60 %}bg-danger{% endif %}" style="width:{{data.analytics.dotrungthuc}}%;background-color: #1ed1a8;">{{data.analytics.dotrungthuc | floatformat:'2' }} %</div></div>
                                     </div>
                                 </div>
-            
                                 
+                                {% if data.analytics.giamoitrungbinh > 105 and data.analytics.giamoitrungbinh < 110 %}
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>Cảnh báo!</strong> Giá sản phẩm hơi cao so với mức trung bình
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>                                
+                                {% endif %}
+                                {% if data.analytics.giamoitrungbinh > 110 and data.analytics.giamoitrungbinh < 120  %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Oops!</strong> Giá sản phẩm quá cao so với mức trung bình
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>                                
+                                {% endif %}
+
                                 <hr>
                                 <div class="row">
                                     {% if data.thuoc_tinh_urlin.MauSac %}

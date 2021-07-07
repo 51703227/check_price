@@ -403,22 +403,76 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         else:
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(MauSac = mausac).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
         
+        
+
         list_gia_moi_1 = []
         list_gia_goc_1 = []
         for each_thuoc_tinh in list_thuoc_tinh_url:
-            if each_thuoc_tinh.GiaGoc1 != 0 and each_thuoc_tinh.GiaGoc1 !=None and each_thuoc_tinh.GiaMoi1 != 0 and each_thuoc_tinh.GiaMoi1 !=None:
+            if each_thuoc_tinh.GiaGoc1 != 0 and each_thuoc_tinh.GiaGoc1 !=None:
                 list_gia_goc_1.append(each_thuoc_tinh.GiaGoc1)
-                list_gia_moi_1.append(each_thuoc_tinh.GiaMoi1) 
-
+            if each_thuoc_tinh.GiaMoi1 != 0 and each_thuoc_tinh.GiaMoi1 !=None:
+                list_gia_moi_1.append(each_thuoc_tinh.GiaMoi1)
         if len(list_gia_goc_1) == 0:
             giagoctrungbinh =0
         else:
-            giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 / (sum(list_gia_goc_1)/len(list_gia_goc_1)) ) *100
+            giagoctrungbinh = sum(list_gia_goc_1)/len(list_gia_goc_1)
+            cl_giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 / giagoctrungbinh ) *100
 
         if len(list_gia_moi_1)==0:
             giamoitrungbinh=0
         else:
-            giamoitrungbinh = (thuoc_tinh_urlin.GiaMoi1 / (sum(list_gia_moi_1)/len(list_gia_moi_1)) ) *100
+            giamoitrungbinh = sum(list_gia_moi_1)/len(list_gia_moi_1)
+            cl_giamoitrungbinh = (thuoc_tinh_urlin.GiaMoi1 / giamoitrungbinh ) *100
+
+        list_gia_moi_2 = []
+        list_gia_goc_2 = []
+        for each_thuoc_tinh in list_thuoc_tinh_url:
+            if each_thuoc_tinh.GiaGoc2 != 0 and each_thuoc_tinh.GiaGoc2 !=None:
+                list_gia_goc_2.append(each_thuoc_tinh.GiaGoc2)
+            if each_thuoc_tinh.GiaMoi2 != 0 and each_thuoc_tinh.GiaMoi2 !=None:
+                list_gia_moi_2.append(each_thuoc_tinh.GiaMoi2)
+        if len(list_gia_moi_2) == 0:
+            giamoitrungbinh2 =0
+        else:
+            giamoitrungbinh2 = sum(list_gia_moi_2)/len(list_gia_moi_2)
+        
+        list_gia_moi_3 = []
+        list_gia_goc_3 = []
+        for each_thuoc_tinh in list_thuoc_tinh_url:
+            if each_thuoc_tinh.GiaGoc3 != 0 and each_thuoc_tinh.GiaGoc3 !=None:
+                list_gia_goc_3.append(each_thuoc_tinh.GiaGoc3)
+            if each_thuoc_tinh.GiaMoi3 != 0 and each_thuoc_tinh.GiaMoi3 !=None:
+                list_gia_moi_3.append(each_thuoc_tinh.GiaMoi3) 
+        if len(list_gia_moi_3) == 0:
+            giamoitrungbinh3 =0
+        else:
+            giamoitrungbinh3 = sum(list_gia_moi_3)/len(list_gia_moi_3)
+
+        list_gia_moi_4 = []
+        list_gia_goc_4 = []
+        for each_thuoc_tinh in list_thuoc_tinh_url:
+            if each_thuoc_tinh.GiaGoc4 != 0 and each_thuoc_tinh.GiaGoc4 !=None:
+                list_gia_goc_4.append(each_thuoc_tinh.GiaGoc4)
+            if each_thuoc_tinh.GiaMoi4 != 0 and each_thuoc_tinh.GiaMoi4 !=None:
+                list_gia_moi_4.append(each_thuoc_tinh.GiaMoi4) 
+        if len(list_gia_moi_4) == 0:
+            giamoitrungbinh4 =0
+        else:
+            giamoitrungbinh4 = sum(list_gia_moi_4)/len(list_gia_moi_4)
+
+        list_gia_moi_5 = []
+        list_gia_goc_5 = []
+        for each_thuoc_tinh in list_thuoc_tinh_url:
+            if each_thuoc_tinh.GiaGoc5 != 0 and each_thuoc_tinh.GiaGoc5 !=None:
+                list_gia_goc_5.append(each_thuoc_tinh.GiaGoc5)
+            if each_thuoc_tinh.GiaMoi5 != 0 and each_thuoc_tinh.GiaMoi5 !=None:
+                list_gia_moi_5.append(each_thuoc_tinh.GiaMoi5) 
+        if len(list_gia_moi_5) == 0:
+            giamoitrungbinh5 =0
+        else:
+            giamoitrungbinh5 = sum(list_gia_moi_5)/len(list_gia_moi_5)
+
+
 
         list_gia_goc = [thuoc_tinh_urlin.GiaGoc1,thuoc_tinh_urlin.GiaGoc2,thuoc_tinh_urlin.GiaGoc3,thuoc_tinh_urlin.GiaGoc4,thuoc_tinh_urlin.GiaGoc5]
         dotrungthuc = checktrungthuc(list_gia_goc)
@@ -442,7 +496,16 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
                 'saleoff':round(saleoff,2),
                 'giagoctrungbinh': giagoctrungbinh,
                 'giamoitrungbinh':giamoitrungbinh,
+                'cl_giagoctrungbinh': cl_giagoctrungbinh,
+                'cl_giamoitrungbinh': cl_giamoitrungbinh,
                 'dotrungthuc':dotrungthuc,
+            },
+            'giamoitrungbinh':{
+                'giamoi1':giamoitrungbinh,
+                'giamoi2':giamoitrungbinh2,
+                'giamoi3':giamoitrungbinh3,
+                'giamoi4':giamoitrungbinh4,
+                'giamoi5':giamoitrungbinh5,
             }
         } 
         return data
@@ -463,16 +526,16 @@ def import_data(request):   #Nạp data.json và database
         'didongmogi.json',
         'didonghanhphuc.json',
 
-        'xtmobile.json',
-        'aeoneshop.json',
-        'anphatpc.json',
-        'cellphones.json',
-        'didongmy.json',
-        'didongsinhvien.json',
-        'didongthongminh.json',
-        'dienthoaimoi.json',
-        'minhducvn.json',
-        'mobileworld.json'
+#        'xtmobile.json',
+#        'aeoneshop.json',
+#        'anphatpc.json',
+#        'cellphones.json',
+#        'didongmy.json',
+#        'didongsinhvien.json',
+#        'didongthongminh.json',
+#        'dienthoaimoi.json',
+#        'minhducvn.json',
+#        'mobileworld.json'
     ]
     list_file_lt = [
        'lt_24laptop.json',
