@@ -333,9 +333,8 @@ def print_url(request):
         elif data == 'TT False':
             return render(request,'pages/404.html',{'type':'Thuộc tính'})
         else:
-            
             return render(request,'pages/printurl.html',{'data':data})
-
+    return redirect('url_input')
 
 
 
@@ -343,9 +342,14 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
   
     def checktrungthuc(list_gia_goc):
         r = 0
+        
         for gia_goc in list_gia_goc:
             if gia_goc  == 0:
                 list_gia_goc.remove(gia_goc)
+        for gia_goc in list_gia_goc:
+            if gia_goc  == 0:
+                list_gia_goc.remove(gia_goc)
+        
         for gia_goc in list_gia_goc:        
             if list_gia_goc[0] <= gia_goc:
                 r = r+1
@@ -413,16 +417,19 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             if each_thuoc_tinh.GiaMoi1 != 0 and each_thuoc_tinh.GiaMoi1 !=None:
                 list_gia_moi_1.append(each_thuoc_tinh.GiaMoi1)
         if len(list_gia_goc_1) == 0:
-            giagoctrungbinh =0
+            giagoctrungbinh1 =0
         else:
-            giagoctrungbinh = sum(list_gia_goc_1)/len(list_gia_goc_1)
-            cl_giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 / giagoctrungbinh ) *100
-
+            giagoctrungbinh1 = sum(list_gia_goc_1)/len(list_gia_goc_1)
+            cl_giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 / giagoctrungbinh1 ) *100
+            print(cl_giagoctrungbinh)
         if len(list_gia_moi_1)==0:
-            giamoitrungbinh=0
+            giamoitrungbinh1=0
         else:
-            giamoitrungbinh = sum(list_gia_moi_1)/len(list_gia_moi_1)
-            cl_giamoitrungbinh = (thuoc_tinh_urlin.GiaMoi1 / giamoitrungbinh ) *100
+            giamoitrungbinh1 = sum(list_gia_moi_1)/len(list_gia_moi_1)
+            cl_giamoitrungbinh = (thuoc_tinh_urlin.GiaMoi1 / giamoitrungbinh1 ) *100
+
+
+
 
         list_gia_moi_2 = []
         list_gia_goc_2 = []
@@ -436,6 +443,7 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         else:
             giamoitrungbinh2 = sum(list_gia_moi_2)/len(list_gia_moi_2)
         
+
         list_gia_moi_3 = []
         list_gia_goc_3 = []
         for each_thuoc_tinh in list_thuoc_tinh_url:
@@ -472,7 +480,7 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         else:
             giamoitrungbinh5 = sum(list_gia_moi_5)/len(list_gia_moi_5)
 
-
+        print(giamoitrungbinh1,giamoitrungbinh2,giamoitrungbinh3,giamoitrungbinh4,giamoitrungbinh5)
 
         list_gia_goc = [thuoc_tinh_urlin.GiaGoc1,thuoc_tinh_urlin.GiaGoc2,thuoc_tinh_urlin.GiaGoc3,thuoc_tinh_urlin.GiaGoc4,thuoc_tinh_urlin.GiaGoc5]
         dotrungthuc = checktrungthuc(list_gia_goc)
@@ -494,14 +502,14 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
             'list_url_chung_nb':list_url_chung_nb,
             'analytics':{
                 'saleoff':round(saleoff,2),
-                'giagoctrungbinh': giagoctrungbinh,
-                'giamoitrungbinh':giamoitrungbinh,
+                'giagoctrungbinh': giagoctrungbinh1,
+                'giamoitrungbinh':giamoitrungbinh1,
                 'cl_giagoctrungbinh': cl_giagoctrungbinh,
                 'cl_giamoitrungbinh': cl_giamoitrungbinh,
                 'dotrungthuc':dotrungthuc,
             },
             'giamoitrungbinh':{
-                'giamoi1':giamoitrungbinh,
+                'giamoi1':giamoitrungbinh1,
                 'giamoi2':giamoitrungbinh2,
                 'giamoi3':giamoitrungbinh3,
                 'giamoi4':giamoitrungbinh4,

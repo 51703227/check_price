@@ -43,7 +43,7 @@ Kết quả
                                         <div class="d-flex align-items-center offers mb-1"><span class=" font-weight-bold" data-toggle="tooltip" title="Chênh lệch giá gốc trung bình: Biểu thị % chênh lệch giá gốc của sản phẩm so với giá gốc của các sản phẩm cùng loại ">CL Giá gốc TB</span></div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.giagoctrungbinh }}%;background-color: #1ed1a8;">{{data.analytics.giagoctrungbinh| floatformat:'2'}}%</div></div>
+                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.cl_giagoctrungbinh }}%;background-color: #1ed1a8;">{{data.analytics.cl_giagoctrungbinh| floatformat:'2'}}%</div></div>
                                     </div>
                                 </div>
             
@@ -52,7 +52,7 @@ Kết quả
                                         <div class="d-flex align-items-center offers mb-1"><span class=" font-weight-bold" data-toggle="tooltip" title="Chênh lệch giá khuyến mãi trung bình: Biểu thị % chênh lệch giá khuyến mãi của sản phẩm so với giá khuyến mãi của các sản phẩm cùng loại">CL Giá KM TB</span></div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.giamoitrungbinh}}%;background-color: #1ed1a8;">{{data.analytics.giamoitrungbinh | floatformat:'2'   }}%</div></div>
+                                        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{data.analytics.cl_giamoitrungbinh}}%;background-color: #1ed1a8;">{{data.analytics.cl_giamoitrungbinh | floatformat:'2'   }}%</div></div>
                                     </div>
                                 </div>
             
@@ -162,6 +162,18 @@ Kết quả
                                             ],
                                             borderWidth: 2,
                                             order: 2
+                                            },
+                                            {
+                                            label: 'Giá mới TB',
+                                            data: [ {{data.giamoitrungbinh.giamoi5| floatformat:"0"}} , {{data.giamoitrungbinh.giamoi4| floatformat:"0"}}, {{data.giamoitrungbinh.giamoi3| floatformat:"0"}}, {{data.giamoitrungbinh.giamoi2| floatformat:"0"}}, {{data.giamoitrungbinh.giamoi1| floatformat:"0"}}],
+                                            backgroundColor: [
+                                                '#ffc107',
+                                            ],
+                                            borderColor: [
+                                                '#ffc107',
+                                            ],
+                                            borderWidth: 2,
+                                            order: 3
                                             }
                                         ]
                                     },

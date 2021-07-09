@@ -4,7 +4,7 @@ from django.urls import path
 from . import views
 from django.urls import re_path
 urlpatterns = [
-    path('',views.url_input),
+    path('',views.url_input, name = 'url_input'),
     re_path(r'^print-url/',views.print_url, name='print_url'),
     path('import-data/',views.import_data, name='import_data'),
     path('<int:id>', views.product_supplier, name= 'product_supplier' ),

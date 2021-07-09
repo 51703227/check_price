@@ -374,7 +374,7 @@ class mediamartSpider(scrapy.Spider):
         
         for product in response.css('.pl18-item-ul li'):   #####
             item_link = 'https://mediamart.vn'+ product.css('.pl18-item-image a::attr(href)').get()       #####
-            if item_link:# == 'https://mediamart.vn/smartphones/itel/dien-thoai-itel-a13-deep-gray.htm':
+            if item_link: # == 'https://mediamart.vn/smartphones/apple/apple-iphone-12-pro-128g-blue-2020.htm':
                 
                 ten = product.css('.pl18-item-name a::attr(title)').get()      #####
                 attr = get_attr_from_name(ten)
@@ -435,14 +435,15 @@ class mediamartSpider(scrapy.Spider):
         price = response.meta['price']
         
         
-        pr = response.css('.pdrrp-pmarket::text').get()
+        pr = response.css('.pd-eventhot-bl').get()
         if pr:
-            option_old_price = pr
-            option_new_price = response.css('.pdrrp-price::attr(content)').get()  ##### 
+            option_old_price = response.css('.pdrrp-price::attr(content)').get()
+            option_new_price = response.css('.pd-evh-price b::text').get()  ##### 
         else:
-            option_old_price = response.css('.pdrrp-price::attr(content)').get()  #####
-            option_new_price = response.css('.pd-evh-price b::text').get()    #####   
+            option_old_price = response.css('.pdrrp-pmarket::text').get()  #####
+            option_new_price = response.css('.pdrrp-price::attr(content)').get()    #####   
 
+        
         #color_active = response.css('.product-detail-wrapper .swiper-outer-wrapper div.option.active::attr(data-color)').get()
         #bonho_active = response.css('.product-detail-wrapper .list-block-options a.active::text').get()
 
