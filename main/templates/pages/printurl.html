@@ -65,17 +65,36 @@ Kết quả
                                     </div>
                                 </div>
                                 
-                                {% if data.analytics.giamoitrungbinh > 105 and data.analytics.giamoitrungbinh < 110 %}
+                                {% if data.analytics.cl_giamoitrungbinh > 105 and data.analytics.cl_giamoitrungbinh < 110 %}
                                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <strong>Cảnh báo!</strong> Giá sản phẩm hơi cao so với mức trung bình
+                                    <strong>Cảnh báo!</strong> Giá sản phẩm khá cao so với mức trung bình
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     </div>                                
                                 {% endif %}
-                                {% if data.analytics.giamoitrungbinh > 110 and data.analytics.giamoitrungbinh < 120  %}
+
+                                {% if data.analytics.cl_giamoitrungbinh > 110 and data.analytics.cl_giamoitrungbinh < 120  %}
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>Oops!</strong> Giá sản phẩm quá cao so với mức trung bình
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>                                
+                                {% endif %}
+                                
+                                {% if data.analytics.cl_giamoitrungbinh > 90 and data.analytics.cl_giamoitrungbinh < 95 %}
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>Cảnh báo!</strong> Giá sản phẩm khá thấp so với mức trung bình
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>                                
+                                {% endif %}
+
+                                {% if data.analytics.cl_giamoitrungbinh > 85 and data.analytics.cl_giamoitrungbinh < 90  %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Oops!</strong> Giá sản phẩm quá thấp so với mức trung bình
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>

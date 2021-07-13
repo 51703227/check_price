@@ -29,8 +29,11 @@ def name_processing(name):
             'xuân)','Mi','Festival)','(Fan','Edition),'
             'độc',' đáo',
             '6GB/128GB','Tím','Xám','Đen']
+
+    f = open("blacklist.txt", "r",encoding='utf-8')
+    lines = f.read().splitlines()
     bl_list = ['(' , ')' , '-','–' ,'/','[',']',',',
-    'Không Có Google','Pin 100%','qt','bảo hành chính hãng','quốc tế mới 100%','mới 100%','nguyên seal','chưa active','Quốc tế','95%','QT','100%','Chưa Active','2017','Sạc Ít Lần','Fullbox',
+    'camera kép','camera','còn bảo hành','Single Sim','Không Có Google','Pin 100%','qt','bảo hành chính hãng','quốc tế mới 100%','mới 100%','nguyên seal','chưa active','Quốc tế','95%','QT','100%','Chưa Active','2017','Sạc Ít Lần','Fullbox',
     'Bản','Mới 100%','Quốc Tế','Hàn Quốc','Bản Hàn Quốc','tím','màu','Đẹp','đẹp','Deep Gray','Máy Người Già','Máy người già',
     'Phiên bản','mùa hè','Chính Hãng','huyền bí','Đồng ánh kim','Ánh Kim','Đen Than','Ánh Sao','Màu','Mới','mới','Rom',
     '+512GB','+256GB','+128GB','+64GB','+8GB','+16GB','+32GB','+4GB','+512Gb','+256Gb','+128Gb','+64Gb','+8Gb','+16Gb','+32Gb','+4Gb',
@@ -44,12 +47,12 @@ def name_processing(name):
     '1 sim','1 Sim','Mỹ','New','BH12T','Certified','PreOwned','Special','Product', 'ram','cty','RAM','Edge', 'Batman', 'Injustice','Cty',
     'Apple','APPLE','6.4Inch','5.3Inch','6.4Inch','6.23Inch','6.2Inch','5.7Inch','6.2Inch','6.4Inch','Đại','like',
     'Đtdđ','ĐTDĐ','8+128','6 + 128',
-    '2+32','9798%','98%','97%','99%','95%','Camera Sau','Active | Pin 4000Ma, Chip Snap 835','Pin 5000Mah'
+    '2+32','9798%','98%','97%','99%','95%','Camera Sau','Active | Pin 4000Ma, Chip Snap 835','Pin 5000Mah','Pin 5000 Mah','Không Có Google'
     ]
 
     if name == None:
         return ''
-    for character in bl_list:
+    for character in lines:
         if character in name or character.lower() in name or character.title() in name or character.upper():
             name = name.replace(character,'')
             name = name.replace(character.lower(),'')
@@ -66,7 +69,7 @@ def name_processing(name):
 def format_price(price):
     _list = ['đ','₫','.',',','VNĐ','VND','\r','\n','\t',' ']
     if not price:
-        return None
+        return 'None'
     else:
         for i in _list:
             price = price.replace(i,'')
@@ -74,8 +77,8 @@ def format_price(price):
 
 def format_bonho(bonho):
     _list = [' ','Mới','100%']
-    if not bonho:
-        return None
+    if not bonho or bonho in ['None','none','NONE']:
+        return 'None'
     else:
         for i in _list:
             bonho = bonho.replace(i,'')
@@ -84,7 +87,7 @@ def format_bonho(bonho):
 def format_mausac(mausac):
     _list = ['\n','\t','99%']
     if not mausac:
-        return None
+        return 'None'
     else:
         for i in _list:
             mausac = mausac.replace(i,'')

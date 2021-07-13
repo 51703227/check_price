@@ -243,10 +243,11 @@ def xu_ly_url(request,url):
 
             list_url = Url.objects.filter(SanPham = san_pham)
 
-            for each_url in list_url:
-                if is_valid_url(each_url.UrlImage):
-                    san_pham_img = each_url.UrlImage
-                    break
+            #for each_url in list_url:
+            #    if is_valid_url(each_url.UrlImage):
+            #        san_pham_img = each_url.UrlImage
+            #        break
+
             list_nguon_ban = []
             #list_thuoc_tinh = []
             for each_url in list_url:
@@ -257,7 +258,7 @@ def xu_ly_url(request,url):
             
             data.append({
                 'san_pham': san_pham,
-                'san_pham_img': san_pham_img,
+            #    'san_pham_img': san_pham_img,
                 'list_nguon_ban':list_nguon_ban,
                 'length_list_nguon_ban': len(list_nguon_ban)
             })
@@ -418,12 +419,14 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
                 list_gia_moi_1.append(each_thuoc_tinh.GiaMoi1)
         if len(list_gia_goc_1) == 0:
             giagoctrungbinh1 =0
+            cl_giagoctrungbinh = 100
         else:
             giagoctrungbinh1 = sum(list_gia_goc_1)/len(list_gia_goc_1)
             cl_giagoctrungbinh = (thuoc_tinh_urlin.GiaGoc1 / giagoctrungbinh1 ) *100
-            print(cl_giagoctrungbinh)
+
         if len(list_gia_moi_1)==0:
             giamoitrungbinh1=0
+            cl_giamoitrungbinh = 100
         else:
             giamoitrungbinh1 = sum(list_gia_moi_1)/len(list_gia_moi_1)
             cl_giamoitrungbinh = (thuoc_tinh_urlin.GiaMoi1 / giamoitrungbinh1 ) *100
@@ -523,16 +526,16 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
 
 def import_data(request):   #Nạp data.json và database
     list_file =  [
-        'mediamart.json',
-        'hnam.json',
-        'phucanh.json',
-        'nguyenkim.json',
-        'hoangha.json',
-        'galaxydidong.json',
+        #'mediamart.json',
+        #'hnam.json',
+        #'phucanh.json',
+        #'nguyenkim.json',
+        #'hoangha.json',
+        #'galaxydidong.json',
         'dienthoaigiasoc.json',
-        'didongmango.json',
-        'didongmogi.json',
-        'didonghanhphuc.json',
+        #'didongmango.json',
+        #'didongmogi.json',
+        #'didonghanhphuc.json',
 
 #        'xtmobile.json',
 #        'aeoneshop.json',
