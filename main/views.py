@@ -526,16 +526,16 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
 
 def import_data(request):   #Nạp data.json và database
     list_file =  [
-        #'mediamart.json',
-        #'hnam.json',
-        #'phucanh.json',
-        #'nguyenkim.json',
-        #'hoangha.json',
-        #'galaxydidong.json',
+        'mediamart.json',
+        'hnam.json',
+        'phucanh.json',
+        'nguyenkim.json',
+        'hoangha.json',
+        'galaxydidong.json',
         'dienthoaigiasoc.json',
-        #'didongmango.json',
-        #'didongmogi.json',
-        #'didonghanhphuc.json',
+        'didongmango.json',
+        'didongmogi.json',
+        'didonghanhphuc.json',
 
 #        'xtmobile.json',
 #        'aeoneshop.json',
@@ -585,7 +585,8 @@ def import_data(request):   #Nạp data.json và database
                         TenSP = item['ten'],
                         LoaiSanPham = LoaiSanPham.objects.get(TenLoai=item['loaisanpham']),
                         #ThuongHieu = ThuongHieu.objects.get(TenTH= item['thuonghieu']),
-                        ImgSP = item['image']
+                        ImgSP = item['image'],
+                        NgayKhoiTao = item['ngay']
                     )
                     obj.save()
                 except ThuongHieu.DoesNotExist:
@@ -627,8 +628,8 @@ def import_data(request):   #Nạp data.json và database
                 try:
                     obj = ThuocTinh.objects.get(
                         Url=Url.objects.get(Url = item['url']), 
-                        MauSac=i['mausac'],
-                        BoNho=i['bonho'],
+                        MauSac=i['mausac'] if item['loaisanpham'] == 'dienthoai' else 'None',
+                        BoNho=i['bonho'] if item['loaisanpham'] == 'dienthoai' else 'None',
                         NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc),
                         SanPham = SanPham.objects.get(TenSP=item['ten'])
                     )
@@ -654,15 +655,20 @@ def import_data(request):   #Nạp data.json và database
 
                 except ThuocTinh.DoesNotExist:      
                     thuoctinh = ThuocTinh()
-
-                    thuoctinh.MauSac = i['mausac']#'None'#
-                    thuoctinh.BoNho = i['bonho']#'None'#
+                    if item['loaisanpham'] == 'dienthoai':
+                        thuoctinh.MauSac = i['mausac']#'None'#
+                        thuoctinh.BoNho = i['bonho']#'None'#
+                        thuoctinh.Active = i['active']#'True'#
+                    else:
+                        thuoctinh.MauSac = 'None'#
+                        thuoctinh.BoNho = 'None'#
+                        thuoctinh.Active = 'True'#
                     thuoctinh.GiaGoc1 =rp(i['giagoc'])
                     thuoctinh.GiaMoi1 =rp(i['giamoi'])
                     thuoctinh.Ngay1 = item['ngay']
                     thuoctinh.Url = Url.objects.get(Url = item['url'])
                     thuoctinh.SanPham = SanPham.objects.get(TenSP = item['ten'])
-                    thuoctinh.Active = i['active']#'True'#
+                    
                     thuoctinh.NguonBan = NguonBan.objects.get(Domain = urlparse(item['url']).netloc)
 
                     thuoctinh.save()

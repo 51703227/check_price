@@ -54,6 +54,7 @@ class SanPham(models.Model):
     LoaiSanPham = models.ForeignKey(LoaiSanPham,on_delete=models.CASCADE,null=True,blank=True)
     ThuongHieu = models.ForeignKey(ThuongHieu,on_delete=models.CASCADE,null=True,blank=True)
     ImgSP = models.URLField(null=True,blank=True)
+    NgayKhoiTao = models.DateField(null=True,blank=True)
     def __str__(self):
         return str(self.pk) + ' - ' + self.TenSP
 
