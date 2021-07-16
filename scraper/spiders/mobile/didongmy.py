@@ -9,28 +9,31 @@ basedir = os.path.dirname(os.path.realpath('__file__'))
 
 # Hàm xử lý tên sản phẩm
 def name_processing(name):
-    black_list = ['Chính', 'hãng', 'I', 'VN/A', 'chính', '|', '-', ]
-    bl_list = ['(', ')', '-', '/', '[', ']',
-               'Cty','12Gb|512Gb','Hongkong','Sim','Bản','Mỹ','New','Fullbox',
-               'Chip','Snapdragon','Hàn','Quốc','Cũ','99%','12Gb128Gb','12Gb256Gb','12Gb|256Gb',
-               '8Gb|256Gb','Nobox','New','6Gb128Gb','8Gb|128Gb','6Gb|128Gb','865',
-               '12Gb256Gb','12Gb512Gb','12Gb|128Gb','12Gb|',
-               'Cty','12Gb','97%','6Gb'
-               '+512GB', '+256GB', '+128GB', '+64GB', '+8GB', '+16GB', '+32GB', '+4GB', '+512Gb', '+256Gb', '+128Gb',
-               '+64Gb', '+8Gb', '+16Gb', '+32Gb', '+4Gb', '+512G', '+256G', '+128G', '+64G', '+16G', '+32G',
-               '512GB', '256GB', '128GB', '64GB', '8GB', '16GB', '32GB', '4GB', '512Gb', '256Gb', '128Gb', '64Gb',
-               '8Gb', '16Gb', '32Gb', '4Gb', '512G', '256G', '128G', '64G', '16G', '32G',
-               ]
+
+    f = open("blacklist.txt", "r", encoding='utf-8')
+    lines = f.read().splitlines()
 
     if name == None:
         return ''
-    for character in bl_list:
-        name = name.replace(character, '')
+    for character in lines:
+        if character in name or character.lower() in name or character.title() in name or character.upper():
+            name = name.replace(character,'')
+            name = name.replace(character.lower(),'')
+            name = name.replace(character.title(),'')
+            name = name.replace(character.upper(),'')
+
+    black_list1 = ['Chính', 'hãng', 'I', 'VN/A', 'chính', '|', '-', 'Hãng', 'Cũ', 'Nobox',
+                   '1', '1|', 'Chip', 'Snapdragon', '865', '865+', 'Hongkong', 'Fan', 'Edition',
+                   'Hộp', 'Trải', 'Nghiệm', 'Đã', 'Kích', 'Phép', 'Hoạt', 'Ng', 'Pin', 'Siêu',
+                   'Dùng', 'Siêu', 'Chụp', 'Ảnh', 'Nguyên', 'Nhập', 'Khẩu', 'Màn', 'Hình', '2K',
+                   'Nhám', 'Cấu', 'Hiệu', 'Năng', 'Đầy', 'Giá', 'Tiên', 'Máy', 'Thiết', 'Kế',
+                   'Tử', 'HàN', 'QuốC', 'Như', 'Vna', 'Điện', 'Thoại', 'Ng', 'Racing', 'Youth',
+                   'Zoom', '64', '128', 'Tay', 'Phân', 'Quốc', 'Chống', ]
 
     unprocess_name = name.split()
     processed_name = []
     for i in unprocess_name:
-        if i not in black_list:
+        if i not in black_list1:
             processed_name.append(i)
     return ' '.join(processed_name).title()
 

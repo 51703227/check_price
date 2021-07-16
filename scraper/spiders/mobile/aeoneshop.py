@@ -9,46 +9,37 @@ basedir = os.path.dirname(os.path.realpath('__file__'))
 
 # Hàm xử lý tên sản phẩm
 def name_processing(name):
-    black_list = ['Chính', 'hãng', 'I', 'VN/A', 'chính', '|', '-', ]
-    bl_list = ['(', ')', '-', '/', '[', ']','256Gb',
+
+    bl_list = ['(', ')', '-', '–', '/', '[', ']', ',',
+               'Điện thoại',
                '+512GB', '+256GB', '+128GB', '+64GB', '+8GB', '+16GB', '+32GB', '+4GB', '+512Gb', '+256Gb', '+128Gb',
-               '+64Gb', '+8Gb', '+16Gb', '+32Gb', '+4Gb', '+512G', '+256G', '+128G', '+64G', '+16G', '+32G',
+               '+64Gb', '+8Gb', '+16Gb', '+32Gb', '+4Gb',
                '512GB', '256GB', '128GB', '64GB', '8GB', '16GB', '32GB', '4GB', '512Gb', '256Gb', '128Gb', '64Gb',
-               '8Gb', '16Gb', '32Gb', '4Gb', '512G', '256G', '128G', '64G', '16G', '32G',
-               'Xanh lá', 'Vàng đồng', 'nước biển', 'Vàng đồng', 'lá', 'lục', 'Đồng', 'Khói', 'bích', 'huyền bí',
-               'nhật thực', 'Biển', 'mận', 'Dương', 'Lá', 'Đỏ', 'Đen', 'Lục', 'Cực', 'Quang', 'tinh', 'thạch', 'Ngọc',
-               'Trai', 'Bạc', 'Hà', 'Lam', 'Thủy', 'Triều', 'Đồng', 'Vàng', 'Xanh', 'Đen', 'Trắng', 'Thạch', 'Anh',
-               'lá', 'ngọc', 'lam', 'Sapphire','256Gb'
-               'Deep Gray', 'Deep', 'Mint', 'Yellow', 'Champagne', 'Grey', 'Black', 'Gold', 'Graphite', 'Silver',
-               'Blue', 'Tím', 'Green', 'Sliver', 'Trắng', 'Xám', 'Pacific', 'Blue', 'White', 'Gray', 'Violet',
-               'Purple', 'Red', 'Browns',
-               'độc', 'đáo', 'hạt', 'tiêu', '(KHÔNG KÈM THẺ NHỚ)', 'Thoại', '2019', '2020',
-               '6.67Inch', '6.5Inch', '6.9Inch', '2 sim', '6.1Inch', '2 Sim', 'VNA', 'hải', 'quân', 'san', 'hô', 'trai',
-               'dương', 'cẩm', 'KHÔNG KÈM THẺ NHỚ', 'San', 'Hô', 'Nhật', 'Thực', 'Sương', 'Mai', 'Đam', 'Mê', 'lục',
-               'bảo', 'Bảo', 'sương', 'hồng', 'Bích', 'tú', 'thủy', 'Hải', 'Âu', 'Hồng', 'pha', 'lê', 'quang', 'cực',
-               'Cam', 'hà', 'Phong', 'Vân', 'Màu', 'Điện', 'Ảnh',
-               '1 sim', '1 Sim', 'Mỹ', 'New', 'BH12T', 'Certified', 'PreOwned', 'Special', 'Product', 'ram', 'cty',
-               'RAM', 'Edge', 'Batman', 'Injustice', 'Cty',
-               'Apple', 'APPLE', '6.4Inch', '5.3Inch', '6.4Inch', '6.23Inch', '6.2Inch', '5.7Inch', '6.2Inch',
-               '6.4Inch', 'Đại', 'Điện', 'Di', 'Động','Obox'
-               'Đtdđ', 'ĐTDĐ', 'Quoc', 'Moi', 'Ll', '12Gb', 'Cũ',
-               '2+32', '.', '100%', 'Lbox', 'Hộp', 'Đã', 'Kích', 'Hoạt', 'Trải', 'Nghiệm',
-               'Phép', 'Màu', 'Điện', 'Ảnh', 'Phiên', 'Bản', 'Mới',
-               'Nhập', 'Khẩu','Hongkong','Quốc','|','Cty','%','Snapdragon','Chip','865+','Nobox',
-               '6Gb','12Gb',
+               '8Gb', '16Gb', '32Gb', '4Gb',
+               '512 GB', '256 GB', '128 GB', '64 GB', '8 GB', '16 GB', '32 GB', '4 GB', '+512G', '+256G', '+128G',
+               '+64G', '+16G', '+32G',
+               '512gb', '256gb', '128gb', '64gb', '8gb', '16gb', '32gb', '6gb', '4gb', '512G', '256G', '128G', '64G',
+               '16G', '32G', '2GB', '3GB', '512g', '256g', '128g', '64g', '8g', '16g', '32g', '4g', '6g', '3g', '5g',
+               'Xanh đại dương', 'đại dương', 'ánh sao', 'hoàng hôn', 'Xanh lá', 'Vàng đồng', 'nước biển',
+               'Vàng đồng', 'lá', 'lục', 'Đồng', 'Khói', 'bích', 'huyền bí', 'nhật thực', 'Biển', 'mận', 'Dương',
+               'Lá', 'Đỏ', 'Đen', 'Lục', 'Cực', 'Quang', 'tinh', 'thạch', 'Ngọc', 'Trai', 'Bạc', 'Hà', 'Lam', 'Thủy',
+               'Triều', 'Đồng', 'Vàng', 'Xanh', 'Đen', 'Trắng', 'Thạch', 'Anh', 'lá', 'ngọc', 'lam', 'Sapphire',
+               'Pink', 'Deep Gray', 'Deep', 'Mint', 'Yellow', 'Champagne', 'Grey', 'Black', 'Gold', 'Graphite',
+               'Silver', 'Blue', 'Tím', 'Green', 'Sliver', 'Trắng', 'Xám', 'Pacific', 'Blue', 'White', 'Gray',
+               'Violet', 'Purple', 'Red', 'Browns',
+               '8Th', '10.2', 'Wifi', 'Gld Mylf2Zaa', 'Di động', 'Bút', 'Màu',
+               'Ss 2019', 'Ds 2020  3', "  ", "   ", "    ", "     ", "      ",
                ]
 
     if name == None:
         return ''
     for character in bl_list:
-        name = name.replace(character, '')
+            name = name.replace(character, '')
+            name = name.replace(character.lower(), '')
+            name = name.replace(character.title(), '')
+            name = name.replace(character.upper(), '')
 
-    unprocess_name = name.split()
-    processed_name = []
-    for i in unprocess_name:
-        if i not in black_list:
-            processed_name.append(i)
-    return ' '.join(processed_name).title()
+    return name
 
 
 # Xử lý price
