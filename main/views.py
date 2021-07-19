@@ -45,10 +45,6 @@ def product_supplier(request,id):
         list_url = Url.objects.filter(SanPham = san_pham).filter(NguonBan= each_nguonban)
         min_price = 0.0
         max_price = 0.0
-        for each_url in list_url:
-            if is_valid_url(each_url.UrlImage):
-                san_pham_img = each_url.UrlImage
-                break
 
         for each_url in list_url:
             list_thuoc_tinh = ThuocTinh.objects.filter(Url = each_url)
@@ -68,7 +64,6 @@ def product_supplier(request,id):
         data.append({
             'nguon_ban': each_nguonban,
             'list_url': list_url,
-            'anh_san_pham': san_pham_img,
             'length_list_url': len(list_url),
             'min_price':min_price,
             'max_price':max_price ,
@@ -209,10 +204,6 @@ def category(request,cat):
 
         list_url = Url.objects.filter(SanPham = san_pham)
 
-        for each_url in list_url:
-            if is_valid_url(each_url.UrlImage):
-                san_pham_img = each_url.UrlImage
-                break
         list_nguon_ban = []
         #list_thuoc_tinh = []
         for each_url in list_url:
@@ -223,7 +214,6 @@ def category(request,cat):
         
         data.append({
             'san_pham': san_pham,
-            'san_pham_img': san_pham_img,
             'list_nguon_ban':list_nguon_ban,
             'length_list_nguon_ban': len(list_nguon_ban)
         })
@@ -526,27 +516,27 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
 
 def import_data(request):   #Nạp data.json và database
     list_file =  [
-        'mediamart.json',
-        'hnam.json',
-        'phucanh.json',
-        'nguyenkim.json',
-        'hoangha.json',
-        'galaxydidong.json',
-        'dienthoaigiasoc.json',
-        'didongmango.json',
-        'didongmogi.json',
-        'didonghanhphuc.json',
+#        'mediamart.json',
+#        'hnam.json',
+#        'phucanh.json',
+#        'nguyenkim.json',
+#        'hoangha.json',
+#        'galaxydidong.json',
+#        'dienthoaigiasoc.json',
+#        'didongmango.json',
+#        'didongmogi.json',
+#        'didonghanhphuc.json',
 
-#        'xtmobile.json',
-#        'aeoneshop.json',
-#        'anphatpc.json',
-#        'cellphones.json',
-#        'didongmy.json',
-#        'didongsinhvien.json',
-#        'didongthongminh.json',
-#        'dienthoaimoi.json',
-#        'minhducvn.json',
-#        'mobileworld.json'
+        'xttmobile.json',
+        'aeoneshop.json',
+        #'anphatpc.json',
+        'cellphones.json',
+        'didongmy.json',
+        'didongsinhvien.json',
+        'didongthongminh.json',
+        'dienthoaimoi.json',
+        'minhducvn.json',
+        'mobileworld.json'
     ]
     list_file_lt = [
        'lt_24laptop.json',
@@ -570,8 +560,8 @@ def import_data(request):   #Nạp data.json và database
         'lt_tmdpc.json',
         'lt_xttmobile.json',
     ]
-    for ten_file in list_file:
-        f = open('./data/mobile/'+ten_file,'r',encoding='utf-8')
+    for ten_file in list_file_lt:
+        f = open('./data/laptop/'+ten_file,'r',encoding='utf-8')
         data = json.loads(f.read())
 
         for item in data:
