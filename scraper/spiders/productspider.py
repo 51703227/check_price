@@ -70,7 +70,7 @@ def format_bonho(bonho):
 
 def format_mausac(mausac):
     _list = ['\n','\t','99%']
-    if not mausac:
+    if not mausac or mausac in ['256G','2Sim','Hàn','Mỹ','128Gb','512G','128Gb Mới','Mới','Chưa Active','Mới 100%','Đã Active']:
         return 'None'
     else:
         for i in _list:
@@ -108,6 +108,13 @@ def format_mausac(mausac):
         'Xám':'Xám',
         'Xanh':'Xanh Dương',
         'Xanh Đậm':'Xanh Dương',
+        'Xanh Đã At':'Xanh Dương',
+        'Pacificblue':'Xanh Dương',
+        'Xanh':'Xanh dương',
+        'Tím Bạc':'Tím',
+        'Tím Hồng':'Tím',
+        'Tím Đam Mê':'Tím',
+        'Tím':'Tím',
     }
     if not _dict.get(mausac):
         return mausac.title()
@@ -630,7 +637,7 @@ class didonghanhphucSpider(scrapy.Spider):
                 item = {
                     'ten': ten ,
                     'url': item_link,
-                    'image': 'https://didonghanhphuc.vn' + product.css('.product-img img::attr(src)').get(), #####
+                    'image': 'https://didonghanhphuc.vn' + product.css('.product-img img::attr(data-src)').get(), #####
                     'ngay': date.today().strftime("%Y-%m-%d"),
                     'loaisanpham':'dienthoai',
                     'thuonghieu':'apple',

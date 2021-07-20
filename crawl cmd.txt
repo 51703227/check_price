@@ -8,3 +8,15 @@ scrapy crawl didongmogi -o didongmogi.json
 scrapy crawl didonghanhphuc -o didonghanhphuc.json
 scrapy crawl mediamart -o mediamart.json
 scrapy crawl dienthoaigiasoc -o dienthoaigiasoc.json
+
+scrapy crawl aeoneshop -o aeoneshop.json
+scrapy crawl cellphones -o cellphones.json
+scrapy crawl didongmy -o didongmy.json
+scrapy crawl didongsinhvien -o didongsinhvien.json
+scrapy crawl didongthongminh -o didongthongminh.json
+scrapy crawl dienthoaimoi -o dienthoaimoi.json
+scrapy crawl minhducvn -o minhducvn.json
+scrapy crawl mobileworld -o mobileworld.json
+scrapy crawl xttmobile -o xttmobile.json
+scrapy crawl anphatpc -o anphatpc.json
+

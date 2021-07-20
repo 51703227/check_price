@@ -3,7 +3,6 @@ from django.db.models.fields import BooleanField
 
 # Create your models here.
 
-
 class LoaiSanPham(models.Model):
     TenLoai = models.CharField(max_length=100,null=True,unique=True)
     
