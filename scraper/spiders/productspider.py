@@ -637,7 +637,7 @@ class didonghanhphucSpider(scrapy.Spider):
                 item = {
                     'ten': ten ,
                     'url': item_link,
-                    'image': 'https://didonghanhphuc.vn' + product.css('.product-img img::attr(data-src)').get(), #####
+                    'image': 'https://didonghanhphuc.vn' + product.css('.product-img img::attr(src)').get(), #####
                     'ngay': date.today().strftime("%Y-%m-%d"),
                     'loaisanpham':'dienthoai',
                     'thuonghieu':'apple',

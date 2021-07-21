@@ -22,8 +22,8 @@ class ThuongHieuAdmin(admin.ModelAdmin):
     search_fields = ['TenTH']
 
 class NguonBanAdmin(admin.ModelAdmin):
-    list_display = ['TenNB']
-    list_filter = ['TenNB']
+    list_display = ['TenNB','Domain']
+    list_filter = ['TenNB','Domain']
     search_fields = ['TenNB']
 
 class ThuocTinhAdmin(admin.ModelAdmin):
