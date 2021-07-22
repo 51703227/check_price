@@ -524,16 +524,16 @@ def import_data(request):   #Nạp data.json và database
         'didongmogi.json',
         'didonghanhphuc.json',
 
-#        'xttmobile.json',
-#        'aeoneshop.json',
-#        'anphatpc.json',
-#        'cellphones.json',
-#        'didongmy.json',
-#        'didongsinhvien.json',
-#        'didongthongminh.json',
-#        'dienthoaimoi.json',
-#        'minhducvn.json',
-#        'mobileworld.json'
+        'xttmobile.json',
+        'aeoneshop.json',
+        #'anphatpc.json',
+        'cellphones.json',
+        'didongmy.json',
+        'didongsinhvien.json',
+        'didongthongminh.json',
+        'dienthoaimoi.json',
+        'minhducvn.json',
+        'mobileworld.json'
     ]
     list_file_lt = [
        'lt_24laptop.json',
