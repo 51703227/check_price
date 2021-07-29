@@ -18,7 +18,7 @@ class ThuongHieu(models.Model):
 class NguonBan(models.Model):
     TenNB = models.CharField(max_length=100,unique=True)
     Domain = models.CharField(max_length=100,null=True,unique=True)
-    Logo = models.URLField(null=True, blank=True)
+    Logo = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.TenNB
@@ -52,7 +52,7 @@ class SanPham(models.Model):
     TenSP = models.CharField(max_length=100,null=True,blank=True)
     LoaiSanPham = models.ForeignKey(LoaiSanPham,on_delete=models.CASCADE,null=True,blank=True)
     ThuongHieu = models.ForeignKey(ThuongHieu,on_delete=models.CASCADE,null=True,blank=True)
-    ImgSP = models.URLField(null=True,blank=True)
+    ImgSP = models.TextField(null=True,blank=True)
     NgayKhoiTao = models.DateField(null=True,blank=True)
     def __str__(self):
         return str(self.pk) + ' - ' + self.TenSP

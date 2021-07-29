@@ -60,66 +60,103 @@ def format_price(price):
     return price
 
 def format_bonho(bonho):
+    list_bo_nho= ['512GB','256GB','128GB','64GB','8GB','16GB','32GB','4GB']
     _list = [' ','Mới','100%']
-    if not bonho or bonho in ['None','none','NONE']:
+    if not bonho or bonho in ['None','none','NONE','Actived','Active','Chưa Active','ChưaActive']:
         return 'None'
     else:
         for i in _list:
             bonho = bonho.replace(i,'')
+            
+        for i in list_bo_nho:
+            if i in bonho:
+                return i
     return bonho.upper()
 
 def format_mausac(mausac):
-    _list = ['\n','\t','99%']
-    if not mausac or mausac in ['256G','2Sim','Hàn','Mỹ','128Gb','512G','128Gb Mới','Mới','Chưa Active','Mới 100%','Đã Active']:
+    _list = ['\n','\t','99%','Mới','Màu','No AT','Đã AT']
+    if not mausac or mausac in ['256G','2Sim','Hàn','Mỹ','Mĩ','128Gb','512G','512Gb Mới','256Gb Mới','128Gb Mới','Mới','Chưa Active','Mới 100%','Đã Active','Cũ 95%']:
         return 'None'
     else:
         for i in _list:
             mausac = mausac.replace(i,'')
     _dict = {
-        'Blue':'Xanh Dương',
-        'Graphite':'Than',
-        'Gray':'Xám',
-        'Silver':'Bạc',
-        'Gold':'Vàng',
-        'Grey':'Xám',
-        'White':'Trắng',
-        'Black':'Đen',
-        'Red':'Đỏ',
-        'Green':'Xanh Lá',
-        'Purple':'Tím',
-        'Yellow':'Vàng',
-        'Bronze':'Đồng',
-        'Pacific Blue':'Xanh Dương',
-        'Balck':'Đen',
-        'Pacificblue':'Xanh Dương',
-        'Pink':'Hồng',
-        'Violet':'Tím',
-        'Xanh lục':'Xanh Lá',
-        'Xanh da trời':'Xanh Dương',
-        'Đen Cuốn Hút':'Đen',
-        'Green Sapphire': 'Xanh Lá',
-        'Fullbox':'None',
-        'Tím':'Tím',
-        'Hồng':'Hồng',
-        'Vàng Phù Sa':'Vàng',
-        'Vàng Đồng':'Vàng',
-        'Xanh Biển':'Xanh Dương',
-        'Xanh Blue':'Xanh Dương',
-        'Xám':'Xám',
-        'Xanh':'Xanh Dương',
-        'Xanh Đậm':'Xanh Dương',
-        'Xanh Đã At':'Xanh Dương',
-        'Pacificblue':'Xanh Dương',
-        'Xanh':'Xanh dương',
-        'Tím Bạc':'Tím',
-        'Tím Hồng':'Tím',
-        'Tím Đam Mê':'Tím',
-        'Tím':'Tím',
+        'blue':'Xanh Dương',
+        'graphite':'Xám',
+        'gray':'Xám',
+        'silver':'Bạc',
+        'gold':'Vàng',
+        'grey':'Xám',
+        'white':'Trắng',
+        'black':'Đen',
+        'red':'Đỏ',
+        'green':'Xanh Lá',
+        'purple':'Tím',
+        'yellow':'Vàng',
+        'bronze':'Đồng',
+        'pacific blue':'Xanh Dương',
+        'balck':'Đen',
+        'pacificblue':'Xanh Dương',
+        'pink':'Hồng',
+        'violet':'Tím',
+        'xanh lục':'Xanh Lá',
+        'xanh da trời':'Xanh Dương',
+        'đen cuốn hút':'Đen',
+        'green sapphire': 'Xanh Lá',
+        'fullbox':'None',
+        'tím':'Tím',
+        'hồng':'Hồng',
+        'vàng phù sa':'Vàng',
+        'vàng đồng':'Vàng',
+        'xanh biển':'Xanh Dương',
+        'xanh blue':'Xanh Dương',
+        'xám':'Xám',
+        'xanh':'Xanh Dương',
+        'xanh đậm':'Xanh Dương',
+        'xanh đã at':'Xanh Dương',
+        'pacificblue':'Xanh Dương',
+        'xanh':'Xanh Dương',
+        'tím bạc':'Tím',
+        'tím hồng':'Tím',
+        'tím đam mê':'Tím',
+        'tím':'Tím',
+        'da cam':'Cam',
+        'bạc cá tính':'Bạc',
+        'bạc ánh trăng':'Bạc',
+        'bạc đa sắc':'Bạc',
+        'hường':'Hồng',
+        'dark blue':'Xanh Dương',
+        'đen huyền bí':'Đen',
+        'than':'Xám',
+        'trắng':'Trắng',
+        'trắng núi tuyết':'Trắng',
+        'tím sương đêm':'Tím',
+        'vàng':'Vàng',
+        'xanh lam':'Xanh Lá',
+        'xanh lục':'Xanh Lá',
+        'cyan':'Xanh Lơ',
+        'rose gold':'Hồng Vàng',
+        'purple-fire':'Tím',
+        'mirror purple':'Tím',
+        'mirror black':'Đen',
+        'fancy sky':'Xanh Dương',
+        'dark blue':'Xanh Dương',
+        'quartz black':'Đen',
+        'emerald green':'Xanh Lá',
+        'navy':'Xanh Dương',
+        'dark blue':'Xanh Dương',
+        'dark silver':'Bạc',
+        'orange':'Cam',
+        'blue coral':'Xanh Dương',
+        'xanh thiên thạch':'Xanh Dương',
+        'xanh lục bảo':'Xanh Lá',
+        'copper':'Vàng',
+        'charcoal':'Xám',
     }
-    if not _dict.get(mausac):
-        return mausac.title()
+    if not _dict.get(mausac.lower().strip()):
+        return mausac.title().strip()
     else:
-        return _dict.get(mausac)
+        return _dict.get(mausac.lower().strip())
 
 
 class nguyenkimSpider(scrapy.Spider):
@@ -253,22 +290,16 @@ class phucanhSpider(scrapy.Spider):
         #bonho_active = response.css('.config-attribute span.item.current::attr(data-name)').get()
 
         list_attr_active = response.css('.config-attribute span.item.current::attr(data-name)')
-
-        
+ 
         bonho_active = attr['bonho']
         color_active = attr['mausac']
-        print("------------attr--",attr['bonho'],attr['mausac'])
 
         for a in list_attr_active:
-            print('++',a.get())
             if check_bonho(a.get()):
                 bonho_active = a.get()
             else:
                 color_active = a.get()
         
-        print("------------",bonho_active,color_active)
-        
-
         attributes = []
         attributes.append({
             'bonho': format_bonho(bonho_active) if not attr['bonho'] else format_bonho(attr['bonho']),
@@ -713,7 +744,7 @@ class didongmogiSpider(scrapy.Spider):
                 #break
             
         
-        next_page = response.css('ul.page-numbers a.next.page-number::attr(href)').get()
+        next_page = response.css('ul.page-numbers a.next::attr(href)').get()
         if next_page is not None:
             yield response.follow(next_page,callback=self.parse)
 
@@ -737,7 +768,7 @@ class didongmogiSpider(scrapy.Spider):
         })
         item['thuoctinh'] = attributes
         item['tskt'] = response.css('.product-short-description').get()    
-        item['mota'] = response.css('.boxArticle article').get().replace('display: none;','').replace('src','d-src').replace('data-src','src').replace('data-origin','src')
+        item['mota'] = response.css('.boxArticle article').get()
         return item
 
 class galaxydidongSpider(scrapy.Spider):
@@ -758,7 +789,7 @@ class galaxydidongSpider(scrapy.Spider):
                 item = {
                     'ten': ten ,
                     'url': item_link,
-                    'image': product.css('.anhsanpham img::attr(src)').get(), #####
+                    'image': product.css('.anhsanpham img::attr(style)').get().replace('background-image: url(','').replace(')',''), #####
                     'ngay': date.today().strftime("%Y-%m-%d"),
                     'loaisanpham':'dienthoai',
                     'thuonghieu':'apple',

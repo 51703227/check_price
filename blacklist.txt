@@ -391,7 +391,6 @@ A125F
 G930Fd
 A325F
 A525F
-Sma217F
 A920F
 N985F
 Sma107F
@@ -403,7 +402,6 @@ Lyal29B
 A920F
 A725F
 Sma015F
-Sma217F
 Sma530F
 Hmal29B
 A325F
@@ -457,3 +455,59 @@ vna
 A800Fa800I
 VN/A
 N985
+(còn Bảo hành hãng)
+pin 4000mA, chip Snap 835
+Pin 6000 mAh Chính hãng
+Single SIM
+Màn hình 90Hz
+Sạc nhanh 30W
+Bạc
+N980
+K53A48
+E561
+A800F/A800I
+Charcoal
+RMX2032
+SM-J250F
+SM-G973F/DS
+SM-A305F
+SM-A750G
+-C900
+Máy Tính Bảng
+6.4"(DM)
+Pin khủng Kết nối 4G
+K33a42
+(2G+16G)
+CPH1989
+SM-A105F
+SM-A107F
+SM-M215F
+SM-A217F
+SM-A515
+SM-A115F
+SM-A805
+SM-A307
+Rmx2021
+Dđ
+Lte
+N980F
+-A025F
+Điện thoại
+Zb602Kl
+Preowned
+Xanh lá
+-A515F
+-A315G
+Cyan
+1.77Inch
+Bạc
+Pin 6000 mAh
+Siêu màn hình
+Camera kép, Pin 5000 mAh
+màn hình giọt nước, sạc cực nhanh
+Sạc Siêu Nhanh, Pin 5000mAh
+Bộ 4 48Mp
+SM-A015F
+SM-A507F
+N920
+

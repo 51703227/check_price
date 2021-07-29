@@ -10,14 +10,14 @@ Kết quả tìm kiếm: <strong>{{san_pham.TenSP}}</strong>
         <div class="col-lg-2 ">
             <div class="card-position card d-inline-flex border">
                 <div class="row" style="justify-content: center;">
-                    <img class="card-img-top" src="{{item.nguon_ban.Logo}}" alt="Card image" style="width:80%">
+                    <img class="card-img-top" src="{{item.nguon_ban.Logo.url}}" alt="Card image" style="width:80%">
                     <div class="card-body card-body-position" style="text-align: center;">
                         <h5 class="card-title">{{item.nguon_ban.TenNB}}</h5>
                         <h6 class="card-text">Có {{item.length_list_url}} Sản phẩm</h6>
                         <h6 class="card-text">Từ {{item.min_price| floatformat:"0" |intcomma}} VNĐ đến {{item.max_price| floatformat:"0" |intcomma}} VNĐ</h6>
                         <form action="get-attribute/" method="POST">
                             {% csrf_token %} 
-                            <input name="data_pk" type="hidden" value="{{item.nguon_ban.pk}} {{item.san_pham.pk}} {{item.san_pham.ImgSP}}">
+                            <input name="data_pk" type="hidden" value="{{item.nguon_ban.pk}} {{item.san_pham.pk}}">
                             <button class="btn btn-primary">Check giá</button>
                         </form>
                         

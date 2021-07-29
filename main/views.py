@@ -78,7 +78,6 @@ def get_attribute(request):
         list_pk = data_pk.split() 
         nguon_ban = NguonBan.objects.get(pk=list_pk[0]) #truy xuất URL = url đã nhập
         san_pham = SanPham.objects.get(pk=list_pk[1])
-        anh_san_pham = list_pk[2]
 
         list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = san_pham,NguonBan = nguon_ban)
 
@@ -97,7 +96,6 @@ def get_attribute(request):
         data= {
             'san_pham': san_pham,
             'nguon_ban':nguon_ban,
-            'anh_san_pham': anh_san_pham,
             'form': form
         }
         
@@ -513,6 +511,17 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
 
 def import_data(request):   #Nạp data.json và database
     list_file =  [
+        'xttmobile.json',
+        'aeoneshop.json',
+        #'anphatpc.json',
+        'cellphones.json',
+        'didongmy.json',
+        'didongsinhvien.json',
+        'didongthongminh.json',
+        'dienthoaimoi.json',
+        'minhducvn.json',
+        'mobileworld.json',
+
         'mediamart.json',
         'hnam.json',
         'phucanh.json',
@@ -524,16 +533,7 @@ def import_data(request):   #Nạp data.json và database
         'didongmogi.json',
         'didonghanhphuc.json',
 
-        'xttmobile.json',
-        'aeoneshop.json',
-        #'anphatpc.json',
-        'cellphones.json',
-        'didongmy.json',
-        'didongsinhvien.json',
-        'didongthongminh.json',
-        'dienthoaimoi.json',
-        'minhducvn.json',
-        'mobileworld.json'
+
     ]
     list_file_lt = [
        'lt_24laptop.json',
@@ -565,7 +565,10 @@ def import_data(request):   #Nạp data.json và database
             
             try:
                 obj = SanPham.objects.get(TenSP = item['ten'])
-                setattr(obj,'ImgSP',item['image'])
+                if item['image'] != None and item['image'] != '':
+                    setattr(obj,'ImgSP',item['image'])
+                    setattr(obj,'NgayKhoiTao',item['ngay'])
+                obj.save()
             except SanPham.DoesNotExist:
                 try:
                     obj = SanPham(

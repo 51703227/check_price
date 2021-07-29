@@ -10,7 +10,7 @@ Kết quả
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="url-input">
-                                <img src="{{data.thuoc_tinh_urlin.Url.UrlImage}}" alt="" style="min-width: 400px;max-width: 450px; ">
+                                <img src="{{data.thuoc_tinh_urlin.Url.UrlImage}}" alt="" style="min-width: 280px;max-width: 360px; ">
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -219,7 +219,7 @@ Kết quả
                     {% for item in data.thuoc_tinh_urlout %}
                     <div class="col-lg-3">
                         <div class="card-position card d-inline-flex border" style="align-items: center;height: 350px;";>
-                                <img class="card-img-top" src="{{item.Url.NguonBan.Logo}}" alt="Card image" style="width:100%">
+                                <img class="card-img-top" src="{{item.Url.NguonBan.Logo.url}}" alt="Card image" style="width:100%">
                                 <div class="card-body card-body-position" style="text-align: center;">
                                     <h5 class="card-title" style="color: #708ff8;font-weight:600">{{item.Url.NguonBan.TenNB}}</h5>
                                     <h6 class="card-text">Giá mới: <strong>{{item.GiaMoi1| floatformat:"0" | intcomma}} đ</strong> </h6>

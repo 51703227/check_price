@@ -107,7 +107,7 @@ Kiểm tra giá
                   <div class="brand-slider border bg-white">
                     <div class="bxslider logosImgs">
                       {% for nguon_ban in list_nguon_ban  %}
-                        <div><img src="{{nguon_ban.Logo}}" alt="{{nguon_ban.TenNB}}" title="{{nguon_ban.TenNB}}"></div>
+                        <div><img src="{{nguon_ban.Logo.url}}" alt="{{nguon_ban.TenNB}}" title="{{nguon_ban.TenNB}}"></div>
                       {% endfor %}
                     </div>
                   </div>

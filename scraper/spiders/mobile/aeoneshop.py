@@ -1,70 +1,9 @@
 import scrapy
 import os
 from datetime import date
+from ..productspider import get_attr_from_name,name_processing,format_price,format_bonho,format_mausac
 
 basedir = os.path.dirname(os.path.realpath('__file__'))
-
-
-# Xử lý tên sản phẩm
-
-# Hàm xử lý tên sản phẩm
-def name_processing(name):
-
-    bl_list = ['(', ')', '-', '–', '/', '[', ']', ',',
-               'Điện thoại',
-               '+512GB', '+256GB', '+128GB', '+64GB', '+8GB', '+16GB', '+32GB', '+4GB', '+512Gb', '+256Gb', '+128Gb',
-               '+64Gb', '+8Gb', '+16Gb', '+32Gb', '+4Gb',
-               '512GB', '256GB', '128GB', '64GB', '8GB', '16GB', '32GB', '4GB', '512Gb', '256Gb', '128Gb', '64Gb',
-               '8Gb', '16Gb', '32Gb', '4Gb',
-               '512 GB', '256 GB', '128 GB', '64 GB', '8 GB', '16 GB', '32 GB', '4 GB', '+512G', '+256G', '+128G',
-               '+64G', '+16G', '+32G',
-               '512gb', '256gb', '128gb', '64gb', '8gb', '16gb', '32gb', '6gb', '4gb', '512G', '256G', '128G', '64G',
-               '16G', '32G', '2GB', '3GB', '512g', '256g', '128g', '64g', '8g', '16g', '32g', '4g', '6g', '3g', '5g',
-               'Xanh đại dương', 'đại dương', 'ánh sao', 'hoàng hôn', 'Xanh lá', 'Vàng đồng', 'nước biển',
-               'Vàng đồng', 'lá', 'lục', 'Đồng', 'Khói', 'bích', 'huyền bí', 'nhật thực', 'Biển', 'mận', 'Dương',
-               'Lá', 'Đỏ', 'Đen', 'Lục', 'Cực', 'Quang', 'tinh', 'thạch', 'Ngọc', 'Trai', 'Bạc', 'Hà', 'Lam', 'Thủy',
-               'Triều', 'Đồng', 'Vàng', 'Xanh', 'Đen', 'Trắng', 'Thạch', 'Anh', 'lá', 'ngọc', 'lam', 'Sapphire',
-               'Pink', 'Deep Gray', 'Deep', 'Mint', 'Yellow', 'Champagne', 'Grey', 'Black', 'Gold', 'Graphite',
-               'Silver', 'Blue', 'Tím', 'Green', 'Sliver', 'Trắng', 'Xám', 'Pacific', 'Blue', 'White', 'Gray',
-               'Violet', 'Purple', 'Red', 'Browns',
-               '8Th', '10.2', 'Wifi', 'Gld Mylf2Zaa', 'Di động', 'Bút', 'Màu',
-               'Ss 2019', 'Ds 2020  3', "  ", "   ", "    ", "     ", "      ",
-               ]
-
-    if name == None:
-        return ''
-    for character in bl_list:
-            name = name.replace(character, '')
-            name = name.replace(character.lower(), '')
-            name = name.replace(character.title(), '')
-            name = name.replace(character.upper(), '')
-
-    return name
-
-
-# Xử lý price
-def format_price(price):
-    _list = ['đ', '₫', '.', ',', 'VNĐ', 'VND', '\r', '\n', '\t', ' ', ' ']
-    if not price:
-        return None
-    else:
-        for i in _list:
-            price = price.replace(i, '')
-    return price
-
-
-# Xử lý bộ nhớ
-def format_bonho(name):
-    attr_bonho = 'None'
-    list_attr_bonho = ['512GB', '256GB', '128GB', '64GB', '16GB', '32GB', '512Gb', '256Gb', '128Gb', '64Gb', '16Gb',
-                       '32Gb']
-
-    for i in list_attr_bonho:
-        if i in name:
-            attr_bonho = i
-    return attr_bonho
-
-
 
 # crawl data from aeoneshop.com
 class aeoneshop(scrapy.Spider):
