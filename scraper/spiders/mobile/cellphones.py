@@ -65,8 +65,8 @@ class cellphones(scrapy.Spider):
                 active = False
 
             attributes.append({
-                'bonho': option_rom,
-                'mausac': option_color,
+                'bonho': format_bonho(option_rom),
+                'mausac': format_mausac(option_color),
                 'giagoc': option_old_price,
                 'giamoi': option_new_price,
                 'active': active

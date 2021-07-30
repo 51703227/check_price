@@ -27,7 +27,7 @@ class NguonBanAdmin(admin.ModelAdmin):
     search_fields = ['TenNB']
 
 class ThuocTinhAdmin(admin.ModelAdmin):
-    list_display = ['pk','SanPham','MauSac','BoNho','NguonBan']
+    list_display = ['pk','SanPham','MauSac','BoNho','NguonBan','Active']
     search_fields = ['MauSac']
     list_filter = ['NguonBan','SanPham','MauSac']
 # Register your models here.

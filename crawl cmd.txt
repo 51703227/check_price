@@ -20,3 +20,25 @@ scrapy crawl mobileworld -o mobileworld.json
 scrapy crawl xttmobile -o xttmobile.json
 scrapy crawl anphatpc -o anphatpc.json
 
+scrapy crawl lt_24laptop -o lt_24laptop.json
+scrapy crawl lt_aeoneshop -o lt_aeoneshop.json
+scrapy crawl lt_ankhang -o lt_ankhang.json
+scrapy crawl lt_anphatpc -o lt_anphatpc.json
+scrapy crawl lt_cellphones -o lt_cellphones.json
+scrapy crawl lt_dienmaythienhoa -o lt_dienmaythienhoa.json
+scrapy crawl lt_hangchinhhieu -o lt_hangchinhhieu.json
+scrapy crawl lt_hanoicomputer -o lt_hanoicomputer.json
+scrapy crawl lt_hnammobile -o lt_hnammobile.json
+scrapy crawl lt_hoanghamobile -o lt_hoanghamobile.json
+scrapy crawl lt_hoangphat -o lt_hoangphat.json
+scrapy crawl lt_hoangphatgaming -o lt_hoangphatgaming.json
+scrapy crawl lt_hoanlong -o lt_hoanlong.json
+scrapy crawl lt_laptop888 -o lt_laptop888.json
+scrapy crawl lt_laptopnew -o lt_laptopnew.json
+scrapy crawl lt_mediamart -o lt_mediamart.json
+scrapy crawl lt_nguyenkim -o lt_nguyenkim.json
+scrapy crawl lt_phucanh -o lt_phucanh.json
+scrapy crawl lt_tmdpc -o lt_tmdpc.json
+scrapy crawl lt_xttmobile -o lt_xttmobile.json
+
+

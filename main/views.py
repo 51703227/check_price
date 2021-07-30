@@ -147,6 +147,8 @@ def url_input(request):
                     thuoc_tinh_active = ThuocTinh.objects.get(Url = url_input,Active = "True")
                 except ThuocTinh.DoesNotExist:
                     thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input).first()
+                except MultipleObjectsReturned:
+                    thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input,Active = "True").first()
                 list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = url_input.SanPham,NguonBan = url_input.NguonBan)
             except Url.DoesNotExist:
                 return render(request,'pages/404.html',{'type':'Url','data':url})
@@ -522,18 +524,16 @@ def import_data(request):   #Nạp data.json và database
         'minhducvn.json',
         'mobileworld.json',
 
-        'mediamart.json',
-        'hnam.json',
-        'phucanh.json',
-        'nguyenkim.json',
-        'hoangha.json',
         'galaxydidong.json',
         'dienthoaigiasoc.json',
         'didongmango.json',
         'didongmogi.json',
         'didonghanhphuc.json',
-
-
+        'mediamart.json',
+        'hoangha.json',
+        'hnam.json',
+        'phucanh.json',
+        'nguyenkim.json',
     ]
     list_file_lt = [
        'lt_24laptop.json',
@@ -557,8 +557,8 @@ def import_data(request):   #Nạp data.json và database
         'lt_tmdpc.json',
         'lt_xttmobile.json',
     ]
-    for ten_file in list_file:
-        f = open('./data/mobile/'+ten_file,'r',encoding='utf-8')
+    for ten_file in list_file_lt:
+        f = open('./data/laptop/'+ten_file,'r',encoding='utf-8')
         data = json.loads(f.read())
 
         for item in data:

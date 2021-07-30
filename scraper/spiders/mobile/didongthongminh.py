@@ -1,65 +1,9 @@
 import scrapy
 import os
 from datetime import date
+from ..productspider import get_attr_from_name,name_processing,format_price,format_bonho,format_mausac
 
 basedir = os.path.dirname(os.path.realpath('__file__'))
-
-
-# Xử lý tên sản phẩm
-
-# Hàm xử lý tên sản phẩm
-def name_processing(name):
-
-    f = open("blacklist.txt", "r", encoding='utf-8')
-    lines = f.read().splitlines()
-
-    if name == None:
-        return ''
-    for character in lines:
-        if character in name or character.lower() in name or character.title() in name or character.upper():
-            name = name.replace(character,'')
-            name = name.replace(character.lower(),'')
-            name = name.replace(character.title(),'')
-            name = name.replace(character.upper(),'')
-
-    black_list1 = ['Chính', 'hãng', 'I', 'VN/A', 'chính', '|', '-', 'Hãng', 'Cũ', 'Nobox',
-                   '1', '1|', 'Chip', 'Snapdragon', '865', '865+', 'Hongkong', 'Fan', 'Edition',
-                   'Hộp', 'Trải', 'Nghiệm', 'Đã', 'Kích', 'Phép', 'Hoạt', 'Ng', 'Pin', 'Siêu',
-                   'Dùng', 'Siêu', 'Chụp', 'Ảnh', 'Nguyên', 'Nhập', 'Khẩu', 'Màn', 'Hình', '2K',
-                   'Nhám', 'Cấu', 'Hiệu', 'Năng', 'Đầy', 'Giá', 'Tiên', 'Máy', 'Thiết', 'Kế',
-                   'Tử', 'HàN', 'QuốC', 'Như', 'Vna', 'Điện', 'Thoại', 'Ng', 'Racing', 'Youth',
-                   'Zoom', '64', '128', 'Tay', 'Phân', 'Quốc', 'Chống', ]
-
-    unprocess_name = name.split()
-    processed_name = []
-    for i in unprocess_name:
-        if i not in black_list1:
-            processed_name.append(i)
-    return ' '.join(processed_name).title()
-
-
-# Xử lý price
-def format_price(price):
-    _list = ['đ', '₫', '.', ',', 'VNĐ', 'VND', '\r', '\n', '\t', ' ', ' ']
-    if not price:
-        return None
-    else:
-        for i in _list:
-            price = price.replace(i, '')
-    return price
-
-
-# Xử lý bộ nhớ
-def format_bonho(name):
-    attr_bonho = 'None'
-    list_attr_bonho = ['512GB', '256GB', '128GB', '64GB', '16GB', '32GB', '512Gb', '256Gb', '128Gb', '64Gb', '16Gb',
-                       '32Gb']
-
-    for i in list_attr_bonho:
-        if i in name:
-            attr_bonho = i
-    return attr_bonho
-
 
 # Lớp crawl dữ liệu didongthongminh
 class didongthongminh(scrapy.Spider):
@@ -121,9 +65,9 @@ class didongthongminh(scrapy.Spider):
         attributes = []
         attributes.append({
             'bonho': option_rom,
-            'mausac': option_color,
-            'giagoc': option_old_price,
-            'giamoi': option_new_price,
+            'mausac': format_mausac(option_color),
+            'giagoc': format_price(option_old_price),
+            'giamoi': format_price(option_new_price),
             'active': active
         })
 

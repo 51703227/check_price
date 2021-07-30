@@ -165,21 +165,22 @@ class nguyenkimSpider(scrapy.Spider):
 
     def parse(self,response):
        
-        for product in response.css('div.item-list'):
+        for product in response.css('div.product'):
             item_link = product.css('.product-header a::attr(href)').get()
-            ten = name_processing(product.css('.product-body .product-title a::text').get()) 
-            if item_link == None:
-                continue
-            item = {
-                'ten': ten ,
-                'url': item_link,
-                'image': product.css('.product-image img::attr(data-src)').get(),
-                'ngay': date.today().strftime("%Y-%m-%d"),
-                'loaisanpham':'dienthoai',
-                'thuonghieu':'iphone',
-            }
-            yield scrapy.Request(url=item_link, meta={'item': item}, callback=self.get_detail)
-
+            if item_link: # == 'https://www.nguyenkim.com/dien-thoai-iphone-12-128gb-do.html':
+                ten = name_processing(product.css('.product-body .product-title a::text').get()) 
+                if item_link == None:
+                    continue
+                item = {
+                    'ten': ten ,
+                    'url': item_link,
+                    'image': product.css('.product-image img::attr(data-src)').get(),
+                    'ngay': date.today().strftime("%Y-%m-%d"),
+                    'loaisanpham':'dienthoai',
+                    'thuonghieu':'iphone',
+                }
+                yield scrapy.Request(url=item_link, meta={'item': item}, callback=self.get_detail)
+                
         next_page = response.css('.ty-pagination a.btn_next::attr(href)').get()
         if next_page is not None:
             yield response.follow(next_page,callback=self.parse)
