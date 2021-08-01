@@ -148,7 +148,7 @@ def url_input(request):
                 except ThuocTinh.DoesNotExist:
                     thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input).first()
                 except MultipleObjectsReturned:
-                    thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input,Active = "True").first()
+                    thuoc_tinh_active = ThuocTinh.objects.filter(Url = url_input,Active = "True")[1]
                 list_thuoc_tinh_url = ThuocTinh.objects.filter( SanPham = url_input.SanPham,NguonBan = url_input.NguonBan)
             except Url.DoesNotExist:
                 return render(request,'pages/404.html',{'type':'Url','data':url})
@@ -384,9 +384,7 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
         else:
             saleoff = (thuoc_tinh_urlin.GiaMoi1 / thuoc_tinh_urlin.GiaGoc1)*100
         
-        print('something')
         if mausac == ('None' or None ) and bonho == ('None' or None):
-            print('something')
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham) #list thuộc tính các sản phẩm giống input
         elif mausac==('None' or None ):
             list_thuoc_tinh_url = ThuocTinh.objects.filter(SanPham = san_pham).filter(BoNho = bonho) #list thuộc tính các sản phẩm giống input
@@ -514,7 +512,7 @@ def exporturl(url_in,mausac,bonho,**kwargs):     #Lấy dữ liệu trong databa
 def import_data(request):   #Nạp data.json và database
     list_file =  [
         'xttmobile.json',
-        'aeoneshop.json',
+        #'aeoneshop.json',
         #'anphatpc.json',
         'cellphones.json',
         'didongmy.json',
@@ -541,7 +539,7 @@ def import_data(request):   #Nạp data.json và database
         'lt_ankhang.json',
         'lt_anphatpc.json',
         'lt_cellphones.json', 
-        'lt_dienmaythienhoa.json' ,
+        #'lt_dienmaythienhoa.json' ,
         'lt_hangchinhhieu.json',
         'lt_hanoicomputer.json',
         'lt_hnammobile.json' ,
@@ -554,11 +552,11 @@ def import_data(request):   #Nạp data.json và database
         'lt_mediamart.json',
         'lt_nguyenkim.json',
         'lt_phucanh.json',
-        'lt_tmdpc.json',
+        #'lt_tmdpc.json',
         'lt_xttmobile.json',
     ]
-    for ten_file in list_file_lt:
-        f = open('./data/laptop/'+ten_file,'r',encoding='utf-8')
+    for ten_file in list_file:
+        f = open('./data/mobile/'+ten_file,'r',encoding='utf-8')
         data = json.loads(f.read())
 
         for item in data:
